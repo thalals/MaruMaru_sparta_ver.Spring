@@ -1,6 +1,5 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.S3Uploader;
 import com.example.marumaru_sparta_verspring.domain.posts.Meet;
 import com.example.marumaru_sparta_verspring.dto.MeetRequestDto;
 import com.example.marumaru_sparta_verspring.service.MeetService;
@@ -15,15 +14,15 @@ import java.io.IOException;
 public class MeetController {
 
     private final MeetService meetService;
-    private final S3Uploader s3Uploader;
+//    private final S3Uploader s3Uploader;
 
     @PostMapping("/meets")
     public Meet saveMeet(@RequestBody MeetRequestDto meetRequestDto) {
         return meetService.saveMeet(meetRequestDto);
     }
 
-    @PostMapping("/upload")
-    public String upload(@RequestParam("data") MultipartFile multipartFile) throws IOException {
-        return s3Uploader.upload(multipartFile, "static");
-    }
+//    @PostMapping("/upload")
+//    public String upload(@RequestParam("data") MultipartFile multipartFile) throws IOException {
+//        return s3Uploader.upload(multipartFile, "static");
+//    }
 }
