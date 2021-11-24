@@ -1,0 +1,47 @@
+* {
+    font-family: 'Jua', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.top-title {
+    margin: auto;
+    padding: 50px 50px 50px 50px;
+    background-color: rgb(230, 250, 255);
+    color: rgb(20, 100, 160);
+}
+
+.main-sub {
+    color: rgb(20, 100, 160);
+    font-weight: bold;
+    text-align: center;
+    padding: 30px;
+}
+
+.main-card {
+    padding: 100px 50px 50px 50px;
+    color: rgb(20, 100, 160);
+}
+
+.card-profile{
+    z-index: 50;
+    position: absolute;
+    right: 10px;
+    top: 65px;
+    /*border: solid ;*/
+    /*background: whitesmoke;*/
+}
+
+.dog-card-body .a{
+    text-decoration-line: none;
+}
+
+.row .card{
+    display: flex;
+    justify-content: space-around;
+}
+.dog-card-body{
+    padding: 10px 20px;
+}
