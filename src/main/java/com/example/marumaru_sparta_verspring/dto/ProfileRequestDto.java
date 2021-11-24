@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class ProfileRequestDto {
     private String dogName;
-    private int dogAge;
+    private String dogAge;
     private String dogGender;
     private String dogComment;
-    private String file;
+    private String fileName;
 }
