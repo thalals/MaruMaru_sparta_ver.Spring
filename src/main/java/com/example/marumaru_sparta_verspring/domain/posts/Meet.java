@@ -1,5 +1,6 @@
-package com.example.marumaru_sparta_verspring.domain;
+package com.example.marumaru_sparta_verspring.domain.posts;
 
+import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import lombok.Getter;
 import lombok.Setter;
 
