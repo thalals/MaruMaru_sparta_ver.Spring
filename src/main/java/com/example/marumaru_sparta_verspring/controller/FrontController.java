@@ -20,4 +20,14 @@ public class FrontController {
         return "meet_detail";
     }
 
+    @GetMapping("/postList")
+    public String getPagePostList(){
+        return "post/post_list";
+    }
+
+    @GetMapping("/post")
+    public String getPagePoisting(){
+        return "post/post_upload";
+    }
+
 }
