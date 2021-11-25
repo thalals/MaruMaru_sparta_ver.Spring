@@ -22,12 +22,12 @@ public class FrontController {
 
     @GetMapping("/postList")
     public String getPagePostList(){
-        return "post/post_list";
+        return "articles/post_list";
     }
 
-    @GetMapping("/post")
+    @GetMapping("/posts")
     public String getPagePoisting(){
-        return "post/post_upload";
+        return "articles/post_upload";
     }
 
 }
