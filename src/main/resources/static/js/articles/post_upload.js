@@ -27,9 +27,6 @@ function address_input() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            // document.getElementById('sample4_postcode').value = data.zonecode;
-            // document.getElementById("sample4_roadAddress").value = roadAddr;
-            // document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
             document.getElementById("address-box").value = roadAddr;
         }
     }).open();
@@ -53,7 +50,7 @@ function post_upload() {
     for (let i = 0; i < fileInput.length; i++) {
         if (fileInput[i].files.length > 0) {
             for (let j = 0; j < fileInput[i].files.length; j++) {
-                let filename = fileInput[i].files[j].name //
+                let filename = fileInput[i].files[j].name
 
                 let file = $('#file')[0].files[0]
                 let form_data = new FormData()
@@ -64,9 +61,14 @@ function post_upload() {
                 form_data.append("content_give", content)
                 form_data.append("filename_give", filename)
 
+                let data={
+                    "title":title,
+                    "content":content,
+                    "file":filename
+                }
                 if ($("#title_box").val().length == 0) {
                     alert("제목을 입력하세요!");
-                    $("#title_boxl").focus();
+                    $("#title_box").focus();
                     return false;
                 }
                 if ($("#contents_box").val().length == 0) {
@@ -82,12 +84,12 @@ function post_upload() {
                     $.ajax({
                         type: "POST",
                         url: "/posts",
-                        data: form_data,
+                        data: JSON.stringify(data),
                         cache: false,
-                        contentType: false,
+                        contentType: 'application/json; charset=utf-8',
                         processData: false,
                         success: function (response) {
-                            alert(response["msg"])
+                            alert("게시글 작성 성공!")
                             location.replace('/list')
                         }
                     })
