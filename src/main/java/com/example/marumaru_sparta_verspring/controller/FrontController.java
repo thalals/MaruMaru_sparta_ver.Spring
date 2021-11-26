@@ -25,7 +25,7 @@ public class FrontController {
         return "articles/post_list";
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/postUpload")
     public String getPagePoisting(){
         return "articles/post_upload";
     }

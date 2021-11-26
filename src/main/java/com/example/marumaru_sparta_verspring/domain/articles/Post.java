@@ -1,10 +1,9 @@
 package com.example.marumaru_sparta_verspring.domain.articles;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
-import com.example.marumaru_sparta_verspring.dto.PostRequestDto;
+import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
