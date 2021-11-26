@@ -33,6 +33,6 @@ public class FrontController {
 
     @GetMapping("/user/login")
     public String login() {
-        return "login";
+        return "user/login";
     }
 }
