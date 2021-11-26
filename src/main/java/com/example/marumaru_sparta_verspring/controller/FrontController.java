@@ -20,7 +20,8 @@ public class FrontController {
         return "articles/meet_detail";
     }
 
-    @GetMapping("/postList")
+
+    @GetMapping("/post")
     public String getPagePostList(){
         return "articles/post_list";
     }
@@ -29,5 +30,4 @@ public class FrontController {
     public String getPagePosting(){
         return "articles/post_upload";
     }
-
 }

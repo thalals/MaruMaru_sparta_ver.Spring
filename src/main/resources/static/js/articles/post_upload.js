@@ -34,32 +34,18 @@ function address_input() {
 
 function post_upload() {
     let title = $("#title_box").val()
-    let address = $("#address-box").val()
     let content = $("#contents_box").val()
 
 
     // 파일명 출력
     let fileInput = document.getElementsByClassName("file");
 
-    //사진이 들어가지 않았을 때
-    if (fileInput[0].files.length == 0) {
-        alert("사진을 넣어주세요!");
-        $("#file").focus();
-        return false;
-    }
     for (let i = 0; i < fileInput.length; i++) {
         if (fileInput[i].files.length > 0) {
             for (let j = 0; j < fileInput[i].files.length; j++) {
                 let filename = fileInput[i].files[j].name
 
                 let file = $('#file')[0].files[0]
-                let form_data = new FormData()
-
-                form_data.append("file_give", file)
-                form_data.append("title_give", title)
-                form_data.append("address_give", address)
-                form_data.append("content_give", content)
-                form_data.append("filename_give", filename)
 
                 let data={
                     "title":title,
@@ -76,11 +62,7 @@ function post_upload() {
                     $("#contents_box").focus();
                     return false;
                 }
-                if ($("#address-box").val().length == 0) {
-                    alert("주소를 입력하세요!");
-                    $("#address-box").focus();
-                    return false;
-                } else {
+                else {
                     $.ajax({
                         type: "POST",
                         url: "/posts",
@@ -90,7 +72,7 @@ function post_upload() {
                         processData: false,
                         success: function (response) {
                             alert("게시글 작성 성공!")
-                            location.replace('/list')
+                            location.replace('/postList')
                         }
                     })
                 }
