@@ -1,6 +1,6 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.Profile;
+import com.example.marumaru_sparta_verspring.domain.articles.Profile;
 import com.example.marumaru_sparta_verspring.dto.ProfileRequestDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.service.ProfileService;
