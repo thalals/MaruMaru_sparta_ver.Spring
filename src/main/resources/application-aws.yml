@@ -1,8 +1,8 @@
 cloud:
   aws:
     credentials:
-      accessKey: 본인계정 IAM key
-      secretKey: 본인계정 IAM key
+      accessKey: 키
+      secretKey: 키
     s3:
       bucket: 버킷이름
     region:
