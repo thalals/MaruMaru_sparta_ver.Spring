@@ -20,12 +20,12 @@ public class PostController {
     private final PostService postService;
     private final PostRepository postrepository;
 
-    @PostMapping("/posts")
+    @PostMapping("/poststest")
     public void CreatePosController(@RequestBody PostRequestDto postrequestdto){
         postService.CreatePost(postrequestdto);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/poststest")
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
         return postList;
