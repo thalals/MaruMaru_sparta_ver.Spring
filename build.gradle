@@ -31,8 +31,8 @@ dependencies {
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2' //model mapper
 
     // aws
-//    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.228')
-//    implementation 'com.amazonaws:aws-java-sdk-s3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+
 }
 
 test {
