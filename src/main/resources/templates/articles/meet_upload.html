@@ -23,7 +23,7 @@
     <script src="https://kit.fontawesome.com/7a46ceb137.js" crossorigin="anonymous"></script>
 
     <!-- Css -->
-    <link rel="stylesheet" href="/css/meet_upload.css">
+    <link rel="stylesheet" href="/css/articles/meet_upload.css">
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -151,12 +151,13 @@
                         <span class="length">(<span>0</span> / 3000)</span>
                     </label>
                     <textarea id="message" placeholder="내용을 입력주해세요"></textarea>
+                    <div class="action">
+                        <button onclick="saveMeet()" type="button" class="btn btn-dark">저장</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="action">
-            <button onclick="saveMeet()" type="button">저장</button>
-        </div>
+
     </div>
 </div>
 <script>
@@ -165,7 +166,7 @@
         $(this).siblings("label").find(".length > span").text(len);
     });
 </script>
-<script src="/js/meet_upload.js"></script>
+<script src="/js/articles/meet_upload.js"></script>
 
 <!--주소 api-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
