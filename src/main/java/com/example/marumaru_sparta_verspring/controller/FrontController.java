@@ -30,4 +30,9 @@ public class FrontController {
     public String getPagePosting(){
         return "articles/post_upload";
     }
+
+    @GetMapping("/user/login")
+    public String login() {
+        return "login";
+    }
 }

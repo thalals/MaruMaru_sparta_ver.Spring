@@ -1,6 +1,6 @@
 //쿠키에 mytoken이 존재하면 user 정보 띄우기
 $(document).ready(function () {
-    let my_token = getCookie('mytoken');
+    let my_token = localStorage.getItem('token');
 
     if (my_token == null) {
         $('#login-button').show();
@@ -75,6 +75,6 @@ function onClickCreateProfile() {
 }
 
 function logout() {
-    $.removeCookie('mytoken', {path: '/'});
-    window.location.href = '/';
+    localStorage.removeItem("token");
+    location.href = "index.html";
 }
