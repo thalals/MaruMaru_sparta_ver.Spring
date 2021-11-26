@@ -1,4 +1,4 @@
-package com.example.marumaru_sparta_verspring.domain.posts;
+package com.example.marumaru_sparta_verspring.domain.articles;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.example.marumaru_sparta_verspring.service;
 
-import com.example.marumaru_sparta_verspring.domain.posts.Meet;
+import com.example.marumaru_sparta_verspring.domain.articles.Meet;
 import com.example.marumaru_sparta_verspring.dto.MeetRequestDto;
 import com.example.marumaru_sparta_verspring.repository.MeetRepository;
 import lombok.RequiredArgsConstructor;
