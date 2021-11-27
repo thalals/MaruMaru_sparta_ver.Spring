@@ -26,18 +26,30 @@ $(function () {
 })
 
 function saveMeet() {
+    // TODO: 유효성 체크
+    if (!$('#name').val() || !$('#message').val()) {
+        alert("제목과 내용은 필수입니다.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("img", $('#img')[0].files[0]);
+    formData.append("title", $('#name').val());
+    formData.append("content", $('#message').val());
+    formData.append("address", $('#address').val());
+    formData.append("date", $('#datepicker').val());
+
     $.ajax({
         type: "POST",
-        url: "/meets",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({
-            title: $("#name").val(), content: $("#message").val()
-        }),
-        success: (response) => {
-            alert("포스팅 성공!")
+        url: "/meet/api/meets",
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function(responese){
+            location.href='/';
         },
-        error: (request, status, error) => {
-            alert(error)
+        error: function(err){
+            console.log("err:", err)
         }
     })
 }

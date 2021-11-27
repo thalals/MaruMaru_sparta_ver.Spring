@@ -1,10 +1,10 @@
 cloud:
   aws:
     credentials:
-      accessKey: 키
-      secretKey: 키
+      accessKey: AKIAYYR57WZ7ITAVHBNE
+      secretKey: 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
     s3:
-      bucket: 버킷이름
+      bucket: maru-event-image
     region:
       static: ap-northeast-2
     stack:

@@ -11,6 +11,4 @@ public class MaruMaruSpartaVerSpringApplication {
     public static void main(String[] args) {
         SpringApplication.run(MaruMaruSpartaVerSpringApplication.class, args);
     }
-
-
 }
