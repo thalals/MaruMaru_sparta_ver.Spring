@@ -5,7 +5,7 @@ $(document).ready(function () {
 function show_post_list() {
     $.ajax({
         type: 'GET',
-        url: '/posts',
+        url: '/post-list',
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -64,14 +64,14 @@ function show_best(best) {
     const card_img = best['file']
 
     const temp_html = `
-                                <div onclick="location.href='/detail/${number}'" class="row card-post-best">
+                                <div onclick="location.href='posts/detail/${number}'" class="row card-post-best">
                                     <div class="col-lg-4">
                                         <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card-content">
                                             <div class="num float-right" style="color: rgb(255, 70, 110);">Best</div>
-                                            <div class="post-title"><a href="/detail/${number}">${title}</a></div>
+                                            <div class="post-title">${title}</div>
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>
