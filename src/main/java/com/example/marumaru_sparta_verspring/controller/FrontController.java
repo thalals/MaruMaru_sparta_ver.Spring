@@ -20,15 +20,20 @@ public class FrontController {
         return "articles/meet_detail";
     }
 
-
-    @GetMapping("/post")
+    @GetMapping("/show-post")
     public String getPagePostList(){
+
         return "articles/post_list";
     }
 
     @GetMapping("/posts")
     public String getPagePosting(){
         return "articles/post_upload";
+    }
+
+    @GetMapping("/posts/detail/{idx}")
+    public String getPostDetail(){
+        return "articles/post_detail";
     }
 
     @GetMapping("/user/login")

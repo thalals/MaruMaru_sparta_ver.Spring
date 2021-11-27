@@ -30,8 +30,11 @@ public class PostService {
         List<Post> postList = postrepository.findAll();
         if(postList.size()>0)
             System.out.println("1번"+postList.get(0).getTitle());
-//        List<PostResponseDto> resultList = postList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
-        List<PostResponseDto> resultList = Arrays.asList(modelMapper.map(postList,PostResponseDto[].class));
+
+        List<PostResponseDto> resultList = postList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
+//        List<PostResponseDto> resultList = Arrays.asList(modelMapper.map(postList,PostResponseDto[].class));
+
+
         if(resultList.size()>0)
             System.out.println(resultList.get(0).getTitle());
         return resultList;
