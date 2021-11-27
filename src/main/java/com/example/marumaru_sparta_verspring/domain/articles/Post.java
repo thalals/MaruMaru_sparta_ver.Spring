@@ -5,6 +5,7 @@ import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@DynamicInsert
 public class Post extends Timestamped {
 
     @Id
@@ -27,10 +29,18 @@ public class Post extends Timestamped {
     @Column
     private String file;
 
+    @Column(columnDefinition = "int default 0")
+    private int view;
+
     //새로운 게시글 생성
     public Post(PostRequestDto postRequestDto){
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
         this.file = postRequestDto.getFile();
+    }
+
+    //조회수 증가
+    public void upView(int view){
+        this.view = view;
     }
 }

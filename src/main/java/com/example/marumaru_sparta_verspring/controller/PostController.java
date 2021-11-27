@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +30,9 @@ public class PostController {
     @GetMapping("/post-list")
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
+
+        PostResponseDto best = postList.stream().sorted(Comparator.comparing(PostResponseDto::getView)).collect(Collectors.toList()).get(postList.size()-1);
+        postList.add(0,best);
         return postList;
     }
 

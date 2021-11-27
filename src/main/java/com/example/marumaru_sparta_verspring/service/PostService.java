@@ -27,9 +27,14 @@ public class PostService {
     }
 
     public Post getPostDetail(Long id){
-        return postrepository.findById(id).orElseThrow(
+        Post post = postrepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
+//        post.upView(post.getView()+1);
+        post.setView(post.getView()+1);
+
+        postrepository.save(post);
+        return post;
     }
 
     public void DeletePost(Long id){

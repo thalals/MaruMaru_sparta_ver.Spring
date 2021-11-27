@@ -9,17 +9,17 @@ function show_post_list() {
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
+            console.log(response)
             const articles = response;
-            // const best = response['best']
             let list_num = 0
-            // show_best(best);
-            for (let i = 0; i < articles.length; i++) {
+            show_best(response[0]);
+            for (let i = 1; i < articles.length; i++) {
                 const username = "username"
                 const title = articles[i]['title']
                 const number = articles[i]['idx']
                 const contents = articles[i]['content']
                 const time = formatDate(articles[i]['createdAt'])
-                const view = 3
+                const view = articles[i]['view']
                 const card_img = articles[i]['file']
                 list_num+=1
 
@@ -55,9 +55,9 @@ function formatDate(date) {
 function show_best(best) {
     const username = best['username']
     const title = best['title']
-    const contents = best['contents']
-    const number = best['number']
-    const time = formatDate(best['present_time'])
+    const contents = best['content']
+    const number = best['idx']
+    const time = formatDate(best['createdAt'])
     const view = best['view']
     const card_img = best['file']
 
