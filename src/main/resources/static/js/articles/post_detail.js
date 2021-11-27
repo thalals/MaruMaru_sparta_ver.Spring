@@ -49,10 +49,10 @@ function delete_post() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/detail`,
-            data: {id_give: idx},
+            url: `/posts/detail`,
+            data: {id: idx},
             success: function (response) {
-                window.location.href = `/list`
+                window.location.href = `/show-post`
             },
             error: function (request, status, error) {
                 alert(error);

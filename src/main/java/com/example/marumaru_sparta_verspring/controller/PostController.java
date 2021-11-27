@@ -37,5 +37,9 @@ public class PostController {
 
         return postResponseDto;
     }
-    
+
+    @DeleteMapping("posts/detail")
+    public void delPost(@RequestParam Long id){
+        postService.DeletePost(id);
+    }
 }
