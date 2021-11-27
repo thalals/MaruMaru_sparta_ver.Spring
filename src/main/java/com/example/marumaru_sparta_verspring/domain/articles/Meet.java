@@ -22,5 +22,12 @@ public class Meet extends Timestamped {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private String imgUrl;
 
+    @Column
+    private String address;
+
+    @Column
+    private String date;
 }

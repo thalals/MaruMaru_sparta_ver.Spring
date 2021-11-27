@@ -5,6 +5,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+application-aws.yml
+
 ### STS ###
 .apt_generated
 .classpath
@@ -23,7 +25,7 @@ bin/
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
+!**/src/main/**/out/git
 !**/src/test/**/out/
 
 ### NetBeans ###

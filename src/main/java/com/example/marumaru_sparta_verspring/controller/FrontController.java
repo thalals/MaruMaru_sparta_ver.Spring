@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FrontController {
     @GetMapping("/meets")
     public String getPageMeetList(){
-        return "articles/meet_list";
+        return "meets/meet_list";
     }
 
     @GetMapping("/meet")
     public String getPageMeetPost(){
-        return "articles/meet_upload";
+        return "meets/meet_upload";
     }
 
     @GetMapping("/meet/{id}")
     public String getPageMeet(){
-        return "articles/meet_detail";
+        return "meets/meet_detail";
     }
 
     @GetMapping("/show-post")
