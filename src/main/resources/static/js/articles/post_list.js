@@ -9,8 +9,6 @@ function show_post_list() {
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log("console hi")
-            console.log(response);
             const articles = response;
             // const best = response['best']
             let list_num = 0
@@ -26,7 +24,7 @@ function show_post_list() {
                 list_num+=1
 
                 let temp_html = `
-                                 <div onclick="location.href='/detail/${number}'" class="row card-post">
+                                 <div onclick="location.href='/posts/detail/${number}'" class="row card-post">
                                     <div class="col-lg-4">
                                         <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>

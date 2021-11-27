@@ -26,6 +26,11 @@ public class PostService {
         postrepository.save(post);
     }
 
+    public Post getPostDetail(Long id){
+        return postrepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+    }
     public List<PostResponseDto> getPostList(){
         List<Post> postList = postrepository.findAll();
         if(postList.size()>0)
@@ -39,4 +44,6 @@ public class PostService {
             System.out.println(resultList.get(0).getTitle());
         return resultList;
     }
+
+
 }

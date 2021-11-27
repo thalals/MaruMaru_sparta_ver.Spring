@@ -2,9 +2,10 @@ let url_list = window.location.href.split('/')
 const id = url_list[url_list.length - 1]
 
 $(document).ready(function () {
-    //iframe url 삽입
-    let href = '/map?id=' + id
-    $('#go-map').attr("src", href)
+    //iframe url 삽입                             - 게시글 지도 삭제
+    // let href = '/map?id=' + id
+    // $('#go-map').attr("src", href)
+    console.log(id)
     show_post(id)
 });
 
@@ -16,21 +17,19 @@ function showModal() {
 function show_post(id) {
     $.ajax({
         type: "GET",
-        url: `/detail`,
-        data: {id: id},
+        url: `/posts/detail`,
+        data: {id:id},
         success: function (response) {
-            const title = response["post"].title;
-            const contents = response["post"].contents;
-            const address = response["post"].address;
-            const img = response["post"].file;
-            const number = response["post"].number;
+            console.log(response)
+            const title = response["title"];
+            const contents = response["content"];
+            const img = response["file"];
+            const number = response["idx"];
 
             $("#idx").val(number);
             $("#title_box").text(title);
             $("#content-img").attr('src','/static/postimg/' + img)
-            console.log(img)
             $("#contents_box").text(contents);
-            $("#address-box").text(address);
 
             $("#update-title").val(title);
             $("#update-content").text(contents);

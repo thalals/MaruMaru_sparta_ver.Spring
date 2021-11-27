@@ -42,7 +42,7 @@ function post_upload() {
     let fileInput = document.getElementsByClassName("file");
 
     if (fileInput.length>0){
-        filename = fileInput[0].files[j].name
+        filename = fileInput[0].files[0].name
         file = $('#file')[0].files[0]
     }
 
@@ -76,43 +76,4 @@ function post_upload() {
         })
     }
 
-    // for (let i = 0; i < fileInput.length; i++) {
-    //     if (fileInput[i].files.length > 0) {
-    //         for (let j = 0; j < fileInput[i].files.length; j++) {
-    //             let filename = fileInput[i].files[j].name
-    //
-    //             let file = $('#file')[0].files[0]
-    //
-    //             let data={
-    //                 "title":title,
-    //                 "content":content,
-    //                 "file":filename
-    //             }
-    //             if ($("#title_box").val().length == 0) {
-    //                 alert("제목을 입력하세요!");
-    //                 $("#title_box").focus();
-    //                 return false;
-    //             }
-    //             if ($("#contents_box").val().length == 0) {
-    //                 alert("내용을 입력하세요!");
-    //                 $("#contents_box").focus();
-    //                 return false;
-    //             }
-    //             else {
-    //                 $.ajax({
-    //                     type: "POST",
-    //                     url: "/posts",
-    //                     data: JSON.stringify(data),
-    //                     cache: false,
-    //                     contentType: 'application/json; charset=utf-8',
-    //                     processData: false,
-    //                     success: function (response) {
-    //                         alert("게시글 작성 성공!")
-    //                         location.replace('/show-post')
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     }
-    // }
 }

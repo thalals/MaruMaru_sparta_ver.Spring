@@ -6,10 +6,8 @@ import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.modelmapper.ModelMapper;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class PostController {
 
     private final PostService postService;
     private final PostRepository postrepository;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/posts")
     public void CreatePosController(@RequestBody PostRequestDto postrequestdto){
@@ -29,6 +28,14 @@ public class PostController {
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
         return postList;
+    }
+
+    @GetMapping("/posts/detail")
+    public PostResponseDto getPostDetail(@RequestParam Long id){
+        Post post = postService.getPostDetail(id);
+        PostResponseDto postResponseDto =  modelMapper.map(post,PostResponseDto.class);
+
+        return postResponseDto;
     }
     
 }
