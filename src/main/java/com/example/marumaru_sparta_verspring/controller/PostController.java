@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +28,7 @@ public class PostController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/posts")
-    public void CreatePosController(@RequestBody PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
+    public void CreatePosController(@Valid @ModelAttribute PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
         Long userId = userDetails.getUser().getId();
         postService.CreatePost(postrequestdto,userId);
     }

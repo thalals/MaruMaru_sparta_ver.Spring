@@ -12,7 +12,7 @@ public class PostResponseDto {
     private String title;
     private String content;
     private String createdAt;  //생성시간
-    private String file;
+    private String img;
     private String username;
     private int view;
 }

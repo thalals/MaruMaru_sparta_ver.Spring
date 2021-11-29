@@ -23,16 +23,19 @@ function show_post(id) {
             console.log(response)
             const title = response["title"];
             const contents = response["content"];
-            const img = response["file"];
+            const username = response["username"];
+            const img = response["img"];
             const number = response["idx"];
 
             $("#idx").val(number);
+            $("#author_box").text(username);
             $("#title_box").text(title);
-            $("#content-img").attr('src','/static/postimg/' + img)
-            $("#contents_box").text(contents);
+            $("#contents_box_span").text(contents);
+            $("#content-img").attr("src",img)
 
             $("#update-title").val(title);
             $("#update-content").text(contents);
+            $("#ucontent-img").attr("src",img)
 
 
         },

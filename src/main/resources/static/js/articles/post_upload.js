@@ -15,7 +15,6 @@ $(document).ready(function () {
 function post_upload() {
     let title = $("#title_box").val()
     let content = $("#contents_box").val()
-    let filename = null
     let file = null
 
     // 파일명 출력
@@ -26,11 +25,12 @@ function post_upload() {
         file = $('#file')[0].files[0]
     }
 
-    let data = {
-        "title": title,
-        "content": content,
-        "file": filename
-    }
+    const formData = new FormData();
+
+    formData.append("title",title);
+    formData.append("content",content);
+    formData.append("img",file);
+
     if ($("#title_box").val().length == 0) {
         alert("제목을 입력하세요!");
         $("#title_box").focus();
@@ -44,13 +44,15 @@ function post_upload() {
         $.ajax({
             type: "POST",
             url: "/posts",
-            data: JSON.stringify(data),
-            cache: false,
-            contentType: 'application/json; charset=utf-8',
             processData: false,
+            contentType: false,
+            data: formData,
             success: function (response) {
                 alert("게시글 작성 성공!")
                 location.replace('/show-post')
+            },
+            error: function(err){
+                console.log("err:", err)
             }
         })
     }

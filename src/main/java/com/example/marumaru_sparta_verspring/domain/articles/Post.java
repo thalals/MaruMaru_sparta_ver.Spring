@@ -28,7 +28,7 @@ public class Post extends Timestamped {
     private String content;
 
     @Column
-    private String file;
+    private String img;
 
     @Column(columnDefinition = "int default 0")
     private int view;
@@ -45,7 +45,6 @@ public class Post extends Timestamped {
         this.username = username;
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
-        this.file = postRequestDto.getFile();
     }
 
     //조회수 증가

@@ -20,18 +20,18 @@ function show_post_list() {
                 const contents = articles[i]['content']
                 const time = formatDate(articles[i]['createdAt'])
                 const view = articles[i]['view']
-                const card_img = articles[i]['file']
+                const card_img = articles[i]['img']
                 list_num+=1
 
                 let temp_html = `
                                  <div onclick="location.href='/posts/detail/${number}'" class="row card-post">
                                     <div class="col-lg-4">
-                                        <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
+                                        <img class="card-img" src="${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card-content">
                                             <div class="num float-right">#${list_num}</div>
-                                            <div class="post-title"><a href="/detail/${number}">${title}</a></div>
+                                            <div class="post-title">${title}</div>
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>
@@ -59,12 +59,12 @@ function show_best(best) {
     const number = best['idx']
     const time = formatDate(best['createdAt'])
     const view = best['view']
-    const card_img = best['file']
+    const card_img = best['img']
 
     const temp_html = `
                                 <div onclick="location.href='posts/detail/${number}'" class="row card-post-best">
                                     <div class="col-lg-4">
-                                        <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
+                                        <img class="card-img" src="${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card-content">
