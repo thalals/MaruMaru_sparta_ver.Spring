@@ -4,11 +4,14 @@ import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
+import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +26,9 @@ public class PostController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/posts")
-    public void CreatePosController(@RequestBody PostRequestDto postrequestdto){
-        postService.CreatePost(postrequestdto);
+    public void CreatePosController(@RequestBody PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
+        Long userId = userDetails.getUser().getId();
+        postService.CreatePost(postrequestdto,userId);
     }
 
     @GetMapping("/post-list")

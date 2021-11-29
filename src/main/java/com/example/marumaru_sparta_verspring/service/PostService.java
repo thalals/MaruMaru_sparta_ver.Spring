@@ -21,8 +21,10 @@ public class PostService {
     private final PostRepository postrepository;
     private final ModelMapper modelMapper;
 
-    public void CreatePost(@RequestBody PostRequestDto postRequestDto){
-        Post post = new Post(postRequestDto);
+
+
+    public void CreatePost(@RequestBody PostRequestDto postRequestDto, Long userId){
+        Post post = new Post(postRequestDto, userId);
         postrepository.save(post);
     }
 
@@ -40,17 +42,13 @@ public class PostService {
     public void DeletePost(Long id){
         postrepository.deleteById(id);
     }
+
     public List<PostResponseDto> getPostList(){
         List<Post> postList = postrepository.findAll();
-        if(postList.size()>0)
-            System.out.println("1번"+postList.get(0).getTitle());
 
         List<PostResponseDto> resultList = postList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
 //        List<PostResponseDto> resultList = Arrays.asList(modelMapper.map(postList,PostResponseDto[].class));
 
-
-        if(resultList.size()>0)
-            System.out.println(resultList.get(0).getTitle());
         return resultList;
     }
 

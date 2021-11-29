@@ -2,6 +2,7 @@ package com.example.marumaru_sparta_verspring.domain.articles;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
+import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +33,12 @@ public class Post extends Timestamped {
     @Column(columnDefinition = "int default 0")
     private int view;
 
+    @Column(nullable = false)
+    private Long userId;
+    
     //새로운 게시글 생성
-    public Post(PostRequestDto postRequestDto){
+    public Post(PostRequestDto postRequestDto, Long userId){
+        this.userId = userId;
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
         this.file = postRequestDto.getFile();
