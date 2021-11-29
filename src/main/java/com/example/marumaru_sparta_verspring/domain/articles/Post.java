@@ -35,10 +35,14 @@ public class Post extends Timestamped {
 
     @Column(nullable = false)
     private Long userId;
-    
+
+    @Column(nullable = false)
+    private String username;
+
     //새로운 게시글 생성
-    public Post(PostRequestDto postRequestDto, Long userId){
+    public Post(PostRequestDto postRequestDto, Long userId, String username){
         this.userId = userId;
+        this.username = username;
         this.title = postRequestDto.getTitle();
         this.content = postRequestDto.getContent();
         this.file = postRequestDto.getFile();
@@ -48,4 +52,5 @@ public class Post extends Timestamped {
     public void upView(int view){
         this.view = view;
     }
+
 }

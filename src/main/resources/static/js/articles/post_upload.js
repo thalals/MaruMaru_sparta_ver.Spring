@@ -1,31 +1,35 @@
 $(document).ready(function () {
     bsCustomFileInput.init();
-})
 
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-    if(localStorage.getItem('token')) {
-        jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/show-post')
     }
 });
 
 function post_upload() {
     let title = $("#title_box").val()
     let content = $("#contents_box").val()
-    let filename =null
+    let filename = null
     let file = null
 
     // 파일명 출력
     let fileInput = document.getElementsByClassName("file");
 
-    if (fileInput.length>0){
+    if (fileInput.length > 0) {
         filename = fileInput[0].files[0].name
         file = $('#file')[0].files[0]
     }
 
-    let data={
-        "title":title,
-        "content":content,
-        "file":filename
+    let data = {
+        "title": title,
+        "content": content,
+        "file": filename
     }
     if ($("#title_box").val().length == 0) {
         alert("제목을 입력하세요!");
@@ -36,8 +40,7 @@ function post_upload() {
         alert("내용을 입력하세요!");
         $("#contents_box").focus();
         return false;
-    }
-    else {
+    } else {
         $.ajax({
             type: "POST",
             url: "/posts",

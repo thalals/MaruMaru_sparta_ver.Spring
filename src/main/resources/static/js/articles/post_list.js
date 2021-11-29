@@ -14,7 +14,7 @@ function show_post_list() {
             let list_num = 0
             show_best(response[0]);
             for (let i = 1; i < articles.length; i++) {
-                const username = "username"
+                const username = articles[i]['username']
                 const title = articles[i]['title']
                 const number = articles[i]['idx']
                 const contents = articles[i]['content']

@@ -13,5 +13,6 @@ public class PostResponseDto {
     private String content;
     private String createdAt;  //생성시간
     private String file;
+    private String username;
     private int view;
 }
