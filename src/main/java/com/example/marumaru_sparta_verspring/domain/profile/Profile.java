@@ -1,7 +1,7 @@
-package com.example.marumaru_sparta_verspring.domain.articles;
+package com.example.marumaru_sparta_verspring.domain.profile;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
-import com.example.marumaru_sparta_verspring.dto.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

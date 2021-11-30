@@ -1,7 +1,8 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.articles.Profile;
-import com.example.marumaru_sparta_verspring.dto.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.domain.profile.Profile;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -16,30 +17,31 @@ public class ProfileController {
     private final ProfileService profileService;
     private final ProfileRepository profileRepository;
 
-    @PostMapping("/meets/profile") //프로필 작성
+    @PostMapping("/profile") //프로필 작성
     public Profile setProfile(@RequestBody ProfileRequestDto profileRequestDto) {
         return profileService.setProfile(profileRequestDto);
     }
 
-    @GetMapping("/meets/profiles") //프로필 리스트 불러오기
-    public List<Profile> getProfiles() {
-        return profileService.getProfiles();
+    @GetMapping("/profile") //프로필 리스트 불러오기
+    public List<ProfileResponseDto> getProfiles(){
+        List<ProfileResponseDto> profileList = profileService.getProfiles();
+        return profileList;
     }
 
-    @GetMapping("/meets/profile/{id}") //프로필 상세보기
+    @GetMapping("/profile/{id}") //프로필 상세보기
     public Profile getProfile(@PathVariable Long id) { //변수 매핑
         return profileService.getProfile(id);
     }
 
 
-    @PutMapping("/meets/profile/{id}") //프로필 수정
+    @PutMapping("/profile/{id}") //프로필 수정
     public Long updateProfile(@PathVariable Long id, @RequestBody ProfileRequestDto requestDto) {
         profileService.update(id, requestDto);
         return id;
     }
 
 
-    @DeleteMapping("/meets/profile/{id}")
+    @DeleteMapping("/profile/{id}") //프로필 삭제
     public Long deleteProfile(@PathVariable Long id) {
         profileRepository.deleteById(id);
         return id;

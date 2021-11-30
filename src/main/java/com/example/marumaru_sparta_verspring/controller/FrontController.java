@@ -40,4 +40,19 @@ public class FrontController {
     public String login() {
         return "user/login";
     }
+
+    @GetMapping("/profiles") //프로필 리스트
+    public String getPageProfiles(){
+        return "profile/profile_list";
+    }
+
+    @GetMapping("/profileup") //프로필 작성
+    public String getPageProfileUp(){
+        return "profile/profile_upload";
+    }
+
+    @GetMapping("/profile/detail/{idx}") //프로필 상세
+    public String getPageProfileDetail(){
+        return "profile/profile_detail";
+    }
 }
