@@ -1,6 +1,9 @@
 package com.example.marumaru_sparta_verspring.controller;
 
 import com.example.marumaru_sparta_verspring.domain.articles.Post;
+import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
+import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
+import com.example.marumaru_sparta_verspring.dto.articles.PostCommentResponseDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
@@ -36,7 +39,6 @@ public class PostController {
     @GetMapping("/post-list")
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
-
         PostResponseDto best = postList.stream().sorted(Comparator.comparing(PostResponseDto::getView)).collect(Collectors.toList()).get(postList.size()-1);
         postList.add(0,best);
         return postList;
@@ -45,8 +47,8 @@ public class PostController {
     @GetMapping("/posts/detail")
     public PostResponseDto getPostDetail(@RequestParam Long id){
         Post post = postService.getPostDetail(id);
-        PostResponseDto postResponseDto =  modelMapper.map(post,PostResponseDto.class);
 
+        PostResponseDto postResponseDto =  modelMapper.map(post,PostResponseDto.class);
         return postResponseDto;
     }
 
@@ -54,4 +56,14 @@ public class PostController {
     public void delPost(@RequestParam Long id){
         postService.DeletePost(id);
     }
+
+    @PostMapping("/posts/comment")
+    public List<PostComment> CreatePostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        postService.CreateComment(postCommentRequsetDto, userId);
+
+        Post post = postService.getPostDetail(postCommentRequsetDto.getPostid());
+
+        return post.getComments();
+  }
 }

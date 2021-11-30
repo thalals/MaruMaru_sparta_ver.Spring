@@ -2,10 +2,15 @@ let url_list = window.location.href.split('/')
 const id = url_list[url_list.length - 1]
 
 $(document).ready(function () {
-    //iframe url 삽입                             - 게시글 지도 삭제
-    // let href = '/map?id=' + id
-    // $('#go-map').attr("src", href)
-    console.log(id)
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
     show_post(id)
 });
 
@@ -18,7 +23,7 @@ function show_post(id) {
     $.ajax({
         type: "GET",
         url: `/posts/detail`,
-        data: {id:id},
+        data: {id: id},
         success: function (response) {
             console.log(response)
             const title = response["title"];
@@ -31,13 +36,14 @@ function show_post(id) {
             $("#author_box").text(username);
             $("#title_box").text(title);
             $("#contents_box_span").text(contents);
-            $("#content-img").attr("src",img)
+            $("#content-img").attr("src", img)
 
             $("#update-title").val(title);
             $("#update-content").text(contents);
-            $("#ucontent-img").attr("src",img)
+            $("#ucontent-img").attr("src", img)
 
 
+            show_comment(response['comments'])
         },
         error: function (request, status, error) {
             alert(error);
@@ -66,6 +72,33 @@ function delete_post() {
     }
 }
 
+function show_comment(comments) {
+    let comment_text = ""
+    const arr_comment = comments.reverse();
+    arr_comment.forEach((e) => {
+        comment_text += `
+                            &nbsp;
+                            <div class="card mb-2">
+                                <div class="card-header bg-light">
+                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
+                                    <input hidden value="${e['idx']}">
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="comment_wrote">내용: ${e.comment}</div>
+                                            <button onclick="comment_update()" type="button" class="btn btn-dark mt-3">수정</button>
+                                            <button onclick="comment_delete()" type="button" class="btn btn-dark mt-3">삭제</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        `
+    })
+    $(`#comment_list`).html(comment_text)
+}
+
 function comment_upload() {
     const comment_input = $("#comment_content").val();
     if (comment_input.length == 0) {
@@ -75,22 +108,24 @@ function comment_upload() {
     const g_idx = $("#idx").val();
     $.ajax({
         type: "POST",
-        url: `/comment`,
-        data: {
-            id_give: g_idx,
-            comment_give: comment_input
-        },
+        url: `/posts/comment`,
+        data: JSON.stringify({
+            postid: g_idx,
+            comment: comment_input
+        }),
+        contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            alert(response["msg"])
+            console.log(response)
             let comment_text = ""
-            const arr_comment = response["save_comment"]["comment"].reverse();
+            const arr_comment = response.reverse();
             arr_comment.forEach((e) => {
                 comment_text += `
                             &nbsp;
                             <div class="card mb-2">
                                 <div class="card-header bg-light">
-                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user}
-                                </div>
+                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
+                                    <input hidden value="${e['idx']}">
+                               </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
@@ -104,7 +139,7 @@ function comment_upload() {
                         `
             })
             $("#comment_content").val("")
-            $(`#comment_list_${g_idx}`).html(comment_text)
+            $(`#comment_list`).html(comment_text)
 
         },
         error: function (request, status, error) {
