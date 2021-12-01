@@ -1,4 +1,4 @@
-package com.example.marumaru_sparta_verspring.domain.posts;
+package com.example.marumaru_sparta_verspring.domain.articles;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import lombok.Getter;
@@ -22,5 +22,12 @@ public class Meet extends Timestamped {
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private String imgUrl;
 
+    @Column
+    private String address;
+
+    @Column
+    private String date;
 }

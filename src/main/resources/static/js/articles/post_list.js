@@ -5,35 +5,33 @@ $(document).ready(function () {
 function show_post_list() {
     $.ajax({
         type: 'GET',
-        url: '/post_list',
+        url: '/post-list',
+        contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            const articles = response['all_articles']
-            const best = response['best']
+            console.log(response)
+            const articles = response;
             let list_num = 0
-            show_best(best);
-            for (let i = 0; i < articles.length; i++) {
+            show_best(response[0]);
+            for (let i = 1; i < articles.length; i++) {
                 const username = articles[i]['username']
                 const title = articles[i]['title']
-                const number = articles[i]['number']
-                const contents = articles[i]['contents']
-                const time = formatDate(articles[i]['present_time'])
+                const number = articles[i]['idx']
+                const contents = articles[i]['content']
+                const time = formatDate(articles[i]['createdAt'])
                 const view = articles[i]['view']
-                const card_img = articles[i]['file']
-                if (articles.length > list_num)
-                    list_num = list_num + 1
-                else
-                    list_num = list_num
+                const card_img = articles[i]['img']
+                list_num+=1
 
                 let temp_html = `
-                                 <div onclick="location.href='/detail/${number}'" class="row card-post">
+                                 <div onclick="location.href='/posts/detail/${number}'" class="row card-post">
                                     <div class="col-lg-4">
-                                        <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
+                                        <img class="card-img" src="${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card-content">
                                             <div class="num float-right">#${list_num}</div>
-                                            <div class="post-title"><a href="/detail/${number}">${title}</a></div>
+                                            <div class="post-title">${title}</div>
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>
@@ -49,31 +47,29 @@ function show_post_list() {
 }
 
 function formatDate(date) {
-    let newDateYear = date.substring(0, 5)
-    let newDateMM = date.substring(5, 8)
-    let newDateDD = date.substring(8, 11)
-    return [newDateYear, newDateMM, newDateDD].join('-');
+    let DateYMD = date.split('T')[0];
+    return DateYMD;
 };
 
 
 function show_best(best) {
     const username = best['username']
     const title = best['title']
-    const contents = best['contents']
-    const number = best['number']
-    const time = formatDate(best['present_time'])
+    const contents = best['content']
+    const number = best['idx']
+    const time = formatDate(best['createdAt'])
     const view = best['view']
-    const card_img = best['file']
+    const card_img = best['img']
 
     const temp_html = `
-                                <div onclick="location.href='/detail/${number}'" class="row card-post-best">
+                                <div onclick="location.href='posts/detail/${number}'" class="row card-post-best">
                                     <div class="col-lg-4">
-                                        <img class="card-img" src="/static/postimg/${card_img}" class="img-fluid rounded-start" alt="pic">
+                                        <img class="card-img" src="${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="card-content">
                                             <div class="num float-right" style="color: rgb(255, 70, 110);">Best</div>
-                                            <div class="post-title"><a href="/detail/${number}">${title}</a></div>
+                                            <div class="post-title">${title}</div>
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>

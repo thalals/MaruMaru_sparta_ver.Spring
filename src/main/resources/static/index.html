@@ -46,7 +46,7 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background: rgb(0, 160, 255); color: white">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="./img/logo.png" alt="logo" width="100" height="30">
+            <img src="/img/logo.png" alt="logo" width="100" height="30">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,13 +63,13 @@
                         게시글
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/list">게시글 보기</a></li>
+                        <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
                         <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
                         <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
                 </li>
             </ul>
-            <button id="login-button" onclick="location.href='/login'" type="button" class="btn btn-success">로그인
+            <button id="login-button" onclick="location.href='/user/login'" type="button" class="btn btn-success">로그인
             </button>
 <!--            <div onclick="get_card()"><img id="user-profile" class="rounded-circle"-->
 <!--                                           src="/static/profile_pics/profile_placeholder.png" width="50px"-->
@@ -89,7 +89,7 @@
             <a class="btn btn-primary btn-lg" href="/error" role="button">마루랑 놀기</a>
         </div>
         <div class="col-lg-6">
-            <img src="./img/maru.png"/>
+            <img src="/img/maru.png"/>
         </div>
     </div>
 </div>
@@ -107,7 +107,7 @@
      style="width: 18rem;">
     <div class="card-body text-center">
         <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"
-             src="/static/profile_pics/profile_placeholder.png">
+             src="/img/profile_placeholder.png">
 
         <br>
         <h5 class="card-title">Name</h5>
