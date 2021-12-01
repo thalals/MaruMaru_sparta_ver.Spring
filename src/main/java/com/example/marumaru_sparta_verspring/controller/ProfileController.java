@@ -1,19 +1,15 @@
 package com.example.marumaru_sparta_verspring.controller;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
-import com.example.marumaru_sparta_verspring.domain.articles.Meet;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
-import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
-import java.nio.channels.MulticastChannel;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,17 +25,11 @@ public class ProfileController {
         return profileService.setProfile(profileRequestDto, image);
     }
 
-//    @GetMapping("/profile") //프로필 리스트 불러오기
-//    public List<Profile> getProfiles() throws IOException{
-//        return profileService.getProfiles();
-//    }
+    @GetMapping("/profile") //프로필 리스트 불러오기
+    public List<Profile> getProfiles() throws IOException {
+        return profileService.getProfiles();
+    }
 
-
-//    @GetMapping("/profile") //프로필 리스트 불러오기
-//    public List<ProfileResponseDto> getProfiles(){
-//        List<ProfileResponseDto> profileList = profileService.getProfiles();
-//        return profileList;
-//    }
 //
 //    @GetMapping("/profile/{id}") //프로필 상세보기
 //    public Profile getProfile(@PathVariable Long id) { //변수 매핑

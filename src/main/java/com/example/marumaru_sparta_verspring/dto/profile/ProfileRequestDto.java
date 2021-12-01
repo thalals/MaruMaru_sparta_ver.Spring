@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class ProfileRequestDto {
+    private Long idx;
     private MultipartFile dogImg;
     @NotBlank(message = "강아지 이름을 입력해주세요!")
     private String dogName;

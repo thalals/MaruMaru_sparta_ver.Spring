@@ -12,23 +12,25 @@ $(document).ready(function () {
 function show_all_profile() {
     $.ajax({
         type: "GET",
-        url: "/profiles",
-        contentType: 'application/json',
+        url: "/profile",
+        contentType: false,
+        processData: false,
         success: function (response) {
             for (let i = 0; i < response.length; i++) {
                 let profiles = response[i];
-                let dogName = profiles[i]['dogName'];
-                let dogAge = profiles[i]['dogAge'];
-                let dogGender = profiles[i]['dogGender'];
-                let dogComment = profiles[i]['dogComment'];
-                let fileName = profiles[i]['fileName'];
-                addHTML(dogName, dogAge, dogGender, dogComment, fileName);
+                let idx = profiles['idx']
+                let dogImgUrl = profiles['dogImgUrl']
+                let dogName = profiles['dogName'];
+                let dogAge = profiles['dogAge'];
+                let dogGender = profiles['dogGender'];
+                let dogComment = profiles['dogComment'];
+                addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment);
             }
         }
     })
 }
 
-function addHTML(dogName, dogAge, dogGender, dogComment) {
+function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
     //1. HTML 태그를 만든다.
     let tempHtml = `<div class="card color-card">
                         <ul>
@@ -42,7 +44,7 @@ function addHTML(dogName, dogAge, dogGender, dogComment) {
                         <div class="card_top">
                           <div>
                             <div class="profile_img">
-                            <img class="dog_img" src="/img/maru.png">
+                            <img class="dog_img" src="${dogImgUrl}">
                             </div>
                           </div>
                           <div>
@@ -55,9 +57,11 @@ function addHTML(dogName, dogAge, dogGender, dogComment) {
                           <hr>
                           <div class="desc comment" style="font-size: 20px">
                             <p style="font-size: 15px">${dogComment}</p>
+                            <button class="btn color-a top mt-5" onclick = "location.href ='/profile/${idx}'">자세히 보기</button>
                           </div>
                         </div>
                       </div>`;
+    console.log(dogName, dogImgUrl)
     $("#profile_card").append(tempHtml);
 }
 
