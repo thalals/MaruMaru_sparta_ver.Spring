@@ -30,11 +30,10 @@ public class ProfileController {
         return profileService.getProfiles();
     }
 
-//
-//    @GetMapping("/profile/{id}") //프로필 상세보기
-//    public Profile getProfile(@PathVariable Long id) { //변수 매핑
-//        return profileService.getProfile(id);
-//    }
+    @GetMapping("/profile/detail") //프로필 상세보기
+    public Profile getProfile(@RequestParam Long id) { //변수 매핑
+        return profileService.getProfile(id);
+    }
 //
 //
 //    @PutMapping("/profile/{id}") //프로필 수정

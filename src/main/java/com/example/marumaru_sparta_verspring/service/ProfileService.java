@@ -36,15 +36,15 @@ public class ProfileService {
         return profile;
     }
 
-    public List<Profile> getProfiles() {
+    public List<Profile> getProfiles() { //프로필 리스트
         return profileRepository.findAll();
     }
 
-    //    public Profile getProfile(Long id){ //프로필 상세보기
-//        return profileRepository.findById(id).orElseThrow(
-//                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
-//        );
-//    }
+    public Profile getProfile(Long id) { //프로필 상세보기
+        return profileRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+    }
 //
 //
 
