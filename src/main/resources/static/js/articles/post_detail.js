@@ -2,6 +2,7 @@ let url_list = window.location.href.split('/')
 const id = url_list[url_list.length - 1].replace(/[^0-9.]/g, '')
 
 $(document).ready(function () {
+    bsCustomFileInput.init();
     if (localStorage.getItem('token')) {
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -65,22 +66,26 @@ function update_post() {
     if (confirm("수정 하시겠습니까?") == false) {
         $('#modalClose').click();
     } else {
-        let comment = $('#update-content').val();
+        let content = $('#update-content').val();
         let title = $('#update-title').val();
         let file = null;
-
-        let fileInput = document.getElementsByClassName("up");
+        let fileInput = document.getElementsByClassName("upfile");
 
         if (fileInput.length > 0) {
             file = $('#upfile')[0].files[0]
         }
 
-        const formData = new FormData();
+        var data = {
+            title:title,
+            content: content,
+            idx: id
+        };
 
-        formData.append("title", title);
-        formData.append("content", content);
+        const formData = new FormData();
         formData.append("img", file);
-        formData.append("idx", id);
+        formData.append("key", new Blob([JSON.stringify(data)] , {type: "application/json"}));
+
+
         $.ajax({
             type: "PUT",
             url: `/posts/detail`,

@@ -10,9 +10,11 @@ import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.boot.Metadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -57,7 +59,14 @@ public class PostController {
 
     //수정
     @PutMapping("/posts/detail")
-    public void UpdatePost(@Valid @ModelAttribute PostRequestDto postrequestdto) throws IOException{
+    public void UpdatePost(@Valid @RequestPart(value = "key") PostRequestDto postrequestdto, @RequestPart(value = "img",required = false) MultipartFile img) throws IOException{
+        System.out.println("-------------들어와아ㅏㅏㅏㅏㅏ");
+        System.out.println(postrequestdto.getTitle());
+        System.out.println(postrequestdto.getContent());
+        System.out.println(postrequestdto.getImg());
+        System.out.println(img);
+        postrequestdto.setImg(img);
+
         postService.UpdatePost(postrequestdto);
     }
 
@@ -69,7 +78,7 @@ public class PostController {
 
     //댓글 생성
     @PostMapping("/posts/comment")
-    public List<PostComment> CreatePostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public List<PostComment> CreatePostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto,  @AuthenticationPrincipal UserDetailsImpl userDetails){
         Long userId = userDetails.getUser().getId();
         postService.CreateComment(postCommentRequsetDto, userId);
 
