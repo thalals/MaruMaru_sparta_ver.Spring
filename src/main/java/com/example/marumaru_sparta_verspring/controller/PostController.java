@@ -30,12 +30,7 @@ public class PostController {
     private final PostRepository postrepository;
     private final ModelMapper modelMapper;
 
-    @PostMapping("/posts")
-    public void CreatePosController(@Valid @ModelAttribute PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
-        Long userId = userDetails.getUser().getId();
-        postService.CreatePost(postrequestdto,userId);
-    }
-
+    //게시글 목록
     @GetMapping("/post-list")
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
@@ -43,7 +38,8 @@ public class PostController {
         postList.add(0,best);
         return postList;
     }
-
+    
+    //조회
     @GetMapping("/posts/detail")
     public PostResponseDto getPostDetail(@RequestParam Long id){
         Post post = postService.getPostDetail(id);
@@ -52,11 +48,26 @@ public class PostController {
         return postResponseDto;
     }
 
+    //생성
+    @PostMapping("/posts")
+    public void CreatePosController(@Valid @ModelAttribute PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
+        Long userId = userDetails.getUser().getId();
+        postService.CreatePost(postrequestdto,userId);
+    }
+
+    //수정
+    @PutMapping("/posts/detail")
+    public void UpdatePost(@Valid @ModelAttribute PostRequestDto postrequestdto) throws IOException{
+        postService.UpdatePost(postrequestdto);
+    }
+
+    //삭제
     @DeleteMapping("posts/detail")
     public void delPost(@RequestParam Long id){
         postService.DeletePost(id);
     }
 
+    //댓글 생성
     @PostMapping("/posts/comment")
     public List<PostComment> CreatePostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         Long userId = userDetails.getUser().getId();
@@ -65,5 +76,17 @@ public class PostController {
         Post post = postService.getPostDetail(postCommentRequsetDto.getPostid());
 
         return post.getComments();
-  }
+    }
+
+    //댓글 삭제
+    @DeleteMapping("/posts/comment")
+    public void DelPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
+        postService.DeletePostComment(postCommentRequsetDto.getCommentid());
+    }
+
+    //댓글 수정
+    @PutMapping("/posts/comment")
+    public void UpdateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
+        postService.UpdatePostComment(postCommentRequsetDto);
+    }
 }

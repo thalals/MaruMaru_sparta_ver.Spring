@@ -138,18 +138,18 @@
             </div>
 
             <!--주소, 지도버튼-->
-<!--            <div class="address_box">-->
-<!--                <div class="address mt-3">-->
-<!--                    <div class="input-group mb-3">-->
-<!--                        <span class="input-group-text">주소</span>-->
-<!--                        <div id="address-box" type="text" class="form-control address" aria-label="Username"-->
-<!--                             aria-describedby="basic-addon1">-->
-<!--                        </div>-->
-<!--                        <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="address_box">-->
+            <!--                <div class="address mt-3">-->
+            <!--                    <div class="input-group mb-3">-->
+            <!--                        <span class="input-group-text">주소</span>-->
+            <!--                        <div id="address-box" type="text" class="form-control address" aria-label="Username"-->
+            <!--                             aria-describedby="basic-addon1">-->
+            <!--                        </div>-->
+            <!--                        <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도-->
+            <!--                        </button>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
 
         <!-- 버튼 그룹 -->
@@ -197,43 +197,12 @@
     </div>
 </div>
 
-<!-- 지도 모달 창-->
-<div class="modal fade" id="map-modal" role="map" aria-labelledby="map"
-     aria-hidden="true" tabindex="-1">
-    <!--modal-dailog : 모달 창 영역 설정-->
-    <div class="modal-dialog modal-lg">
-        <!--modal-content : 모달 창 콘텐츠 영역 설정-->
-        <div class="modal-content">
-            <!--modal-header : 모달 창 콘텐츠의 헤더영역-->
-            <div class="modal-header modal-header-custom">
-                <h4 class="modal-title modal-title-custom">지도</h4>
-            </div>
-            <!--modal-body : 모달 창 콘텐츠의 바디영역-->
-            <div class="modal-body" id="map-body">
-                <!-- iframe src="/map?id={id}" -->
-                <div id="map-area">
-                    <iframe id="go-map"></iframe>
-                </div>
-
-            </div>
-            <!--modal-footer : 모달 창 콘텐츠의 푸터영역-->
-            <div class="modal-footer">
-                <div class="modal-footer-custom">
-                    <button type="button" class="btn btn-danger"
-                            data-bs-dismiss="modal">
-                        닫기
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- 수정 모달  -->
 <div id="update-modal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">수정하기</h5>
+                <h5 class="modal-title">게시글 수정</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -252,20 +221,21 @@
                     <div class="contents">
                         <div class="input-group mb-3">
                             <div>
-                                <img id="ucontent-img"
-                                     src="#"
-                                     height="200px"
-                                     width="200px"><br>
+                                <img id="ucontent-img" src="#" height="200px" width="200px"><br>
                             </div>
-                            <textarea class="form-control content" aria-label="With textarea"
-                                      id="update-content"></textarea>
+                            <div>
+                                <input type="file" class="custom-file-input file" id="upfile" onchange="update_img(event)">
+                                <label class="custom-file-label" for="upfile">사진 첨부하기</label>
+                            </div>
+                            <div>
+                                <textarea class="form-control content" aria-label="With textarea" id="update-content"></textarea>
+                            </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">저장</button>
+                    <button type="button" id="modalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="update_post()">수정</button>
                 </div>
             </div>
         </div>
