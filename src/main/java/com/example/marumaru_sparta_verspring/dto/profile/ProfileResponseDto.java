@@ -11,6 +11,5 @@ public class ProfileResponseDto {
     private String dogAge;
     private String dogGender;
     private String dogComment;
-    private String fileName;
     private String createdAt;
 }
