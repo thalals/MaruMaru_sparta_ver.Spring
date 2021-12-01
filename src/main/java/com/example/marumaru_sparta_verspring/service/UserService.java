@@ -1,9 +1,15 @@
 package com.example.marumaru_sparta_verspring.service;
 
+import com.example.marumaru_sparta_verspring.domain.S3Uploader;
+import com.example.marumaru_sparta_verspring.domain.articles.Post;
+import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.domain.user.UserRole;
+import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
 import com.example.marumaru_sparta_verspring.dto.user.SignupRequestDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserDto;
+import com.example.marumaru_sparta_verspring.dto.user.UserProfileDto;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoOAuth2;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoUserInfo;
@@ -14,7 +20,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,6 +34,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final KakaoOAuth2 kakaoOAuth2;
     private final AuthenticationManager authenticationManager;
+    private final S3Uploader s3Uploader;
 
     public User registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -33,6 +43,7 @@ public class UserService {
         String password = passwordEncoder.encode(requestDto.getPassword());
 
         UserRole role = UserRole.USER;
+
 
         User user = new User(username, password, role);
         userRepository.save(user);
@@ -48,7 +59,7 @@ public class UserService {
 
         // 우리 DB 에서 회원 Id 와 패스워드
         // 회원 Id = 카카오 nickname
-        String username = nickname;
+        String username =  nickname;
         // 패스워드 = 카카오 Id + ADMIN TOKEN
         String password = kakaoId + ADMIN_TOKEN;
 
@@ -83,6 +94,36 @@ public class UserService {
         if (found.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
         }
+    }
+
+    public User searchUser(String username){
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
+
+    public void deleteUser(String username){
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
+        userRepository.delete(user);
+    }
+
+    @Transactional
+    public void updateUser(UserProfileDto userProfileDto) throws IOException {
+        User user = userRepository.findByUsername(userProfileDto.getUsername()).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
+
+        user.setUsername(userProfileDto.getUsername());
+        user.setUserContent(userProfileDto.getUserContent());
+        user.setNickname(userProfileDto.getNickname());
+
+
+        if(userProfileDto.getUserImage()!=null){
+            String userImage = s3Uploader.upload(userProfileDto.getUserImage(), "static");
+            user.setUserProfileImg(userImage);
+        }
+
+        userRepository.save(user);
+
     }
 
 }
