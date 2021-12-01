@@ -41,6 +41,16 @@ public class FrontController {
         return "user/login";
     }
 
+    @GetMapping("/user/profile")
+    public String getUserProfile() {
+        return "user/user_profile";
+    }
+
+    @GetMapping("/user/profile/modify")
+    public String getUserProfileModify() {
+        return "user/user_profile_upload";
+    }
+
     @GetMapping("/profiles") //프로필 리스트
     public String getPageProfiles(){
         return "profile/profile_list";

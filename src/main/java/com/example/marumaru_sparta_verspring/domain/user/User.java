@@ -14,19 +14,6 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User extends Timestamped {
 
-    public User(String username, String password, UserRole role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User(String username, String password, Long kakaoId, UserRole role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.kakaoId = kakaoId;
-    }
-
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -49,4 +36,21 @@ public class User extends Timestamped {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
+
+    private String userProfileImg;
+
+    private String userContent;
+
+    public User(String username, String password, Long kakaoId, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.kakaoId = kakaoId;
+    }
+
+    public User(String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }
