@@ -1,5 +1,20 @@
 $(document).ready(function () {
     bsCustomFileInput.init();
+
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        });
+    } else {
+        alert('로그인을 해주세요')
+        window.close();
+        location.replace('/profiles');
+    }
+});
+
+$(document).ready(function () {
+    bsCustomFileInput.init();
 })
 
 function profile_upload() {
@@ -46,5 +61,4 @@ function profile_upload() {
             window.location.reload();
         }
     })
-
 }

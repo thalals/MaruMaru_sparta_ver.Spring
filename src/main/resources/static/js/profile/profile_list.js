@@ -57,7 +57,7 @@ function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
                           <hr>
                           <div class="desc comment" style="font-size: 20px">
                             <p style="font-size: 15px">${dogComment}</p>
-                            <button class="btn color-a top mt-5" onclick = "location.href ='/profile/${idx}'">자세히 보기</button>
+                            <button class="btn color-a top mt-5" onclick = "location.href ='/profile/detail/${idx}'">자세히 보기</button>
                           </div>
                         </div>
                       </div>`;
