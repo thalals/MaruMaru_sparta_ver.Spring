@@ -20,5 +20,5 @@ public class ProfileRequestDto {
     private String dogGender;
     @NotBlank(message = "강아지 소개를 입력해주세요!")
     private String dogComment;
-//    private User user;
+    private Long userId;
 }

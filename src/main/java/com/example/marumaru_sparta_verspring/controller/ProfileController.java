@@ -4,8 +4,10 @@ import com.example.marumaru_sparta_verspring.domain.S3Uploader;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
+import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +23,9 @@ public class ProfileController {
     private final S3Uploader s3Uploader;
 
     @PostMapping("/profile") //프로필 작성
-    public Profile setProfile(ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg") MultipartFile image) throws IOException {
-        return profileService.setProfile(profileRequestDto, image);
+    public Profile setProfile(ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg") MultipartFile image,  @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        return profileService.setProfile(profileRequestDto, image, userId);
     }
 
     @GetMapping("/profile") //프로필 리스트 불러오기
