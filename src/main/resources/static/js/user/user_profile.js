@@ -1,14 +1,25 @@
 $(document).ready(function () {
     bsCustomFileInput.init();
 
-    let username = localStorage.getItem("username")
 
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/login')
+    }
+
+    let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
         url: `/userProfile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
+            console.log(response['dogProfile'])
             $('.thumbnail').attr("src", response["userProfileImg"])
             $('#username').attr("placeholder",response['username'])
             $('#name').attr("placeholder",response['nickname'])
