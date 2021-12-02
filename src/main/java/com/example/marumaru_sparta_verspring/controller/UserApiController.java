@@ -1,16 +1,13 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.domain.user.User;
-import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
-import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.dto.user.*;
-import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.UserService;
 import com.example.marumaru_sparta_verspring.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,7 +31,7 @@ public class UserApiController {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final UserService userService;
-    private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     //로그인
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -99,8 +97,15 @@ public class UserApiController {
 
     //유저 정보 가져오기
     @GetMapping(value = "/userProfile/{username}")
-    public User getUserInfo(@PathVariable String username) {
-        return userService.searchUser(username);
+    public UserProfileDto getUserInfo(@PathVariable String username) {
+        User user = userService.searchUser(username);
+        UserProfileDto userProfileDto = modelMapper.map(user, UserProfileDto.class);
+        return userProfileDto;
+    }
+
+    @GetMapping("/user/dogProfile")
+    public List<ProfileResponseDto> getUserDogProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.dogProfiles(userDetails.getUser().getId());
     }
 
 

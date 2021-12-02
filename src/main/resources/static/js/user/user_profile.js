@@ -19,19 +19,24 @@ $(document).ready(function () {
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log(response['dogProfile'])
             $('.thumbnail').attr("src", response["userProfileImg"])
-            $('#username').attr("placeholder",response['username'])
-            $('#name').attr("placeholder",response['nickname'])
-            $('#description').attr("placeholder",response['userContent'])
+            $('#username').attr("placeholder", response['username'])
+            $('#name').attr("placeholder", response['nickname'])
+            $('#description').attr("placeholder", response['userContent'])
+        }
+    })
 
-           // 댕댕쓰
-            let baby_info = response['profile_info']
-            console.log(baby_info)
-            for(let i=0; i<baby_info.length;i++){
+    $.ajax({
+        type: "GET",
+        url: `/user/dogProfile`,
+        contentType: 'application/json; charset=utf-8',
+        data: {},
+        success: function (response) {
+            console.log(response)
+            for(let i=0; i<response.length;i++){
                 let temp_html=`<div class="card color-card">
                                     <ul>
-                                        <a href="javascript:void(0);" onclick="ProfileLike(${baby_info[i].number})">
+                                        <a href="javascript:void(0);" onclick="ProfileLike(${response[i]['idx']})">
                                              <i class="fas fa-heart" title="좋아요"></i>
                                         </a>
                                     </ul>
@@ -39,26 +44,26 @@ $(document).ready(function () {
                                     <div class="card_top">
                                         <div>
                                             <div class="profile_img">
-                                                <img class="dog_img" src="/static/profileimg/${baby_info[i].file}">
+                                                <img class="dog_img" src="${response[i]['dogImg']}">
                                             </div>
                                         </div>
                                         <div>
-                                            <p class="name desc">${baby_info[i].name}</p>
+                                            <p class="name desc">${response[i]['dogName']}</p>
                                         </div>
                                         <div class="desc">
-                                            <p class="age">나이: ${baby_info[i].age}</p>
-                                            <p class="gender">성별: ${baby_info[i].gender}</p>
+                                            <p class="age">나이: ${response[i]['dogAge']}</p>
+                                            <p class="gender">성별: ${response[i]['dogGender']}</p>
                                         </div>
                                         <hr>
                                         <div class="desc comment" style="font-size: 15px">
-                                            <p>${baby_info[i].comment}</p>
+                                            <p>${response[i]['dogComment']}</p>
                                             <button class="btn color-a top mt-5"
-                                                    onclick="location.href ='/profile/${baby_info[i].number}'">자세히 보기
+                                                    onclick="location.href ='/profile/${response[i]['idx']}'">자세히 보기
                                             </button>
                                         </div>
 
                                     </div>
-                                    <input type="hidden" value=${baby_info[i].number} id="${baby_info[i].number}card">
+                                    <input type="hidden" value=${response[i]['idx']} id="${response[i]['idx']}card">
                                 </div>`
                 $('#baby_list').append(temp_html)
             }

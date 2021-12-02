@@ -1,15 +1,14 @@
 package com.example.marumaru_sparta_verspring.service;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
-import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.domain.user.UserRole;
-import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
-import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.dto.user.SignupRequestDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserProfileDto;
+import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoOAuth2;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoUserInfo;
@@ -20,10 +19,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -35,6 +35,7 @@ public class UserService {
     private final KakaoOAuth2 kakaoOAuth2;
     private final AuthenticationManager authenticationManager;
     private final S3Uploader s3Uploader;
+    private final ProfileRepository profileRepository;
 
     public User registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -59,7 +60,7 @@ public class UserService {
 
         // 우리 DB 에서 회원 Id 와 패스워드
         // 회원 Id = 카카오 nickname
-        String username =  nickname;
+        String username = nickname;
         // 패스워드 = 카카오 Id + ADMIN TOKEN
         String password = kakaoId + ADMIN_TOKEN;
 
@@ -96,12 +97,12 @@ public class UserService {
         }
     }
 
-    public User searchUser(String username){
+    public User searchUser(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
 
 
-    public void deleteUser(String username){
+    public void deleteUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
         userRepository.delete(user);
@@ -117,7 +118,7 @@ public class UserService {
         user.setNickname(userProfileDto.getNickname());
 
 
-        if(userProfileDto.getUserImage()!=null){
+        if (userProfileDto.getUserImage() != null) {
             String userImage = s3Uploader.upload(userProfileDto.getUserImage(), "static");
             user.setUserProfileImg(userImage);
         }
@@ -125,5 +126,14 @@ public class UserService {
         userRepository.save(user);
 
     }
-
+    @Transactional
+    public  List<ProfileResponseDto> dogProfiles(Long userid) {
+        List<ProfileResponseDto> profileResponsetDtoList = new ArrayList<>();
+        List<Profile> dogProfiles = profileRepository.findByUserId(userid);
+        for (Profile getProfile : dogProfiles) {
+            ProfileResponseDto profileResponseDto = new ProfileResponseDto(getProfile, userid);
+            profileResponsetDtoList.add(profileResponseDto);
+        }
+        return profileResponsetDtoList;
+    }
 }

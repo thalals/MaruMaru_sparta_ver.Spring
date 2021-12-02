@@ -45,7 +45,7 @@ public class User extends Timestamped {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Profile> dogProfile = new ArrayList<Profile>();
+    private List<Profile> dogProfile = new ArrayList<>();
 
 
     public User(String username, String password, Long kakaoId, UserRole role) {
