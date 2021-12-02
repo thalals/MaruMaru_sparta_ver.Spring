@@ -1,5 +1,6 @@
 package com.example.marumaru_sparta_verspring.dto.profile;
 
+import com.example.marumaru_sparta_verspring.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,4 +20,5 @@ public class ProfileRequestDto {
     private String dogGender;
     @NotBlank(message = "강아지 소개를 입력해주세요!")
     private String dogComment;
+//    private User user;
 }

@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.domain.profile;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
+import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +35,11 @@ public class Profile extends Timestamped { // 생성,수정 시간을 자동으�
     @Column(nullable = false)
     private String dogComment;
 
-//    public Profile(String dogName, String dogAge, String dogGender, String dogComment, String fileName) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    //    public Profile(String dogName, String dogAge, String dogGender, String dogComment, String fileName) {
 //        this.dogName = dogName;
 //        this.dogAge = dogAge;
 //        this.dogGender = dogGender;
