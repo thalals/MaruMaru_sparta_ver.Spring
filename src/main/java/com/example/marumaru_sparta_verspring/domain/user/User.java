@@ -1,11 +1,15 @@
 package com.example.marumaru_sparta_verspring.domain.user;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
+import com.example.marumaru_sparta_verspring.domain.profile.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,10 +31,8 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
     private String nickname;
 
-    @Column(nullable = true)
     private Long kakaoId;
 
     @Column(nullable = false)
@@ -40,6 +42,11 @@ public class User extends Timestamped {
     private String userProfileImg;
 
     private String userContent;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Profile> dogProfile = new ArrayList<Profile>();
+
 
     public User(String username, String password, Long kakaoId, UserRole role) {
         this.username = username;
