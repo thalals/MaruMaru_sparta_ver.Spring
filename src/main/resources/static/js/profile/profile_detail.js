@@ -40,21 +40,22 @@ function detailProfile(id) {
         }
     });
 }
-// function delete_post() {
-//     const result = confirm("정말로 삭제 하시겠습니까?");
-//     if (result) {
-//         $.ajax({
-//             type: "DELETE",
-//             url: `/profile`,
-//             data: {id_give: id},
-//             success: function (response) {
-//                 window.location.href = `/profiles`
-//             },
-//             error: function (request, status, error) {
-//                 alert(error);
-//             }
-//         });
-//     } else {
-//         return false;
-//     }
-// }
+function delete_profile() {
+    let id = $("#profile_id").val();
+    let result =confirm("정말로 삭제 하시겠습니까?");
+    if (result) {
+        $.ajax({
+            type: "DELETE",
+            url: `/profile/detail`,
+            data: {id: id},
+            success: function (response) {
+                window.location.href = `/profiles`
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+    } else {
+        return false;
+    }
+}

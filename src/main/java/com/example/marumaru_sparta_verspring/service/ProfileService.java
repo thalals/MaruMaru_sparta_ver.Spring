@@ -45,8 +45,6 @@ public class ProfileService {
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
     }
-//
-//
 
 //
 //    @Transactional // SQL 쿼리가 일어나야 함을 스프링에게 알려줌
@@ -57,4 +55,8 @@ public class ProfileService {
 //        profile.update(profileRequestDto);
 //        return profile.getIdx();
 //    }
+
+    public void deleteProfile(Long id){
+        profileRepository.deleteById(id);
+    }
 }

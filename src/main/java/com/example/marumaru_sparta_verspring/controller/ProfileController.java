@@ -34,7 +34,7 @@ public class ProfileController {
     public Profile getProfile(@RequestParam Long id) { //변수 매핑
         return profileService.getProfile(id);
     }
-//
+    //
 //
 //    @PutMapping("/profile/{id}") //프로필 수정
 //    public Long updateProfile(@PathVariable Long id, @RequestBody ProfileRequestDto requestDto) {
@@ -43,9 +43,8 @@ public class ProfileController {
 //    }
 //
 //
-//    @DeleteMapping("/profile/{id}") //프로필 삭제
-//    public Long deleteProfile(@PathVariable Long id) {
-//        profileRepository.deleteById(id);
-//        return id;
-//    }
+    @DeleteMapping("/profile/detail") //프로필 삭제
+    public void deleteProfile(@RequestParam Long id) {
+        profileService.deleteProfile(id);
+    }
 }
