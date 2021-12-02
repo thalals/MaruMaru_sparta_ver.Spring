@@ -52,12 +52,13 @@ function show_post(id) {
     })
 }
 
-function update_img() {
+function update_img(event) {
     var reader = new FileReader();
     reader.onload = function (event) {
-        var img = document.createElement("upfile");
+        var img = document.createElement("img");
         img.setAttribute("src", event.target.result);
-        document.querySelector("img#ucontent-img").appendChild(img);
+        $("#ucontent-img").attr("src",img.src);
+        // document.querySelector("img#ucontent-img").appendChild(img);
     };
     reader.readAsDataURL(event.target.files[0]);
 }
