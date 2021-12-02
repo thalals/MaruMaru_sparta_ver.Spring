@@ -11,15 +11,20 @@ $(document).ready(function () {
         location.replace('/login')
     }
 
+    let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: "/user_info",
+        url: `/userProfile/${username}`,
+        contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            let user_info = response['user_info']
-            $('#profile-img').attr("src", "/static/" + user_info.profile_pic)
-            $('#name').attr("placeholder", user_info.profile_name)
-            $('#description').attr("placeholder", user_info.profile_info)
+            let profile_name = response['nickname']
+            let profile_info = response['userContent']
+            let profile_img = response['userProfileImg']
+
+            $('#profile-img').attr("src", + profile_img)
+            $('#name').attr("placeholder", profile_name)
+            $('#description').attr("placeholder", profile_info)
         }
     })
 })

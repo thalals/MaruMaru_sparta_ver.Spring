@@ -9,23 +9,7 @@ $(document).ready(function () {
         $('#login-button').hide();
         $('#user-profile').show();
 
-        $.ajaxSetup({
-            error: function (jqXHR, exception) {
-                switch (jqXHR.status) {
-                    case 401:
-                        alert('인증 에러!!');
-                        break;
-                    case 423:
-                        alert('중복된 id!!');
-                        break;
-                }
-            },
-            beforeSend: function (xhr) {
-                if (localStorage.getItem('token') != null) {
-                    xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-                }
-            }
-        });
+
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
@@ -35,7 +19,7 @@ $(document).ready(function () {
             success: function (response){
                 let profile_name = response['nickname']
                 let username = response['username']
-                let profile_info = response['uerContent']
+                let profile_info = response['userContent']
                 let profile_img = response['userProfileImg']
 
                 $('#user-profile').attr("src",  profile_img)

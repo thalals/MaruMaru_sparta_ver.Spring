@@ -2,7 +2,7 @@ package com.example.marumaru_sparta_verspring.domain.user;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,8 +43,8 @@ public class User extends Timestamped {
 
     private String userContent;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Profile> dogProfile = new ArrayList<Profile>();
 
 

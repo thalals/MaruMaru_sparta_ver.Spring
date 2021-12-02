@@ -3,6 +3,7 @@ package com.example.marumaru_sparta_verspring.domain.profile;
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +35,13 @@ public class Profile extends Timestamped { // 생성,수정 시간을 자동으�
 
     @Column(nullable = false)
     private String dogComment;
+//
+//    @Column(nullable = false)
+//    private Long userId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     //    public Profile(String dogName, String dogAge, String dogGender, String dogComment, String fileName) {
