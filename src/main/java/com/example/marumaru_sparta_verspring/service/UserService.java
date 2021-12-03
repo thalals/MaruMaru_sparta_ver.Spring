@@ -7,7 +7,7 @@ import com.example.marumaru_sparta_verspring.domain.user.UserRole;
 import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.dto.user.SignupRequestDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserDto;
-import com.example.marumaru_sparta_verspring.dto.user.UserProfileDto;
+import com.example.marumaru_sparta_verspring.dto.user.UserProfileRequestDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoOAuth2;
@@ -109,7 +109,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(UserProfileDto userProfileDto) throws IOException {
+    public void updateUser(UserProfileRequestDto userProfileDto) throws IOException {
         User user = userRepository.findByUsername(userProfileDto.getUsername()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
 
@@ -118,9 +118,9 @@ public class UserService {
         user.setNickname(userProfileDto.getNickname());
 
 
-        if (userProfileDto.getUserImage() != null) {
-            String userImage = s3Uploader.upload(userProfileDto.getUserImage(), "static");
-            user.setUserProfileImg(userImage);
+        if (userProfileDto.getUserProfileImg() != null) {
+            String userProfileImg = s3Uploader.upload(userProfileDto.getUserProfileImg(), "static");
+            user.setUserProfileImg(userProfileImg);
         }
 
         userRepository.save(user);

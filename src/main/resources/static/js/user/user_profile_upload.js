@@ -22,7 +22,7 @@ $(document).ready(function () {
             let profile_info = response['userContent']
             let profile_img = response['userProfileImg']
 
-            $('#profile-img').attr("src", + profile_img)
+            $('#profile-img').attr("src", +profile_img)
             $('#name').attr("placeholder", profile_name)
             $('#description').attr("placeholder", profile_info)
         }
@@ -60,16 +60,16 @@ function user_update() {
     if (fileInput.length > 0) {
         file = $('#file')[0].files[0]
     }
-    var data = {
-       username: username,
+    let data = {
+        username: username,
         nickname: nickname,
         userContent: userContent,
     };
 
+    console.log(data, file)
     let formData = new FormData()
     formData.append("userImage", file);
     formData.append("key", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-    console.log(formData.values())
 
     //사진이 들어가지 않았을 때
     if ($('#file')[0].files[0] == null) {
@@ -89,6 +89,16 @@ function user_update() {
         processData: false,
         data: formData,
         success: function (response) {
+
+            // FormData의 key 확인
+            for (let key of formData.keys()) {
+                console.log(key);
+            }
+
+            // FormData의 value 확인
+            for (let value of formData.values()) {
+                console.log(value);
+            }
             alert("회원정보 수정 완료!");
             location.replace('/user/profile')
         }
