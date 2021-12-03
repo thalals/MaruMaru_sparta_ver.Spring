@@ -1,12 +1,13 @@
 package com.example.marumaru_sparta_verspring.controller;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
-import com.example.marumaru_sparta_verspring.domain.articles.Meet;
-import com.example.marumaru_sparta_verspring.dto.MeetRequestDto;
+import com.example.marumaru_sparta_verspring.domain.meets.Meet;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetCommentRequestDto;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetRequestDto;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
 import com.example.marumaru_sparta_verspring.service.MeetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -26,12 +27,29 @@ public class MeetController {
     }
 
     @GetMapping("/meets")
-    public List<Meet> setMeet() throws IOException {
-        return meetService.getMeet();
+    public List<Meet> showMeets() throws IOException {
+        return meetService.getMeets();
     }
 
-    @PostMapping("/images") // 쿼리스크트 - 폼데이터
-    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        return s3Uploader.upload(multipartFile, "static");
+    @GetMapping("/meet/{id}")
+    public Meet showMeet(@PathVariable Long id) throws IOException {
+        return meetService.getMeet(id);
+    }
+
+    @PostMapping("/meet/comment")
+    public void  setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) {
+        meetService.saveMeetComment(meetCommentRequestDto);
+    }
+
+    @PutMapping("/meet/{id}")
+    public Long update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
+        meetService.update(id, meetUpdateRequestDto);
+        return id;
+    }
+
+    @DeleteMapping("/meet/{id}")
+    public Long deleteMeet(@PathVariable Long id) throws IOException {
+        meetService.delete(id);
+        return id;
     }
 }

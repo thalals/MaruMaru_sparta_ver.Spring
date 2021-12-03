@@ -11,18 +11,25 @@ function getMeet() {
         data: {},
         success: function(responese){
             let temp = ""
+            let count = 0;
             for(let i = 0; i < responese.length; i++) {
-                temp += `
-                    <div>
-                        <div>${responese[i].createdAt}</div>
-                        <div>${responese[i].modifiedAt}</div>
-                        <div>${responese[i].title}</div>
-                        <img class="img" src="${responese[i].imgUrl}" />
-                        <div>${responese[i].address}</div>
-                        <div>${responese[i].content}</div>
-                        <div>${responese[i].date}</div>
-        
-                    </div>
+                count += 1;
+                temp += `                       
+                                <div onclick="location.href='/meet'" class="row card-event">
+                                    <div class="col-lg-4">
+                                        <img class="card-img" src="${responese[i].imgUrl}" class="img-fluid rounded-start" alt="pic">
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-content">
+                                            <div class="num float-right">#${count}</div>
+                                            <div class="evnet-title"><a href="/event/detail?id_give="">${responese[i].title}</a></div>
+                                            <div class="author">작성자</div>
+                                            <p class="event-content">${responese[i].content}</p>
+                                            <div class="event-sub" id="time">${responese[i].date}</div>
+                                            <div class="view">조회수 ${responese[i].address}</div>
+                                        </div>
+                                    </div>
+                                </div>
                 `;
                 $('#event-body').html(temp);
             }

@@ -171,29 +171,6 @@
 <!--주소 api-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/address.js"></script>
-
-<script>
-    $('#btn-save').on('click', uploadImage);
-
-    function uploadImage() {
-        var file = $('#img')[0].files[0];
-        var formData = new FormData();
-        formData.append('images', file);
-
-        $.ajax({
-            type: 'POST',
-            url: '/images',
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function (images) {
-            $('#result-image').attr("src", images);
-            console.log(images)
-        }).fail(function (error) {
-            alert(error);
-        })
-    }
-</script>
 </body>
 
 </html>

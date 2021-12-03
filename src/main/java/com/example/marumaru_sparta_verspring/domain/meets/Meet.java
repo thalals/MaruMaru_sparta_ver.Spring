@@ -1,10 +1,11 @@
-package com.example.marumaru_sparta_verspring.domain.articles;
+package com.example.marumaru_sparta_verspring.domain.meets;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -30,4 +31,7 @@ public class Meet extends Timestamped {
 
     @Column
     private String date;
+
+    @OneToMany(mappedBy="meet", cascade=CascadeType.ALL)
+    private List<MeetComment> comments;
 }
