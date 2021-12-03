@@ -58,15 +58,21 @@ public class ProfileService {
         );
     }
 
-//
-//    @Transactional // SQL 쿼리가 일어나야 함을 스프링에게 알려줌
-//    public Long update(Long id, ProfileRequestDto profileRequestDto) { //프로필 수정
-//        Profile profile = profileRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-//        );
-//        profile.update(profileRequestDto);
-//        return profile.getIdx();
-//    }
+    public void updateProfile(ProfileRequestDto profileRequestDto) throws IOException{ //프로필 수정
+        Profile profile = profileRepository.findById(profileRequestDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("아이디가 존재하지 않습니다.")
+        );
+        profile.setDogName(profileRequestDto.getDogName());
+        profile.setDogAge(profileRequestDto.getDogAge());
+        profile.setDogGender(profileRequestDto.getDogGender());
+        profile.setDogComment(profileRequestDto.getDogComment());
+
+        if(profileRequestDto.getDogImg()!=null){
+            String dogImgUrl = s3Uploader.upload(profileRequestDto.getDogImg(), "static");
+            profile.setDogImgUrl(dogImgUrl);
+        }
+        profileRepository.save(profile);
+    }
 
     public void deleteProfile(Long id){
         profileRepository.deleteById(id);

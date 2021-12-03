@@ -14,6 +14,13 @@ $(document).ready(function () {
     detailProfile(id)
 });
 
+function Modify_baby_profile() {
+    var popup = window.open(`/profile/modify/${id}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
+    popup.onbeforeunload=function (){
+        window.location.reload();
+    }
+}
+
 function detailProfile(id) {
     $.ajax({
         type: "GET",
@@ -31,8 +38,8 @@ function detailProfile(id) {
             $("#profile_id").val(number);
             $('#dog_img').attr("src", dogImgUrl);
             $('#dog-name').text(dogName);
-            $('#dog-age').text(dogAge);
-            $('#dog-gender').text(dogGender);
+            $('#dog-age').text('나이:'+ dogAge);
+            $('#dog-gender').text('성별:'+ dogGender);
             $('#dog-comment').text(dogComment);
         },
         error: function (request, status, error) {
