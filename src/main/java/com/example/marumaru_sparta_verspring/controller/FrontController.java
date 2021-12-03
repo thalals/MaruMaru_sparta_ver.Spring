@@ -64,4 +64,7 @@ public class FrontController {
     public String getPageProfileDetail(){
         return "profile/profile_detail";
     }
+
+    @GetMapping("/profile/detail/modify") //프로필 수정
+    public String getProfileModify(){ return "profile/profile_detail_upload"; }
 }

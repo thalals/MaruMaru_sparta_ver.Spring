@@ -1,5 +1,5 @@
 let url_list = window.location.href.split('/')
-const id = url_list[url_list.length - 1].replace(/[^0-9.]/g, '')
+const id = url_list[url_list.length-1]
 
 $(document).ready(function () {
     if (localStorage.getItem('token')) {
@@ -13,13 +13,6 @@ $(document).ready(function () {
     }
     detailProfile(id)
 });
-
-function Modify_baby_profile() {
-    var popup = window.open('/profile/detail/modify', '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
-    popup.onbeforeunload=function (){
-        window.location.reload();
-    }
-}
 
 function detailProfile(id) {
     $.ajax({
@@ -47,22 +40,47 @@ function detailProfile(id) {
         }
     });
 }
-function delete_profile() {
-    let id = $("#profile_id").val();
-    let result =confirm("정말로 삭제 하시겠습니까?");
-    if (result) {
+
+function update_profile() {
+    if (confirm("수정 하시겠습니까?") == false) {
+        window.closed
+    } else {
+        let file = null;
+        let dogName = $('#dog_name').val();
+        let dogAge = $('#dog_age').val();
+        let dogGender = $('#dog_gender').val();
+        let dogComment = $('#dog_comment').val();
+        let fileInput = document.getElementsByClassName("profile_image");
+
+        if (fileInput.length > 0) {
+            file = $('#profile_image')[0].files[0]
+        }
+
+        let data = {
+            dogName : dogName,
+            dogAge : dogAge,
+            dogGender : dogGender,
+            dogComment : dogComment,
+            idx : id
+        }
+
+        let formData = new FormData();
+        formData.append("dogimg", file);
+        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
         $.ajax({
-            type: "DELETE",
+            type: "PUT",
             url: `/profile/detail`,
-            data: {id: id},
+            processData: false,
+            contentType: false,
+            data: formData,
             success: function (response) {
-                window.location.href = `/profiles`
+                window.location.reload();
             },
             error: function (request, status, error) {
                 alert(error);
             }
         });
-    } else {
-        return false;
     }
+
 }
