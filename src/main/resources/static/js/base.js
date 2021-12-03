@@ -9,22 +9,29 @@ $(document).ready(function () {
         $('#login-button').hide();
         $('#user-profile').show();
 
+
+        let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: "/user_info",
+            url: `/userProfile/${username}`,
+            contentType: 'application/json; charset=utf-8',
             data: {},
-            success: function (response) {
-                let user = response['user_info']
-                let profile_name = user['profile_name']
-                let username = user['username']
-                let profile_info = user['profile_info']
-                let profile_img = user['profile_pic']
+            success: function (response){
+                let profile_name = response['nickname']
+                let username = response['username']
+                let profile_info = response['userContent']
+                let profile_img = response['userProfileImg']
 
-                $('#user-profile').attr("src", '/static/' + profile_img)
+                $('#user-profile').attr("src",  profile_img)
 
                 //유저 프로필 카드
-                $('.card-profile-img').attr("src", '/static/' + profile_img)
-                $('.card-title').text(profile_name)
+                $('.card-profile-img').attr("src", profile_img)
+                if (profile_name == null) {
+                    profile_name = username
+                    $('.card-title').text(profile_name)
+                } else {
+                    $('.card-title').text(profile_name)
+                }
                 $('.card-subtitle').text(username)
                 $('.card-text').text(profile_info)
             },
@@ -40,24 +47,8 @@ function get_card() {
     $('#user-profile').toggleClass('border border-2');
 }
 
-function getCookie(key) {
-    let result = null;
-    let cookie = document.cookie.split(';');
-    cookie.some(function (item) {
-        // 공백을 제거
-        item = item.replace(' ', '');
-
-        let dic = item.split('=');
-        if (key === dic[0]) {
-            result = dic[1];
-            return true;    // break;
-        }
-    });
-    return result;
-}
-
 function onClickCreateEvent() {
-    if (document.cookie.match("mytoken") != null) {
+    if (localStorage.getItem("mytoken") != null) {
         window.location.href = "/events"
     } else {
         alert("로그인 후 생성해주세요 !!")
@@ -66,7 +57,7 @@ function onClickCreateEvent() {
 }
 
 function onClickCreateProfile() {
-    if (document.cookie.match("mytoken") != null) {
+    if (localStorage.getItem("mytoken") != null) {
         window.location.href = "/profile/create"
     } else {
         alert("로그인 후 생성해주세요 !!")
@@ -76,5 +67,6 @@ function onClickCreateProfile() {
 
 function logout() {
     localStorage.removeItem("token");
-    location.href = "index.html";
+    localStorage.removeItem("username");
+    location.href = "/";
 }

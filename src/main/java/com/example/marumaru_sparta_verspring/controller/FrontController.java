@@ -39,4 +39,29 @@ public class FrontController {
     public String login() {
         return "user/login";
     }
+
+    @GetMapping("/user/profile")
+    public String getUserProfile() {
+        return "user/user_profile";
+    }
+
+    @GetMapping("/user/profile/modify")
+    public String getUserProfileModify() {
+        return "user/user_profile_upload";
+    }
+
+    @GetMapping("/profiles") //프로필 리스트
+    public String getPageProfiles(){
+        return "profile/profile_list";
+    }
+
+    @GetMapping("/profileup") //프로필 작성
+    public String getPageProfileUp(){
+        return "profile/profile_upload";
+    }
+
+    @GetMapping("/profile/detail/{idx}") //프로필 상세
+    public String getPageProfileDetail(){
+        return "profile/profile_detail";
+    }
 }

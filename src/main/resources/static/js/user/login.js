@@ -69,14 +69,13 @@ function sign_up() {
     }
 
 
-
-    // if ($("#help-id").hasClass("is-danger")) {
-    //     alert("아이디를 다시 확인해주세요.")
-    //     return;
-    // } else if (!$("#help-id").hasClass("is-success")) {
-    //     alert("아이디 중복확인을 해주세요.")
-    //     return;
-    // }
+    if ($("#help-id").hasClass("is-danger")) {
+        alert("아이디를 다시 확인해주세요.")
+        return;
+    } else if (!$("#help-id").hasClass("is-success")) {
+        alert("아이디 중복확인을 해주세요.")
+        return;
+    }
 
     if (password == "") {
         $("#help-password").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
@@ -179,7 +178,7 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        // window.location.replace("/user_profile")
+        window.location.replace("/user/login")
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')

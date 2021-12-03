@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class PostCommentRequsetDto {
     private Long postid;
+    private Long commentid;
     private String comment;
 }
