@@ -39,8 +39,9 @@ public class ProfileController {
         return profileService.getProfile(id);
     }
 
+
     @PutMapping("/profile/detail") //프로필 수정
-    public void updateProfile(@Valid @PathVariable(value = "key") ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg", required = false) MultipartFile dogImg) throws IOException {
+    public void updateProfile(@Valid @RequestPart(value = "key") ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg", required = false) MultipartFile dogImg) throws IOException {
         profileRequestDto.setDogImg(dogImg);
         profileService.updateProfile(profileRequestDto);
     }

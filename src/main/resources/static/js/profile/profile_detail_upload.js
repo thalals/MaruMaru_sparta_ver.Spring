@@ -14,6 +14,10 @@ $(document).ready(function () {
     detailProfile(id)
 });
 
+$(document).ready(function () {
+    bsCustomFileInput.init();
+})
+
 function detailProfile(id) {
     $.ajax({
         type: "GET",
@@ -30,10 +34,10 @@ function detailProfile(id) {
 
             $("#profile_id").val(number);
             $('#dog_img').attr("src", dogImgUrl);
-            $('#dog-name').text(dogName);
-            $('#dog-age').text(dogAge);
-            $('#dog-gender').text(dogGender);
-            $('#dog-comment').text(dogComment);
+            $('#dog_name').attr("placeholder", dogName);
+            $('#dog_age').attr("placeholder", dogAge);
+            $('#dog_gender').attr("placeholder", dogGender);
+            $('#dog_comment').attr("placeholder", dogComment);
         },
         error: function (request, status, error) {
             alert(error);
