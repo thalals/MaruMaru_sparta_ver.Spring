@@ -22,7 +22,6 @@ public class FrontController {
 
     @GetMapping("/show-post")
     public String getPagePostList(){
-
         return "articles/post_list";
     }
 
