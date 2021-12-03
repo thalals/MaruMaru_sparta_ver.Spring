@@ -19,6 +19,7 @@ $(document).ready(function () {
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
+            console.log(response)
             $('.thumbnail').attr("src", response["userProfileImg"])
             $('#username').attr("placeholder", response['username'])
             $('#name').attr("placeholder", response['nickname'])

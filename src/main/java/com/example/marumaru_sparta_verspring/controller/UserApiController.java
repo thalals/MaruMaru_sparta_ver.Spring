@@ -90,17 +90,17 @@ public class UserApiController {
 
     //유저프로필 수정
     @PutMapping("/userProfile")
-    public void updateUser(@Valid @RequestPart(value = "key") UserProfileDto userProfileDto, @RequestPart(value = "userImage",required = false) MultipartFile userImage) throws IOException{
-        userProfileDto.setUserImage(userImage);
+    public void updateUser(@Valid @RequestPart(value = "key") UserProfileRequestDto userProfileDto, @RequestPart(value = "userImage",required = false) MultipartFile userImage) throws IOException{
+        userProfileDto.setUserProfileImg(userImage);
         userService.updateUser(userProfileDto);
     }
 
     //유저 정보 가져오기
     @GetMapping(value = "/userProfile/{username}")
-    public UserProfileDto getUserInfo(@PathVariable String username) {
+    public UserProfileResponseDto getUserInfo(@PathVariable String username) {
         User user = userService.searchUser(username);
-        UserProfileDto userProfileDto = modelMapper.map(user, UserProfileDto.class);
-        return userProfileDto;
+        UserProfileResponseDto userProfileResponseDto = modelMapper.map(user, UserProfileResponseDto.class);
+        return userProfileResponseDto;
     }
 
     @GetMapping("/user/dogProfile")

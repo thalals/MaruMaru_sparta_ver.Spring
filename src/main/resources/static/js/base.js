@@ -17,6 +17,7 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
+                console.log(response)
                 let profile_name = response['nickname']
                 let username = response['username']
                 let profile_info = response['userContent']
