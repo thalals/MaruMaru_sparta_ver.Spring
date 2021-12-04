@@ -3,11 +3,13 @@ package com.example.marumaru_sparta_verspring.service;
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
 import com.example.marumaru_sparta_verspring.domain.meets.Meet;
 import com.example.marumaru_sparta_verspring.domain.meets.MeetComment;
+import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetCommentRequestDto;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetRequestDto;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
 import com.example.marumaru_sparta_verspring.repository.MeetCommentRepository;
 import com.example.marumaru_sparta_verspring.repository.MeetRepository;
+import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +24,23 @@ public class MeetService {
     private final MeetRepository meetRepository;
     private final S3Uploader s3Uploader;
     private final MeetCommentRepository meetCommentRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public Meet saveMeet(MeetRequestDto meetRequestDto) throws IOException {
+    public Meet saveMeet(MeetRequestDto meetRequestDto, Long userId) throws IOException {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
         Meet meet = new Meet();
+        meet.setUserId(userId);
         meet.setTitle(meetRequestDto.getTitle());
+        meet.setUsername(user.getUsername());
+        if (meetRequestDto.getImg() != null) {
+            String imgUrl = s3Uploader.upload(meetRequestDto.getImg(), "static");
+            meet.setImgUrl(imgUrl);
+        }
         meet.setContent(meetRequestDto.getContent());
-        String imgUrl = s3Uploader.upload(meetRequestDto.getImg(), "static");
-        meet.setImgUrl(imgUrl);
+
         meet.setAddress(meetRequestDto.getAddress());
         meet.setDate(meetRequestDto.getDate());
 
