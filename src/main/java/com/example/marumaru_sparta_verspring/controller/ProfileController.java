@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,15 +38,14 @@ public class ProfileController {
     public Profile getProfile(@RequestParam Long id) { //변수 매핑
         return profileService.getProfile(id);
     }
-    //
-//
-//    @PutMapping("/profile/{id}") //프로필 수정
-//    public Long updateProfile(@PathVariable Long id, @RequestBody ProfileRequestDto requestDto) {
-//        profileService.update(id, requestDto);
-//        return id;
-//    }
-//
-//
+
+
+    @PutMapping("/profile/detail") //프로필 수정
+    public void updateProfile(@Valid @RequestPart(value = "key") ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg", required = false) MultipartFile dogImg) throws IOException {
+        profileRequestDto.setDogImg(dogImg);
+        profileService.updateProfile(profileRequestDto);
+    }
+
     @DeleteMapping("/profile/detail") //프로필 삭제
     public void deleteProfile(@RequestParam Long id) {
         profileService.deleteProfile(id);
