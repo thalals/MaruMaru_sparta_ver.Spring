@@ -2,6 +2,7 @@ package com.example.marumaru_sparta_verspring.controller;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
 import com.example.marumaru_sparta_verspring.domain.meets.Meet;
+import com.example.marumaru_sparta_verspring.domain.meets.MeetComment;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetCommentRequestDto;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetRequestDto;
 import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
@@ -37,8 +38,8 @@ public class MeetController {
     }
 
     @PostMapping("/meet/comment")
-    public void  setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) {
-        meetService.saveMeetComment(meetCommentRequestDto);
+    public MeetComment setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) {
+        return meetService.saveMeetComment(meetCommentRequestDto);
     }
 
     @PutMapping("/meet/{id}")

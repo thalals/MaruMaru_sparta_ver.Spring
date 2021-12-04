@@ -49,12 +49,13 @@ public class MeetService {
     }
 
     @Transactional
-    public void saveMeetComment(MeetCommentRequestDto meetCommentRequestDto) {
+    public MeetComment saveMeetComment(MeetCommentRequestDto meetCommentRequestDto) {
         Meet meet = meetRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
         MeetComment meetComment = new MeetComment(meetCommentRequestDto, meet);
         meetCommentRepository.save(meetComment);
+        return meetComment;
     }
 
     @Transactional

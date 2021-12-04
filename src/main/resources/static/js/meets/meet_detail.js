@@ -2,7 +2,13 @@ $(document).ready(() => {
     const curUrl = window.location.href.split('/');
     const idx = curUrl[curUrl.length - 1];
     showMeetDetail(idx);
+
 });
+
+
+function showModal(idx) {
+    $('#update-modal').modal('show');
+}
 
 function showMeetDetail(idx) {
     let comments = ""
@@ -10,6 +16,7 @@ function showMeetDetail(idx) {
         type: 'GET',
         url: `/meet/api/meet/${idx}`,
         success: (response) => {
+            // 본문
             const temp = `
                     <div class="title">
                         <input type="hidden" id="idx" value="${response.idx}">
@@ -33,9 +40,14 @@ function showMeetDetail(idx) {
                 `;
             $('#meet-post').append(temp);
 
+            // 수정 ui
+
+
+            // 댓글
             for(let i = 0; i < response['comments'].length; i++) {
                 comments += `
                     <div class="card mb-2">
+                    <input type="hidden" id="comment-idx" value="${response['comments'][i].idx}" />
                     <div class="card-header bg-light">
                         <i class="fa fa-comment fa"></i> 작성자: <span id="username"></span>
                     </div>
@@ -50,7 +62,6 @@ function showMeetDetail(idx) {
                 `;
             }
             $('#comment_list').append(comments);
-
         },
         error: (err) => {
             console.log(err);
@@ -77,20 +88,39 @@ function deleteMeet() {
 }
 
 function saveComment() {
-    const id = $('#idx').val();
-    console.log(id);
+    const content = $('#comment_content');
+    const comment = {
+        "idx": $('#idx').val(),
+        "comment": content.val()
+    };
+
     $.ajax({
         type: "POST",
         url: "/meet/api/meet/comment",
-        data: {idx: id, comment: $('#comment_content').val()},
-        dataType: 'json',
+        data: JSON.stringify(comment),
         contentType : 'application/json; charset=utf-8',
         success: (response) => {
             alert("댓글 저장!");
-            window.location.href='/';
+            const comment = `
+                 <div class="card mb-2">
+                 <input type="hidden" id="comment-idx" value="${response['idx']}" />
+                    <div class="card-header bg-light">
+                        <i class="fa fa-comment fa"></i> 작성자: <span id="username"></span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="comment_wrote">내용: ${response['comment']}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                `;
+        $('#comment_list').append(comment);
+        content.val("");
         },
         error: (error) => {
-            console.log(error)
+            console.log(error);
         }
 
     })
