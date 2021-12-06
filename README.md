@@ -5,6 +5,33 @@
 
 + 반려견을 위한 반려견의 의한 반려 동반자의 커뮤니티 사이트
 
+
+## Project Directory
+
+```
+.
+├── gradle/wrapper
+├── src                         # 메인 파일
+│   ├── main/java/com.example.marumaru_sparta_verspring
+│   │    ├──common              # 예외처리
+│   │    ├──config
+│   │    ├──configuration
+│   │    ├──controller
+│   │    ├──domain              # Entity 작성 (테이블)
+│   │    ├──dto
+│   │    ├──repository
+│   │    ├──security            # 인증/인가 설정
+│   │    ├──service             # 비즈니스로직
+│   │    └──util                # jwt
+│   │
+│   └──recources
+│           ├──static                       # JS/CSS/IMG 파일 + index.html
+│           ├──templates                    # HTML 파일
+│           ├──application.properties       # 설정파일
+│           └──application.aws.yml          # aws 설정 (dotenv 추가 예정)
+└──build.gradle
+```
+
 <br/>
 
 ## 🧙 맴버구성
