@@ -9,7 +9,6 @@ function getMeet() {
         processData: false,
         contentType: false,
         success: function(responese){
-            console.log(responese);
             let temp = ""
             let count = 0;
             for(let i = 0; i < responese.length; i++) {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>이벤트 상세페이지</title>
+    <title>강만다 - 이벤트 수정</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -22,10 +22,9 @@
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/7a46ceb137.js" crossorigin="anonymous"></script>
 
-    <!-- inner css -->
-    <link rel="stylesheet" href="/css/meets/meet_detail.css">
+    <!-- Css -->
     <link rel="stylesheet" href="/css/style.css">
-
+    <link rel="stylesheet" href="/css/meets/meet_detail_upload.css">
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -36,6 +35,17 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
 
+    <!--사진 파일 뽑기-->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+
+    <!-- 주소검색 api-->
+    <script defer src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <!--datepicker-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
     <!-- Jquery cookie-->
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -44,6 +54,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background: rgb(0, 160, 255); color: white">
     <div class="container-fluid">
@@ -86,98 +97,34 @@
     <div class="card-body text-center">
         <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"
              src="/img/profile_placeholder.png">
+
         <br>
         <h5 class="card-title">Name</h5>
-        <h6 class="card-subtitle mb-2 text-muted">ID</h6>
-        <p class="card-text">discription</p>
+        <h6 class="card-subtitle mb-2 text-muted"> ID </h6>
+        <p class="card-text"> discription </p>
         <a href="/user_profile" class="card-link">My Profile</a>
         <a href="javascript:void(0);" onclick="logout()" class="card-link">logout</a>
     </div>
 </div>
-
-<div class="wrap">
-    <div class="container">
-
-        <div id="meet-post" class="contents_box m-auto">
-            <!-- 제목, 내용 -->
+<div class="form">
+    <div class="wrapper">
+        <div class="header">
+            <span class="title">이벤트 생성하기</span>
         </div>
+        <div class="content" id="content">
 
-        <!-- 버튼 그룹 -->
-        <div class="detail_button">
-            <button onclick="updateMeet()" type="button" class="btn btn-primary ui button">
-                <i class="fa fa-wrench" aria-hidden="true"> 수정</i>
-            </button>
-            &nbsp;
-            <button onclick="deleteMeet()" type="button" class="btn btn-danger">
-                <i class="fa fa-trash" aria-hidden="true"> 삭제</i>
-            </button>
-            &nbsp;
-            <button type="button" class="btn btn-danger">
-                <i class="far fa-thumbs-up"> 좋아요0</i>
-            </button>
-        </div>
-    </div>
-    <!-- 댓글 입력 -->
-    <div class="comment_wrap">
-        <div class="detail_comment">
-            <div class="input-group">
-                <span class="input-group-text">댓글 입력</span>
-                <textarea id="comment_content" class="form-control" aria-label="comment"></textarea>
-                <button onclick="saveComment()" class="btn btn-primary">확인</button>
-            </div>
-            &nbsp;
-            <div id="comment_list">
-                <!-- 댓글 post -->
-
-            </div>
         </div>
     </div>
 </div>
-
-<!-- 지도 모달 창-->
-<div class="modal fade" id="map-modal" role="map" aria-labelledby="map"
-     aria-hidden="true" tabindex="-1">
-    <!--modal-dailog : 모달 창 영역 설정-->
-    <div class="modal-dialog modal-lg">
-        <!--modal-content : 모달 창 콘텐츠 영역 설정-->
-        <div class="modal-content">
-            <!--modal-header : 모달 창 콘텐츠의 헤더영역-->
-            <div class="modal-header modal-header-custom">
-                <h4 class="modal-title modal-title-custom">지도</h4>
-            </div>
-            <!--modal-body : 모달 창 콘텐츠의 바디영역-->
-            <div class="modal-body" id="map-body">
-                <!-- iframe src="/map?id={id}" -->
-                <div id="map-area">
-                    <iframe id="go-map"></iframe>
-                </div>
-
-            </div>
-            <!--modal-footer : 모달 창 콘텐츠의 푸터영역-->
-            <div class="modal-footer">
-                <div class="modal-footer-custom">
-                    <button type="button" class="btn btn-danger"
-                            data-bs-dismiss="modal">
-                        닫기
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 수정 모달 -->
-<div id="update-modal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- 내용 -->
-        </div>
-
-    </div>
-</div>
-
-
-<script src="/js/meets/meet_detail.js"></script>
 <script src="/js/base.js"></script>
+<script src="/js/meets/meet_detail_upload.js"></script>
+<script>
+    $(".form textarea").on("keyup", function () {
+        var len = $(this).val().length;
+        $(this).siblings("label").find(".length > span").text(len);
+    });
+</script>
+
+
 </body>
 </html>

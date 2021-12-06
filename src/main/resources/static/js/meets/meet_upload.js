@@ -64,7 +64,7 @@ function saveMeet() {
         data: formData,
         success: function (responese) {
             alert("작성 되었습니다.")
-            location.href = '/';
+            location.href = '/meets';
         },
         error: function (err) {
             console.log("err:", err)
