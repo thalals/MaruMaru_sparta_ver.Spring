@@ -64,20 +64,24 @@ public class PostController {
     //수정
     @PutMapping("/posts/detail")
     public void updatePost(@Valid @RequestPart(value = "key") PostRequestDto postrequestdto, @RequestPart(value = "img",required = false) MultipartFile img) throws IOException{
-        System.out.println("-------------들어와아ㅏㅏㅏㅏㅏ");
-        System.out.println(postrequestdto.getTitle());
-        System.out.println(postrequestdto.getContent());
-        System.out.println(postrequestdto.getImg());
-        System.out.println(img);
         postrequestdto.setImg(img);
-
         postService.updatePost(postrequestdto);
+
+    }
+
+    //수정시 본인확인
+    @GetMapping("/posts/check")
+    public boolean checkUser(@RequestParam Long id,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.getPostUserCheck(id,userId);
+
     }
 
     //삭제
     @DeleteMapping("posts/detail")
-    public void delPost(@RequestParam Long id){
-        postService.deletePost(id);
+    public String delPost(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.deletePost(id, userId);
     }
 
     //댓글 생성
@@ -93,13 +97,15 @@ public class PostController {
 
     //댓글 삭제
     @DeleteMapping("/posts/comment")
-    public void delPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
-        postService.deletePostComment(postCommentRequsetDto.getCommentid());
+    public String delPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.deletePostComment(postCommentRequsetDto.getCommentid(),userId);
     }
 
     //댓글 수정
     @PutMapping("/posts/comment")
-    public void updateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
-        postService.updatePostComment(postCommentRequsetDto);
+    public String updateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.updatePostComment(postCommentRequsetDto,userId);
     }
 }
