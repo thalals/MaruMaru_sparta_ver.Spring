@@ -97,16 +97,6 @@
 
 <div class="wrap">
     <div class="container">
-        <div class="top_box m-auto" style="width: 80%">
-            <div class="author">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">작성자</span>
-                    <div id="author_box" type="text" class="form-control" placeholder="" aria-label="Username"
-                         aria-describedby="basic-addon1">
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div id="meet-post" class="contents_box m-auto" style="width: 80%;">
             <!-- 제목, 내용 -->
@@ -114,7 +104,7 @@
 
         <!-- 버튼 그룹 -->
         <div class="detail_button">
-            <button onclick="showModal()" type="button" class="btn btn-primary ui button">
+            <button onclick="showModal(idx)" type="button" class="btn btn-primary ui button">
                 <i class="fa fa-wrench" aria-hidden="true"> 수정</i>
             </button>
             &nbsp;
@@ -184,30 +174,8 @@
             </div>
             <div class="modal-body">
                 <!-- 본문 -->
-                <div class="contents_box m-auto" style="width: 80%;">
+                <div id="modal-post" class="contents_box m-auto" style="width: 80%;">
                     <!-- 제목, 내용 -->
-                    <div class="title">
-                        <input type="hidden" id="meet-idx" value="">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">제목</span>
-                            <input id="update-title" type="text" class="form-control" aria-label="Username"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-
-                    <div class="contents">
-                        <div class="input-group mb-3">
-                            <div>
-                                <img id="ucontent-img"
-                                     src="#"
-                                     height="200px"
-                                     width="200px"><br>
-                            </div>
-                            <textarea class="form-control content" aria-label="With textarea"
-                                      id="update-content"></textarea>
-                        </div>
-
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

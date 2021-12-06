@@ -1,3 +1,17 @@
+$(document).ready(function () {
+    if (localStorage.getItem('token')) {
+        console.log("작동확인");
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            console.log("작동확인2")
+
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/meets')
+    }
+});
+
 function setThumbnail(event) {
     var reader = new FileReader();
     reader.onload = function (event) {
@@ -32,8 +46,11 @@ function saveMeet() {
         return;
     }
 
+
     const formData = new FormData();
-    formData.append("img", $('#img')[0].files[0]);
+    if (typeof $("#img")[0].files[0] != 'undefined') {
+        formData.append("img", $("#img")[0].files[0]);
+    }
     formData.append("title", $('#name').val());
     formData.append("content", $('#message').val());
     formData.append("address", $('#address').val());
@@ -45,10 +62,11 @@ function saveMeet() {
         processData: false,
         contentType: false,
         data: formData,
-        success: function(responese){
-            location.href='/';
+        success: function (responese) {
+            alert("작성 되었습니다.")
+            location.href = '/';
         },
-        error: function(err){
+        error: function (err) {
             console.log("err:", err)
         }
     })

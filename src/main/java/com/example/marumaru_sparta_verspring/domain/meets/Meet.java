@@ -17,6 +17,12 @@ public class Meet extends Timestamped {
     @Id
     private Long idx;
 
+    @Column
+    private Long userId;
+
+    @Column
+    private String username;
+
     @Column(nullable = false)
     private String title;
 
@@ -34,4 +40,6 @@ public class Meet extends Timestamped {
 
     @OneToMany(mappedBy="meet", cascade=CascadeType.ALL)
     private List<MeetComment> comments;
+
+    // TODO : 매개변수로 생성자 설정.
 }
