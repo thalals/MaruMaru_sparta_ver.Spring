@@ -40,7 +40,6 @@ public class MeetService {
             meet.setImgUrl(imgUrl);
         }
         meet.setContent(meetRequestDto.getContent());
-
         meet.setAddress(meetRequestDto.getAddress());
         meet.setDate(meetRequestDto.getDate());
 

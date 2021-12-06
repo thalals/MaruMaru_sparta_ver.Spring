@@ -18,6 +18,17 @@ function showMeetDetail(idx) {
         success: (response) => {
             // 본문
             const temp = `
+                    <div class="top_box m-auto" style="width: 80%">
+                        <div class="author">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">작성자</span>
+                                <div id="author_box" type="text" class="form-control" placeholder="" aria-label="Username"
+                                     aria-describedby="basic-addon1">
+                                     ${response.username}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="title">
                         <input type="hidden" id="idx" value="${response.idx}">
                         <div class="input-group mb-3">
@@ -49,7 +60,7 @@ function showMeetDetail(idx) {
                     <div class="card mb-2">
                     <input type="hidden" id="comment-idx" value="${response['comments'][i].idx}" />
                     <div class="card-header bg-light">
-                        <i class="fa fa-comment fa"></i> 작성자: <span id="username"></span>
+                        <i class="fa fa-comment fa"></i> 작성자: <span id="username">${response['username']}</span>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -105,12 +116,12 @@ function saveComment() {
                  <div class="card mb-2">
                  <input type="hidden" id="comment-idx" value="${response['idx']}" />
                     <div class="card-header bg-light">
-                        <i class="fa fa-comment fa"></i> 작성자: <span id="username"></span>
+                        <i class="fa fa-comment fa"></i> 작성자 <span id="username"></span>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <div class="comment_wrote">내용: ${response['comment']}</div>
+                                <div class="comment_wrote">${response['comment']}</div>
                             </li>
                         </ul>
                     </div>

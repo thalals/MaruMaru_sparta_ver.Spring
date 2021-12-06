@@ -23,7 +23,7 @@ function getMeet() {
                                         <div class="card-content">
                                             <div class="num float-right">#${count}</div>
                                             <div class="evnet-title">${responese[i].title}</div>
-                                            <div class="author">작성자</div>
+                                            <div class="author">${responese[i].username}</div>
                                             <p class="event-content">${responese[i].content}</p>
                                             <div class="event-sub" id="time">${responese[i].date}</div>
                                             <div class="view">조회수 ${responese[i].address}</div>
