@@ -45,9 +45,8 @@ public class MeetController {
     }
 
     @PutMapping("/meet/{id}")
-    public Long update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
-        meetService.update(id, meetUpdateRequestDto);
-        return id;
+    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
+        return meetService.update(id, meetUpdateRequestDto);
     }
 
     @DeleteMapping("/meet/{id}")

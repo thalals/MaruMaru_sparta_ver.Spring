@@ -77,12 +77,13 @@ public class MeetService {
     }
 
     @Transactional
-    public void update(Long id, MeetUpdateRequestDto meetUpdateRequestDto) {
+    public Meet update(Long id, MeetUpdateRequestDto meetUpdateRequestDto) {
         Meet meet = meetRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시글이 없습니다."));
         meet.setTitle(meetUpdateRequestDto.getTitle());
         meet.setContent(meetUpdateRequestDto.getContent());
         meetRepository.save(meet);
+        return meet;
     }
 }

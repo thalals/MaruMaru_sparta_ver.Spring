@@ -2,12 +2,36 @@ $(document).ready(() => {
     const curUrl = window.location.href.split('/');
     const idx = curUrl[curUrl.length - 1];
     showMeetDetail(idx);
-
 });
 
 
 function showModal(idx) {
     $('#update-modal').modal('show');
+    console.log(idx)
+    $.ajax({
+        type: 'GET',
+        url: '/meet/api/meet' + idx,
+        dataType: 'json',
+        contentType : 'application/json; charset=utf-8',
+        success: (response) => {
+            const temp_html = `
+                <div>
+                    <div>제목: ${response.title}</div>
+                    <div>내용: ${response.content}</div>
+                    <div>주소: ${response.address}</div>
+                    <div>날짜: ${response.date}</div>
+                    <div>이미지: ${response.imgUrl}</div> 
+                </div>
+            `;
+            $('#modal-content').append(temp_html);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+
+
+    })
+
 }
 
 function showMeetDetail(idx) {
