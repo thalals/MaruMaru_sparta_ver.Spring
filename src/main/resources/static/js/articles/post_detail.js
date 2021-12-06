@@ -32,12 +32,19 @@ function show_post(id) {
             const username = response["username"];
             const img = response["img"];
             const number = response["idx"];
+            //이미지
+            if(img==null){
+                $("#content-img").remove();
+            }
+            else{
+                $("#content-img").attr("src", img)
+            }
 
             $("#idx").val(number);
             $("#author_box").text(username);
             $("#title_box").text(title);
             $("#contents_box_span").text(contents);
-            $("#content-img").attr("src", img)
+
 
             $("#update-title").val(title);
             $("#update-content").text(contents);

@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,13 +31,16 @@ public class PostService {
     private final S3Uploader s3Uploader;
 
 
-    public void CreatePost(@RequestBody PostRequestDto postRequestDto, Long userId) throws IOException {
+    @Transactional
+    public void createPost(@RequestBody PostRequestDto postRequestDto, Long userId) throws IOException {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
         Post post = new Post(postRequestDto, userId, user.getUsername());
-        String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
-        post.setImg(imgUrl);
+        if(postRequestDto.getImg()!=null) {
+            String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
+            post.setImg(imgUrl);
+        }
         postrepository.save(post);
     }
 
@@ -51,7 +55,8 @@ public class PostService {
         return post;
     }
 
-    public void UpdatePost(PostRequestDto postRequestDto) throws IOException {
+    @Transactional
+    public void updatePost(PostRequestDto postRequestDto) throws IOException {
         Post post = postrepository.findById(postRequestDto.getIdx()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
@@ -68,7 +73,8 @@ public class PostService {
 
     }
 
-    public void DeletePost(Long id){
+    @Transactional
+    public void deletePost(Long id){
         postrepository.deleteById(id);
     }
 
@@ -82,7 +88,8 @@ public class PostService {
         return resultList;
     }
 
-    public void CreateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, Long userId){
+    @Transactional
+    public void createComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, Long userId){
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
@@ -95,11 +102,13 @@ public class PostService {
         postCommentRepository.save(comment);
     }
 
-    public void DeletePostComment(Long id){
+    @Transactional
+    public void deletePostComment(Long id){
         postCommentRepository.deleteById(id);
     }
 
-    public void UpdatePostComment(PostCommentRequsetDto postCommentRequsetDto){
+    @Transactional
+    public void updatePostComment(PostCommentRequsetDto postCommentRequsetDto){
         PostComment postComment = postCommentRepository.findById(postCommentRequsetDto.getCommentid()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );

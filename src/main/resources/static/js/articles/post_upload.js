@@ -2,6 +2,7 @@ $(document).ready(function () {
     bsCustomFileInput.init();
 
     if (localStorage.getItem('token')) {
+        console.log('로그인 토큰 있음')
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
 
@@ -15,21 +16,15 @@ $(document).ready(function () {
 function post_upload() {
     let title = $("#title_box").val()
     let content = $("#contents_box").val()
-    let file = null
-
-    // 파일명 출력
-    let fileInput = document.getElementsByClassName("file");
-
-    if (fileInput.length > 0) {
-        filename = fileInput[0].files[0].name
-        file = $('#file')[0].files[0]
-    }
 
     const formData = new FormData();
 
     formData.append("title",title);
     formData.append("content",content);
-    formData.append("img",file);
+    // 파일명 출력
+    if (typeof $("#file")[0].files[0] != 'undefined') {
+        formData.append("img", $("#file")[0].files[0]);
+    }
 
     if ($("#title_box").val().length == 0) {
         alert("제목을 입력하세요!");

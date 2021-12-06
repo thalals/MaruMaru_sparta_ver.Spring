@@ -45,7 +45,7 @@ public class Post extends Timestamped {
     private String username;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
     private List<PostComment> comments = new ArrayList<PostComment>();
     
     //새로운 게시글 생성
