@@ -24,6 +24,7 @@
 
     <!-- Css -->
     <link rel="stylesheet" href="/css/meets/meet_upload.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -75,7 +76,7 @@
                         게시글
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/list">게시글 보기</a></li>
+                        <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
                         <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
                         <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
@@ -84,28 +85,27 @@
             <button id="login-button" onclick="location.href='/login'" type="button" class="btn btn-success">로그인
             </button>
             <div onclick="get_card()"><img id="user-profile" class="rounded-circle"
-                                           src="/static/profile_pics/profile_placeholder.png" width="50px"
+                                           src="/img/profile_placeholder.png" width="50px"
                                            height="50px">
             </div>
         </div>
     </div>
 </nav>
 
-<!-- 프로필 창 -->
-<!--<div id="user-card" class="invisible card-profile shadow p-3 mb-5 bg-body opacity-90 bg-light rounded"-->
-<!--     style="width: 18rem;">-->
-<!--    <div class="card-body text-center">-->
-<!--        <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"-->
-<!--             src="/static/profile_pics/profile_placeholder.png">-->
+<div id="user-card" class="invisible card-profile shadow p-3 mb-5 bg-body opacity-90 bg-light rounded"
+     style="width: 18rem;">
+    <div class="card-body text-center">
+        <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"
+             src="/img/profile_placeholder.png">
 
-<!--        <br>-->
-<!--        <h5 class="card-title">Name</h5>-->
-<!--        <h6 class="card-subtitle mb-2 text-muted"> ID </h6>-->
-<!--        <p class="card-text"> discription </p>-->
-<!--        <a href="/user_profile" class="card-link">My Profile</a>-->
-<!--        <a href="javascript:void(0);" onclick="logout()" class="card-link">logout</a>-->
-<!--    </div>-->
-<!--</div>-->
+        <br>
+        <h5 class="card-title">Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted"> ID </h6>
+        <p class="card-text"> discription </p>
+        <a href="/user_profile" class="card-link">My Profile</a>
+        <a href="javascript:void(0);" onclick="logout()" class="card-link">logout</a>
+    </div>
+</div>
 
 <div class="form">
     <div class="wrapper">
@@ -167,6 +167,7 @@
     });
 </script>
 <script src="/js/meets/meet_upload.js"></script>
+<script src="/js/base.js"></script>
 
 <!--주소 api-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -1,3 +1,14 @@
+$(document).ready(function () {
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/meets')
+    }
+});
+
 function setThumbnail(event) {
     var reader = new FileReader();
     reader.onload = function (event) {
@@ -46,6 +57,7 @@ function saveMeet() {
         contentType: false,
         data: formData,
         success: function(responese){
+            alert("작성 되었습니다.")
             location.href='/';
         },
         error: function(err){
