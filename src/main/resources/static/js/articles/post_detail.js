@@ -29,7 +29,7 @@ function show_post(id) {
             console.log(response)
             const title = response["title"];
             const contents = response["content"];
-            const username = response["username"];
+            const username = response["user"]["username"];
             const img = response["img"];
             const number = response["idx"];
             //이미지
@@ -70,42 +70,7 @@ function update_img(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
-function do_update_post(){
-    let content = $('#update-content').val();
-    let title = $('#update-title').val();
-    let file = null;
-    let fileInput = document.getElementsByClassName("upfile");
-
-    if (fileInput.length > 0) {
-        file = $('#upfile')[0].files[0]
-    }
-
-    var data = {
-        title:title,
-        content: content,
-        idx: id
-    };
-
-    const formData = new FormData();
-    formData.append("img", file);
-    formData.append("key", new Blob([JSON.stringify(data)] , {type: "application/json"}));
-
-
-    $.ajax({
-        type: "PUT",
-        url: `/posts/detail`,
-        processData: false,
-        contentType: false,
-        data: formData,
-        success: function (response) {
-            window.location.reload();
-        },
-        error: function (request, status, error) {
-            alert(error);
-        }
-    });
-}
-function update_post() {
+function checking_user(){
     if (confirm("수정 하시겠습니까?") == false) {
         $('#modalClose').click();
     } else {
@@ -113,12 +78,12 @@ function update_post() {
             type: "GET",
             url: `/posts/check`,
 
-            data: {id:id},
+            data: {id: id},
             success: function (response) {
-                if(response){
-                    do_update_post()
-                }
-                else{
+                console.log(response)
+                if (response) {
+                    showModal();
+                } else {
                     alert("작성자만 수정할 수 있습니다.")
                 }
 
@@ -127,8 +92,44 @@ function update_post() {
                 alert(error);
             }
         });
-
     }
+}
+
+function update_post() {
+        let content = $('#update-content').val();
+        let title = $('#update-title').val();
+        let file = null;
+        let fileInput = document.getElementsByClassName("upfile");
+
+        if (fileInput.length > 0) {
+            file = $('#upfile')[0].files[0]
+        }
+
+        var data = {
+            title:title,
+            content: content,
+            idx: id
+        };
+
+        const formData = new FormData();
+        formData.append("img", file);
+        formData.append("key", new Blob([JSON.stringify(data)] , {type: "application/json"}));
+
+
+        $.ajax({
+            type: "PUT",
+            url: `/posts/detail`,
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+
+                window.location.reload();
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
 
 }
 
@@ -141,7 +142,8 @@ function delete_post() {
             url: `/posts/detail`,
             data: {id: idx},
             success: function (response) {
-                alert(response)
+                if(response!="success")
+                    alert(response)
                 window.location.href = `/show-post`
             },
             error: function (request, status, error) {
@@ -212,7 +214,6 @@ function comment_upload() {
         }),
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            console.log(response)
             let comment_text = ""
             const arr_comment = response.reverse();
             arr_comment.forEach((e) => {
@@ -277,7 +278,8 @@ function comment_update(id) {
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                alert(response)
+                if(response!="success")
+                    alert(response)
                 window.location.reload();
             },
             error: function (request, status, error) {
@@ -302,7 +304,8 @@ function comment_delete(id) {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({commentid:id}),
             success: function (response) {
-                alert(response)
+                if(response!="success")
+                    alert(response)
                 window.location.reload();
             },
             error: function (request, status, error) {
