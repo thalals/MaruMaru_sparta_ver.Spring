@@ -39,6 +39,7 @@ public class UserService {
 
     public User registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
+        String nickname = username;
 
         // 패스워드 인코딩
         String password = passwordEncoder.encode(requestDto.getPassword());
@@ -46,7 +47,7 @@ public class UserService {
         UserRole role = UserRole.USER;
 
 
-        User user = new User(username, password, role);
+        User user = new User(username, password, role, nickname);
         userRepository.save(user);
 
         return user;

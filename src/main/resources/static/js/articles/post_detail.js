@@ -29,15 +29,22 @@ function show_post(id) {
             console.log(response)
             const title = response["title"];
             const contents = response["content"];
-            const username = response["username"];
+            const username = response["user"]["username"];
             const img = response["img"];
             const number = response["idx"];
+            //이미지
+            if(img==null){
+                $("#content-img").remove();
+            }
+            else{
+                $("#content-img").attr("src", img)
+            }
 
             $("#idx").val(number);
             $("#author_box").text(username);
             $("#title_box").text(title);
             $("#contents_box_span").text(contents);
-            $("#content-img").attr("src", img)
+
 
             $("#update-title").val(title);
             $("#update-content").text(contents);
@@ -63,10 +70,32 @@ function update_img(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
-function update_post() {
+function checking_user(){
     if (confirm("수정 하시겠습니까?") == false) {
         $('#modalClose').click();
     } else {
+        $.ajax({
+            type: "GET",
+            url: `/posts/check`,
+
+            data: {id: id},
+            success: function (response) {
+                console.log(response)
+                if (response) {
+                    showModal();
+                } else {
+                    alert("작성자만 수정할 수 있습니다.")
+                }
+
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+    }
+}
+
+function update_post() {
         let content = $('#update-content').val();
         let title = $('#update-title').val();
         let file = null;
@@ -94,13 +123,13 @@ function update_post() {
             contentType: false,
             data: formData,
             success: function (response) {
+
                 window.location.reload();
             },
             error: function (request, status, error) {
                 alert(error);
             }
         });
-    }
 
 }
 
@@ -113,6 +142,8 @@ function delete_post() {
             url: `/posts/detail`,
             data: {id: idx},
             success: function (response) {
+                if(response!="success")
+                    alert(response)
                 window.location.href = `/show-post`
             },
             error: function (request, status, error) {
@@ -183,7 +214,6 @@ function comment_upload() {
         }),
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            console.log(response)
             let comment_text = ""
             const arr_comment = response.reverse();
             arr_comment.forEach((e) => {
@@ -248,6 +278,8 @@ function comment_update(id) {
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
+                if(response!="success")
+                    alert(response)
                 window.location.reload();
             },
             error: function (request, status, error) {
@@ -272,6 +304,8 @@ function comment_delete(id) {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({commentid:id}),
             success: function (response) {
+                if(response!="success")
+                    alert(response)
                 window.location.reload();
             },
             error: function (request, status, error) {

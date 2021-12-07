@@ -36,8 +36,12 @@ public class PostController {
     @GetMapping("/post-list")
     public List<PostResponseDto> getPostList(){
         List<PostResponseDto> postList = postService.getPostList();
-        PostResponseDto best = postList.stream().sorted(Comparator.comparing(PostResponseDto::getView)).collect(Collectors.toList()).get(postList.size()-1);
-        postList.add(0,best);
+        PostResponseDto best;
+        if(postList.size()>0) {
+            best = postList.stream().sorted(Comparator.comparing(PostResponseDto::getView)).collect(Collectors.toList()).get(postList.size() - 1);
+            postList.add(0,best);
+        }
+
         return postList;
     }
     
@@ -52,35 +56,39 @@ public class PostController {
 
     //생성
     @PostMapping("/posts")
-    public void CreatePosController(@Valid @ModelAttribute PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
+    public void createPosController(@Valid @ModelAttribute PostRequestDto postrequestdto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
         Long userId = userDetails.getUser().getId();
-        postService.CreatePost(postrequestdto,userId);
+        postService.createPost(postrequestdto,userId);
     }
 
     //수정
     @PutMapping("/posts/detail")
-    public void UpdatePost(@Valid @RequestPart(value = "key") PostRequestDto postrequestdto, @RequestPart(value = "img",required = false) MultipartFile img) throws IOException{
-        System.out.println("-------------들어와아ㅏㅏㅏㅏㅏ");
-        System.out.println(postrequestdto.getTitle());
-        System.out.println(postrequestdto.getContent());
-        System.out.println(postrequestdto.getImg());
-        System.out.println(img);
+    public void updatePost(@Valid @RequestPart(value = "key") PostRequestDto postrequestdto, @RequestPart(value = "img",required = false) MultipartFile img) throws IOException{
         postrequestdto.setImg(img);
+        postService.updatePost(postrequestdto);
 
-        postService.UpdatePost(postrequestdto);
+    }
+
+    //수정시 본인확인
+    @GetMapping("/posts/check")
+    public boolean checkUser(@RequestParam Long id,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.getPostUserCheck(id,userId);
+
     }
 
     //삭제
     @DeleteMapping("posts/detail")
-    public void delPost(@RequestParam Long id){
-        postService.DeletePost(id);
+    public String delPost(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.deletePost(id, userId);
     }
 
     //댓글 생성
     @PostMapping("/posts/comment")
-    public List<PostComment> CreatePostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto,  @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public List<PostComment> createPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto,  @AuthenticationPrincipal UserDetailsImpl userDetails){
         Long userId = userDetails.getUser().getId();
-        postService.CreateComment(postCommentRequsetDto, userId);
+        postService.createComment(postCommentRequsetDto, userId);
 
         Post post = postService.getPostDetail(postCommentRequsetDto.getPostid());
 
@@ -89,13 +97,15 @@ public class PostController {
 
     //댓글 삭제
     @DeleteMapping("/posts/comment")
-    public void DelPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
-        postService.DeletePostComment(postCommentRequsetDto.getCommentid());
+    public String delPostComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.deletePostComment(postCommentRequsetDto.getCommentid(),userId);
     }
 
     //댓글 수정
     @PutMapping("/posts/comment")
-    public void UpdateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto){
-        postService.UpdatePostComment(postCommentRequsetDto);
+    public String updateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return postService.updatePostComment(postCommentRequsetDto,userId);
     }
 }

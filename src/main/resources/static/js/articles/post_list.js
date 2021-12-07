@@ -12,7 +12,9 @@ function show_post_list() {
             console.log(response)
             const articles = response;
             let list_num = 0
-            show_best(response[0]);
+            if(articles.length>0) {
+                show_best(articles[0]);
+            }
             for (let i = 1; i < articles.length; i++) {
                 const username = articles[i]['username']
                 const title = articles[i]['title']

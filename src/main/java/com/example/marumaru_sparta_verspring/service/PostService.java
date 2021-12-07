@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,13 +31,16 @@ public class PostService {
     private final S3Uploader s3Uploader;
 
 
-    public void CreatePost(@RequestBody PostRequestDto postRequestDto, Long userId) throws IOException {
+    @Transactional
+    public void createPost(@RequestBody PostRequestDto postRequestDto, Long userId) throws IOException {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
-        Post post = new Post(postRequestDto, userId, user.getUsername());
-        String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
-        post.setImg(imgUrl);
+        Post post = new Post(postRequestDto, user);
+        if(postRequestDto.getImg()!=null) {
+            String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
+            post.setImg(imgUrl);
+        }
         postrepository.save(post);
     }
 
@@ -50,8 +54,21 @@ public class PostService {
         postrepository.save(post);
         return post;
     }
+    
+    //게시글 수정시 본인 확인
+    public boolean getPostUserCheck(Long postid, Long userID){
+        Post post = postrepository.findById(postid).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        if(post.getUser().getId()==userID){
+            return true;
+        }
+        else return false;
 
-    public void UpdatePost(PostRequestDto postRequestDto) throws IOException {
+    }
+    
+    @Transactional
+    public void updatePost(PostRequestDto postRequestDto) throws IOException {
         Post post = postrepository.findById(postRequestDto.getIdx()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
@@ -68,8 +85,19 @@ public class PostService {
 
     }
 
-    public void DeletePost(Long id){
-        postrepository.deleteById(id);
+    @Transactional
+    public String deletePost(Long id, Long userID){
+        Post post = postrepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 게시물이 존재하지 않습니다.")
+        );
+
+        if(post.getUser().getId()==userID) {
+            postrepository.deleteById(id);
+            return "success";
+        }
+        else{
+            return "게시글 작성자가 아닙니다.";
+        }
     }
 
     public List<PostResponseDto> getPostList(){
@@ -82,7 +110,8 @@ public class PostService {
         return resultList;
     }
 
-    public void CreateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, Long userId){
+    @Transactional
+    public void createComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, Long userId){
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
@@ -95,17 +124,34 @@ public class PostService {
         postCommentRepository.save(comment);
     }
 
-    public void DeletePostComment(Long id){
-        postCommentRepository.deleteById(id);
+    @Transactional
+    public String deletePostComment(Long id, Long userID){
+        PostComment comment = postCommentRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 댓글이 존재하지 않습니다.")
+        );
+        if(comment.getUser().getId()==userID) {
+            postCommentRepository.deleteById(id);
+            return "success";
+        }
+        else{
+            return "댓글 작성자가 아닙니다.";
+        }
     }
 
-    public void UpdatePostComment(PostCommentRequsetDto postCommentRequsetDto){
+    @Transactional
+    public String updatePostComment(PostCommentRequsetDto postCommentRequsetDto, Long userID){
         PostComment postComment = postCommentRepository.findById(postCommentRequsetDto.getCommentid()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
+        if(postComment.getUser().getId()==userID) {
+            postComment.setComment(postCommentRequsetDto.getComment());
+            postCommentRepository.save(postComment);
+            return "success";
+        }
+        else{
+            return "댓글 작성자가 아닙니다.";
+        }
 
-        postComment.setComment(postCommentRequsetDto.getComment());
-        postCommentRepository.save(postComment);
     }
 
 }
