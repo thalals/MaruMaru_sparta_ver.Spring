@@ -9,7 +9,6 @@ function getMeet() {
         processData: false,
         contentType: false,
         success: function(responese){
-            console.log(responese);
             let temp = ""
             let count = 0;
             for(let i = 0; i < responese.length; i++) {
@@ -26,7 +25,8 @@ function getMeet() {
                                             <div class="author">${responese[i].username}</div>
                                             <p class="event-content">${responese[i].content}</p>
                                             <div class="event-sub" id="time">${responese[i].date}</div>
-                                            <div class="view">조회수 ${responese[i].address}</div>
+                                            <div class="view">조회수 ${responese[i].view}</div>
+                                            <div class="address">${responese[i].address}</div>
                                         </div>
                                     </div>
                                 </div>

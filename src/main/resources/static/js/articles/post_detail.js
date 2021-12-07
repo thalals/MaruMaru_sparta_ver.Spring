@@ -191,7 +191,6 @@ function show_comment(comments) {
                                     </ul>
                                 </div>
                             </div>
-                            
                         `
     })
     $(`#comment_list`).html(comment_text)

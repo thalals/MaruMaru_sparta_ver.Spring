@@ -65,7 +65,7 @@
                         게시글
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/list">게시글 보기</a></li>
+                        <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
                         <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
                         <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
@@ -98,13 +98,13 @@
 <div class="wrap">
     <div class="container">
 
-        <div id="meet-post" class="contents_box m-auto" style="width: 80%;">
+        <div id="meet-post" class="contents_box m-auto">
             <!-- 제목, 내용 -->
         </div>
 
         <!-- 버튼 그룹 -->
         <div class="detail_button">
-            <button onclick="showModal(idx)" type="button" class="btn btn-primary ui button">
+            <button onclick="updateMeet()" type="button" class="btn btn-primary ui button">
                 <i class="fa fa-wrench" aria-hidden="true"> 수정</i>
             </button>
             &nbsp;
@@ -116,7 +116,23 @@
                 <i class="far fa-thumbs-up"> 좋아요0</i>
             </button>
         </div>
+
+        <!--주소, 지도버튼-->
+        <div class="address_box">
+            <div class="address mt-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">주소</span>
+                    <div id="address-box" type="text" class="form-control address" aria-label="address"
+                         aria-describedby="basic-addon1">
+
+                    </div>
+                    <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- 댓글 입력 -->
     <div class="comment_wrap">
         <div class="detail_comment">
@@ -127,7 +143,8 @@
             </div>
             &nbsp;
             <div id="comment_list">
-            <!-- 댓글 post -->
+                <!-- 댓글 post -->
+
             </div>
         </div>
     </div>
@@ -165,26 +182,6 @@
     </div>
 </div>
 
-<div id="update-modal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">수정하기</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- 본문 -->
-                <div id="modal-post" class="contents_box m-auto" style="width: 80%;">
-                    <!-- 제목, 내용 -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">저장</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="/js/meets/meet_detail.js"></script>
 <script src="/js/base.js"></script>

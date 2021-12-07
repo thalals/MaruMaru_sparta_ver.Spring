@@ -67,4 +67,9 @@ public class FrontController {
 
     @GetMapping("/profile/modify/{idx}") //프로필 수정
     public String getProfileModify(){ return "profile/profile_detail_upload"; }
+
+    @GetMapping("/meet-change/{id}")
+    public String getPageMeetUpload(){
+        return "meets/meet_detail_upload";
+    }
 }

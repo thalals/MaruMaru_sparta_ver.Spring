@@ -39,20 +39,31 @@ public class MeetController {
         return meetService.getMeet(id);
     }
 
-    @PostMapping("/meet/comment")
-    public MeetComment setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) {
-        return meetService.saveMeetComment(meetCommentRequestDto);
-    }
-
     @PutMapping("/meet/{id}")
-    public Long update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
-        meetService.update(id, meetUpdateRequestDto);
-        return id;
+    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
+        return meetService.update(id, meetUpdateRequestDto);
     }
 
     @DeleteMapping("/meet/{id}")
     public Long deleteMeet(@PathVariable Long id) throws IOException {
         meetService.delete(id);
         return id;
+    }
+
+    @PostMapping("/meet/comment")
+    public MeetComment setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return meetService.saveMeetComment(meetCommentRequestDto, userId);
+    }
+
+    @DeleteMapping("/meet/comment/{id}")
+    public void deleteComment(@PathVariable Long id) throws IOException {
+        meetService.deleteComment(id);
+    }
+
+
+    @PutMapping("/meet/comment")
+    public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) throws IOException {
+        meetService.updateComment(meetCommentRequestDto);
     }
 }

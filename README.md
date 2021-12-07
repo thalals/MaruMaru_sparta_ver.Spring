@@ -6,7 +6,7 @@
 + 반려견을 위한 반려견의 의한 반려 동반자의 커뮤니티 사이트
 
 
-## Project Directory
+## 🐶Project Directory
 
 ```
 .
@@ -33,6 +33,20 @@
 ```
 
 <br/>
+
+## 👍 API 설계
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|Meet 게시글 조회 |GET|  /api/meets           |      | Meet 게시글 List |
+|Meet 게시글 작성 |POST|  /api/meets          |게시글 입력값(FormData) | Meet 게시글 List |
+|Meet 상세 조회  |GET|  /api/meet/{id}        |                      | Meet 게시글 |
+|Meet 게시글 수정 |PUT|  /api/meet/{id}       | 게시글 입력값(FormData) | 수정 결과 |
+|Meet 게시글 삭제 |DELETE|  /api/meet/{id}    |      |           |
+
+
+<br/>
+
 
 ## 🧙 맴버구성
 

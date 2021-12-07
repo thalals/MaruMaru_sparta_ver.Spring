@@ -99,3 +99,11 @@ iframe {
     margin: 30px auto 0px auto;
     border-radius: 30px;
 }
+
+.dropdown{
+    float: right;
+}
+
+.comment_wrote {
+    padding: 10px;
+}

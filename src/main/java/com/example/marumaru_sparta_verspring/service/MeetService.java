@@ -11,6 +11,7 @@ import com.example.marumaru_sparta_verspring.repository.MeetCommentRepository;
 import com.example.marumaru_sparta_verspring.repository.MeetRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,22 +49,29 @@ public class MeetService {
     }
 
     public List<Meet> getMeets() {
-        return meetRepository.findAll();
+        return meetRepository.findAll(Sort.by(Sort.Direction.DESC, "modifiedAt"));
     }
 
 
     public Meet getMeet(Long id) {
-        return meetRepository.findById(id).orElseThrow(
+        Meet meet = meetRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
+        meet.setView(meet.getView()+1);
+        meetRepository.save(meet);
+        return meet;
     }
 
     @Transactional
-    public MeetComment saveMeetComment(MeetCommentRequestDto meetCommentRequestDto) {
-        Meet meet = meetRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+    public MeetComment saveMeetComment(MeetCommentRequestDto meetCommentRequestDto, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
-        MeetComment meetComment = new MeetComment(meetCommentRequestDto, meet);
+
+        Meet meet = meetRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        MeetComment meetComment = new MeetComment(meetCommentRequestDto, meet, user);
         meetCommentRepository.save(meetComment);
         return meetComment;
     }
@@ -77,12 +85,27 @@ public class MeetService {
     }
 
     @Transactional
-    public void update(Long id, MeetUpdateRequestDto meetUpdateRequestDto) {
+    public Meet update(Long id, MeetUpdateRequestDto meetUpdateRequestDto) {
         Meet meet = meetRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시글이 없습니다."));
         meet.setTitle(meetUpdateRequestDto.getTitle());
         meet.setContent(meetUpdateRequestDto.getContent());
         meetRepository.save(meet);
+        return meet;
+    }
+
+    @Transactional
+    public void deleteComment(Long id) {
+        meetCommentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateComment(MeetCommentRequestDto meetCommentRequestDto) {
+        MeetComment meetComment = meetCommentRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        meetComment.setComment(meetCommentRequestDto.getComment());
+        meetCommentRepository.save(meetComment);
     }
 }
