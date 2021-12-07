@@ -55,9 +55,10 @@ public class User extends Timestamped {
         this.kakaoId = kakaoId;
     }
 
-    public User(String username, String password, UserRole role) {
+    public User(String username, String password, UserRole role, String nickname) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.nickname = nickname;
     }
 }
