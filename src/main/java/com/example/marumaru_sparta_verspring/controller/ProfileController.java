@@ -46,8 +46,15 @@ public class ProfileController {
         profileService.updateProfile(profileRequestDto);
     }
 
+    @GetMapping("/profile/check")
+    public boolean checkUser(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return profileService.getProfileUserCheck(id, userId);
+    }
+
     @DeleteMapping("/profile/detail") //프로필 삭제
-    public void deleteProfile(@RequestParam Long id) {
-        profileService.deleteProfile(id);
+    public String deleteProfile(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return profileService.deleteProfile(id, userId);
     }
 }

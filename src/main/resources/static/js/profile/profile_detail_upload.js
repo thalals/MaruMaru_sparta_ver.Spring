@@ -45,46 +45,43 @@ function detailProfile(id) {
     });
 }
 
+
 function update_profile() {
-    if (confirm("수정 하시겠습니까?") == false) {
-        window.closed
-    } else {
-        let file = null;
-        let dogName = $('#dog_name').val();
-        let dogAge = $('#dog_age').val();
-        let dogGender = $('#dog_gender').val();
-        let dogComment = $('#dog_comment').val();
-        let fileInput = document.getElementsByClassName("profile_image");
+    let file = null;
+    let dogName = $('#dog_name').val();
+    let dogAge = $('#dog_age').val();
+    let dogGender = $('#dog_gender').val();
+    let dogComment = $('#dog_comment').val();
+    let fileInput = document.getElementsByClassName("profile_image");
 
-        if (fileInput.length > 0) {
-            file = $('#profile_image')[0].files[0]
-        }
-
-        let data = {
-            dogName : dogName,
-            dogAge : dogAge,
-            dogGender : dogGender,
-            dogComment : dogComment,
-            idx : id
-        }
-
-        let formData = new FormData();
-        formData.append("dogimg", file);
-        formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
-
-        $.ajax({
-            type: "PUT",
-            url: `/profile/detail`,
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (response) {
-                window.location.reload();
-            },
-            error: function (request, status, error) {
-                alert(error);
-            }
-        });
+    if (fileInput.length > 0) {
+        file = $('#profile_image')[0].files[0]
     }
 
+    let data = {
+        dogName : dogName,
+        dogAge : dogAge,
+        dogGender : dogGender,
+        dogComment : dogComment,
+        idx : id
+    }
+
+    let formData = new FormData();
+    formData.append("dogimg", file);
+    formData.append("key", new Blob([JSON.stringify(data)], {type: "application/json"}));
+
+    $.ajax({
+        type: "PUT",
+        url: `/profile/detail`,
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (response) {
+            window.close();
+            window.location.reload();
+        },
+        error: function (request, status, error) {
+            alert(error);
+        }
+    });
 }
