@@ -26,7 +26,7 @@ function getMeet() {
                                             <p class="event-content">${responese[i].content}</p>
                                             <div class="event-sub" id="time">${responese[i].date}</div>
                                             <div class="view">조회수 ${responese[i].view}</div>
-                                            <div class="address">장소 ${responese[i].address}</div>
+                                            <div class="address">${responese[i].address}</div>
                                         </div>
                                     </div>
                                 </div>

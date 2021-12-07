@@ -116,7 +116,23 @@
                 <i class="far fa-thumbs-up"> 좋아요0</i>
             </button>
         </div>
+
+        <!--주소, 지도버튼-->
+        <div class="address_box">
+            <div class="address mt-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">주소</span>
+                    <div id="address-box" type="text" class="form-control address" aria-label="address"
+                         aria-describedby="basic-addon1">
+
+                    </div>
+                    <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- 댓글 입력 -->
     <div class="comment_wrap">
         <div class="detail_comment">
@@ -163,16 +179,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- 수정 모달 -->
-<div id="update-modal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <!-- 내용 -->
-        </div>
-
     </div>
 </div>
 
