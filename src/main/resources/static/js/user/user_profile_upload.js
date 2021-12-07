@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    bsCustomFileInput.init();
 
     if (localStorage.getItem('token')) {
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {

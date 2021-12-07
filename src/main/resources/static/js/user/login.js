@@ -106,6 +106,8 @@ function sign_up() {
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
+            localStorage.setItem("token", response['token']);
+            localStorage.setItem("username", response['username']);
             alert("회원가입이 완료되었습니다!!");
             $('#my-modal').toggleClass("is-active");
             reAction();
@@ -178,7 +180,7 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        window.location.replace("/user/login")
+        window.location.replace("/user/profile")
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')
