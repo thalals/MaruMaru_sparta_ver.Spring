@@ -2,6 +2,15 @@ $(document).ready(() => {
     const curUrl = window.location.href.split('/');
     const idx = curUrl[curUrl.length - 1];
     showMeetDetail(idx);
+
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
 });
 
 
@@ -39,8 +48,6 @@ function showMeetDetail(idx) {
         type: 'GET',
         url: `/meet/api/meet/${idx}`,
         success: (response) => {
-            // 본문
-            console.log(response.comments);
             const temp = `
                     <div class="top_box m-auto">
                         <div class="author">
@@ -117,15 +124,15 @@ function showComments(comments) {
                             <div class="card mb-2">
                                 <div class="card-header bg-light">
                                     <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
-                                    <input hidden value="${e['idx']}">
+                                    <input id="comment-idx" hidden value="${e['idx']}">
                                         <div class="h-auto dropdown">
-                                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                          <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                             Edit
                                           </a>
                                            
                                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#" onclick="showUpdateComment(${e['idx']})">수정</a></li>
-                                            <li><a class="dropdown-item" href="#" onclick="updateDelete(${e['idx']})">삭제</a></li>
+                                            <li><a class="dropdown-item" onclick="showUpdateComment(${e['idx']})">수정</a></li>
+                                            <li><a class="dropdown-item" onclick="deleteComment(${e['idx']})">삭제</a></li>
                                           </ul>
                                         </div>
                                 </div>
@@ -151,15 +158,16 @@ function showComments(comments) {
 
 function saveComment() {
     const content = $('#comment_content');
-    const comment = {
-        "idx": $('#idx').val(),
-        "comment": content.val()
+    const id = $('#idx').val();
+    console.log(id)
+    const inputData = {
+        idx: id,
+        comment: content.val()
     };
-
     $.ajax({
         type: "POST",
         url: "/meet/api/meet/comment",
-        data: JSON.stringify(comment),
+        data: JSON.stringify(inputData),
         contentType: 'application/json; charset=utf-8',
         success: (response) => {
             alert("댓글 저장!");
@@ -196,14 +204,14 @@ function showUpdateComment(id) {
 }
 
 // api 제작
-function updateDelete() {
+function deleteComment(id) {
     const result = confirm("댓글을 삭제 하시겠습니까?");
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/posts/comment`,
+            url: `/meet/api/meet/comment/` + id,
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({commentid: id}),
+            data: JSON.stringify(),
             success: function (response) {
                 window.location.reload();
             },
@@ -219,12 +227,12 @@ function updateComment(id) {
     const result = confirm("수정하시겠습니까?");
     if (result) {
         data = {
-            commentId: id,
+            idx: id,
             comment: $("#comment_upvalue_" + id).val()
         }
         $.ajax({
             type: "PUT",
-            url: `/posts/comment`,
+            url: `/meet/api/meet/comment`,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
@@ -234,7 +242,5 @@ function updateComment(id) {
                 console.log(error);
             }
         })
-    } else {
-        comment_update_input(id)
     }
 }

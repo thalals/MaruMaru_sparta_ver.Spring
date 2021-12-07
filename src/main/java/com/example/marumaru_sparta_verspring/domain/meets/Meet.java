@@ -32,14 +32,20 @@ public class Meet extends Timestamped {
     @Column
     private String imgUrl;
 
+    @Column(columnDefinition = "int default 0")
+    private int view;
+
     @Column
     private String address;
 
     @Column
     private String date;
 
-    @OneToMany(mappedBy="meet", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "meet", cascade = CascadeType.ALL)
     private List<MeetComment> comments;
 
-    // TODO : 매개변수로 생성자 설정.
+    //조회수 증가
+    public void upView(int view) {
+        this.view = view;
+    }
 }

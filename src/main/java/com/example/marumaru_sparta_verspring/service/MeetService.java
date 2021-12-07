@@ -59,11 +59,15 @@ public class MeetService {
     }
 
     @Transactional
-    public MeetComment saveMeetComment(MeetCommentRequestDto meetCommentRequestDto) {
-        Meet meet = meetRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+    public MeetComment saveMeetComment(MeetCommentRequestDto meetCommentRequestDto, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
-        MeetComment meetComment = new MeetComment(meetCommentRequestDto, meet);
+
+        Meet meet = meetRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        MeetComment meetComment = new MeetComment(meetCommentRequestDto, meet, user);
         meetCommentRepository.save(meetComment);
         return meetComment;
     }
@@ -85,5 +89,19 @@ public class MeetService {
         meet.setContent(meetUpdateRequestDto.getContent());
         meetRepository.save(meet);
         return meet;
+    }
+
+    @Transactional
+    public void deleteComment(Long id) {
+        meetCommentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateComment(MeetCommentRequestDto meetCommentRequestDto) {
+        MeetComment meetComment = meetCommentRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        meetComment.setComment(meetCommentRequestDto.getComment());
+        meetCommentRepository.save(meetComment);
     }
 }
