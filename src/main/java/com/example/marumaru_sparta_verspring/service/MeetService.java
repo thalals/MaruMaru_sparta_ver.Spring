@@ -11,6 +11,7 @@ import com.example.marumaru_sparta_verspring.repository.MeetCommentRepository;
 import com.example.marumaru_sparta_verspring.repository.MeetRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,7 +49,7 @@ public class MeetService {
     }
 
     public List<Meet> getMeets() {
-        return meetRepository.findAll();
+        return meetRepository.findAll(Sort.by(Sort.Direction.DESC, "modifiedAt"));
     }
 
 

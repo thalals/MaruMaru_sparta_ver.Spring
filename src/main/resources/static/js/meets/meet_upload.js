@@ -1,9 +1,6 @@
 $(document).ready(function () {
     if (localStorage.getItem('token')) {
-        console.log("작동확인");
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            console.log("작동확인2")
-
             jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
         });
     } else {
@@ -13,14 +10,17 @@ $(document).ready(function () {
 });
 
 function setThumbnail(event) {
+    // Todo : 파일 1개로 제한하기
     var reader = new FileReader();
     reader.onload = function (event) {
         var img = document.createElement("img");
         img.setAttribute("src", event.target.result);
+        img.setAttribute("width", 350);
         document.querySelector("div#image_container").appendChild(img);
-    };
+    }
     reader.readAsDataURL(event.target.files[0]);
-}
+};
+
 
 $(function () {
     $("#datepicker").datepicker({

@@ -117,7 +117,7 @@
                 </div>
                 <div class="file">
                     <label for="img">파일 업로드</label>
-                    <input type="file" id="img" accept="image/*" onchange="setThumbnail(event);" autocomplete="off">
+                    <input type="file" id="img" accept="image/*" onchange="setThumbnail(event);" autocomplete="off" multiple="false">
                     <div id="image_container"></div>
                 </div>
 
@@ -130,14 +130,6 @@
                 <div class="date">
                     <label for="datepicker">행사 날짜</label>
                     <input type="text" id="datepicker" placeholder="날짜를 선택해주세요" autocomplete="off">
-                </div>
-                <div class="participant">
-                    <label for="participant">행사 인원 제한</label>
-                    <select name="participant" id="participant">
-                        <option value="">--인원 제한--</option>
-                        <option value=5>5인 이하</option>
-                        <option value="unlimit">제한 없음</option>
-                    </select>
                 </div>
             </div>
             <div class="half">

@@ -30,7 +30,7 @@ public class Meet extends Timestamped {
     private String content;
 
     @Column
-    private String imgUrl;
+    private String imgUrl ="/img/no-pic.png";
 
     @Column(columnDefinition = "int default 0")
     private int view;
