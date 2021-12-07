@@ -54,9 +54,12 @@ public class MeetService {
 
 
     public Meet getMeet(Long id) {
-        return meetRepository.findById(id).orElseThrow(
+        Meet meet = meetRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
+        meet.setView(meet.getView()+1);
+        meetRepository.save(meet);
+        return meet;
     }
 
     @Transactional
