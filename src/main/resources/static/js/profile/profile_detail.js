@@ -5,13 +5,11 @@ $(document).ready(function () {
     if (localStorage.getItem('token')) {
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
-
         });
     } else {
         alert('로그인을 해주세요')
         location.replace('/user/login')
     }
-    detailProfile(id)
 });
 
 function Modify_baby_profile() {
@@ -21,7 +19,11 @@ function Modify_baby_profile() {
     }
 }
 
-function detailProfile(id) {
+$(document).ready(function () {
+    detailProfile()
+});
+
+function detailProfile() {
     $.ajax({
         type: "GET",
         url: `/profile/detail`,
@@ -47,6 +49,47 @@ function detailProfile(id) {
         }
     });
 }
+
+function checking_user_update() {
+    $.ajax({
+        type: "GET",
+        url: `/profile/check`,
+
+        data: {id: id},
+        success: function (response) {
+            if (response) {
+                Modify_baby_profile();
+            } else {
+                alert("작성자만 수정할 수 있습니다.")
+            }
+
+        },
+        error: function (request, status, error) {
+            alert(error);
+        }
+    });
+}
+
+function checking_user_delete() {
+    $.ajax({
+        type: "GET",
+        url: `/profile/check`,
+
+        data: {id: id},
+        success: function (response) {
+            if (response) {
+                delete_profile();
+            } else {
+                alert("작성자만 삭제할 수 있습니다.")
+            }
+
+        },
+        error: function (request, status, error) {
+            alert(error);
+        }
+    });
+}
+
 function delete_profile() {
     let id = $("#profile_id").val();
     let result =confirm("정말로 삭제 하시겠습니까?");
