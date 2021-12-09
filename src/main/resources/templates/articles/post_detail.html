@@ -31,7 +31,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
+    <script src="/js/articles/post_show_detail.js"></script>
     <script src="/js/articles/post_detail.js"></script>
+
+    <!--사진 파일 뽑기-->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 
     <!-- Jquery cookie-->
     <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -67,14 +71,14 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
                         <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
-                        <li><a class="dropdown-item" href="/event/list">이벤트 보기</a></li>
+                        <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
                 </li>
             </ul>
             <button id="login-button" onclick="location.href='/login'" type="button" class="btn btn-success">로그인
             </button>
             <div onclick="get_card()"><img id="user-profile" class="rounded-circle"
-                                           src="/static/profile_pics/profile_placeholder.png" width="50px"
+                                           src="/img/profile_placeholder.png" width="50px"
                                            height="50px">
             </div>
         </div>
@@ -86,7 +90,7 @@
      style="width: 18rem;">
     <div class="card-body text-center">
         <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"
-             src="/static/profile_pics/profile_placeholder.png">
+             src="/img/profile_placeholder.png">
 
         <br>
         <h5 class="card-title">Name</h5>
@@ -136,25 +140,11 @@
                     </div>
                 </div>
             </div>
-
-            <!--주소, 지도버튼-->
-            <!--            <div class="address_box">-->
-            <!--                <div class="address mt-3">-->
-            <!--                    <div class="input-group mb-3">-->
-            <!--                        <span class="input-group-text">주소</span>-->
-            <!--                        <div id="address-box" type="text" class="form-control address" aria-label="Username"-->
-            <!--                             aria-describedby="basic-addon1">-->
-            <!--                        </div>-->
-            <!--                        <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도-->
-            <!--                        </button>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
 
         <!-- 버튼 그룹 -->
         <div class="detail_button">
-            <button onclick="showModal()" type="button" class="btn btn-primary ui button">
+            <button onclick="checking_user()" type="button" class="btn btn-primary ui button">
                 <i class="fa fa-wrench" aria-hidden="true"> 수정</i>
             </button>
             &nbsp;
@@ -177,21 +167,7 @@
             </div>
 
             <div id="comment_list">
-                <div class="card mb-2">
-                    <div class="card-header bg-light">
-                        <i class="fa fa-comment fa"></i> 작성자: <span id="username"></span>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="comment_wrote">내용:</div>
-                                <button type="button" class="btn btn-dark mt-3">수정</button>
-                                <button onclick="comment_delete()" type="button" class="btn btn-dark mt-3">삭제
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <!--댓글 리스트-->
             </div>
         </div>
     </div>
@@ -217,24 +193,20 @@
                                    aria-describedby="basic-addon1">
                         </div>
                     </div>
-
                     <div class="contents">
+                        <div class="img-box">
+                            <img id="ucontent-img" src="#" height="200px" width="200px"><br>
+                            <input type="file" class="upfile" id="upfile" onchange="update_img(event)">
+                        </div>
                         <div class="input-group mb-3">
-                            <div>
-                                <img id="ucontent-img" src="#" height="200px" width="200px"><br>
-                            </div>
-                            <div>
-                                <input type="file" class="custom-file-input file" id="upfile" onchange="update_img(event)">
-                                <label class="custom-file-label" for="upfile">사진 첨부하기</label>
-                            </div>
-                            <div>
-                                <textarea class="form-control content" aria-label="With textarea" id="update-content"></textarea>
-                            </div>
+                            <textarea class="form-control content" aria-label="With textarea"
+                                      id="update-content"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="modalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="modalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                    </button>
                     <button type="button" class="btn btn-primary" onclick="update_post()">수정</button>
                 </div>
             </div>

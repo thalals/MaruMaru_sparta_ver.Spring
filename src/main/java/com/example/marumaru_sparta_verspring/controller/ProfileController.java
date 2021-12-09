@@ -1,12 +1,18 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.articles.Profile;
-import com.example.marumaru_sparta_verspring.dto.ProfileRequestDto;
+import com.example.marumaru_sparta_verspring.domain.S3Uploader;
+import com.example.marumaru_sparta_verspring.domain.profile.Profile;
+import com.example.marumaru_sparta_verspring.dto.profile.ProfileRequestDto;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
+import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,33 +21,40 @@ public class ProfileController {
 
     private final ProfileService profileService;
     private final ProfileRepository profileRepository;
+    private final S3Uploader s3Uploader;
 
-    @PostMapping("/meets/profile") //프로필 작성
-    public Profile setProfile(@RequestBody ProfileRequestDto profileRequestDto) {
-        return profileService.setProfile(profileRequestDto);
+    @PostMapping("/profile") //프로필 작성
+    public Profile setProfile(ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg") MultipartFile image,  @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        return profileService.setProfile(profileRequestDto, image, userId);
     }
 
-    @GetMapping("/meets/profiles") //프로필 리스트 불러오기
-    public List<Profile> getProfiles() {
+    @GetMapping("/profile") //프로필 리스트 불러오기
+    public List<Profile> getProfiles() throws IOException {
         return profileService.getProfiles();
     }
 
-    @GetMapping("/meets/profile/{id}") //프로필 상세보기
-    public Profile getProfile(@PathVariable Long id) { //변수 매핑
+    @GetMapping("/profile/detail") //프로필 상세보기
+    public Profile getProfile(@RequestParam Long id) { //변수 매핑
         return profileService.getProfile(id);
     }
 
 
-    @PutMapping("/meets/profile/{id}") //프로필 수정
-    public Long updateProfile(@PathVariable Long id, @RequestBody ProfileRequestDto requestDto) {
-        profileService.update(id, requestDto);
-        return id;
+    @PutMapping("/profile/detail") //프로필 수정
+    public void updateProfile(@Valid @RequestPart(value = "key") ProfileRequestDto profileRequestDto, @RequestPart(value = "dogImg", required = false) MultipartFile dogImg) throws IOException {
+        profileRequestDto.setDogImg(dogImg);
+        profileService.updateProfile(profileRequestDto);
     }
 
+    @GetMapping("/profile/check")
+    public boolean checkUser(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return profileService.getProfileUserCheck(id, userId);
+    }
 
-    @DeleteMapping("/meets/profile/{id}")
-    public Long deleteProfile(@PathVariable Long id) {
-        profileRepository.deleteById(id);
-        return id;
+    @DeleteMapping("/profile/detail") //프로필 삭제
+    public String deleteProfile(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return profileService.deleteProfile(id, userId);
     }
 }

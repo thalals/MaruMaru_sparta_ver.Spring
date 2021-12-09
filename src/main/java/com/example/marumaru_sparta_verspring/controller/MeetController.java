@@ -1,15 +1,19 @@
 package com.example.marumaru_sparta_verspring.controller;
 
-import com.example.marumaru_sparta_verspring.domain.S3Uploader;
-import com.example.marumaru_sparta_verspring.domain.articles.Meet;
-import com.example.marumaru_sparta_verspring.dto.MeetRequestDto;
+import com.example.marumaru_sparta_verspring.domain.meets.Meet;
+import com.example.marumaru_sparta_verspring.domain.meets.MeetComment;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetCommentRequestDto;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetRequestDto;
+import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
+import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.MeetService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,20 +22,48 @@ import java.util.List;
 public class MeetController {
 
     private final MeetService meetService;
-    private final S3Uploader s3Uploader;
 
     @PostMapping("/meets")
-    public Meet saveMeet(@Valid @ModelAttribute MeetRequestDto meetRequestDto) throws IOException {
-        return meetService.saveMeet(meetRequestDto);
+    public Meet saveMeet(@Valid @ModelAttribute MeetRequestDto meetRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
+        Long userId = userDetails.getUser().getId();
+        return meetService.saveMeet(meetRequestDto, userId);
     }
 
     @GetMapping("/meets")
-    public List<Meet> setMeet() throws IOException {
-        return meetService.getMeet();
+    public List<Meet> showMeets() throws IOException {
+        return meetService.getMeets();
     }
 
-    @PostMapping("/images") // 쿼리스크트 - 폼데이터
-    public String upload(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        return s3Uploader.upload(multipartFile, "static");
+    @GetMapping("/meet/{id}")
+    public Meet showMeet(@PathVariable Long id) throws IOException {
+        return meetService.getMeet(id);
+    }
+
+    @PutMapping("/meet/{id}")
+    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
+        return meetService.update(id, meetUpdateRequestDto);
+    }
+
+    @DeleteMapping("/meet/{id}")
+    public Long deleteMeet(@PathVariable Long id) throws IOException {
+        meetService.delete(id);
+        return id;
+    }
+
+    @PostMapping("/meet/comment")
+    public MeetComment setMeetComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return meetService.saveMeetComment(meetCommentRequestDto, userId);
+    }
+
+    @DeleteMapping("/meet/comment/{id}")
+    public void deleteComment(@PathVariable Long id) throws IOException {
+        meetService.deleteComment(id);
+    }
+
+
+    @PutMapping("/meet/comment")
+    public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) throws IOException {
+        meetService.updateComment(meetCommentRequestDto);
     }
 }

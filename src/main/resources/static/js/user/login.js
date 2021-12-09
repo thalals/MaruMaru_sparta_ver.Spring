@@ -32,6 +32,9 @@ function sign_in() {
             localStorage.setItem("token", response['token']);
             localStorage.setItem("username", response['username']);
             location.href = '/';
+        },
+        error: function (response) {
+            alert("아이디 혹은 비밀번호를 확인해주세요.")
         }
     });
 }
@@ -69,14 +72,13 @@ function sign_up() {
     }
 
 
-
-    // if ($("#help-id").hasClass("is-danger")) {
-    //     alert("아이디를 다시 확인해주세요.")
-    //     return;
-    // } else if (!$("#help-id").hasClass("is-success")) {
-    //     alert("아이디 중복확인을 해주세요.")
-    //     return;
-    // }
+    if ($("#help-id").hasClass("is-danger")) {
+        alert("아이디를 다시 확인해주세요.")
+        return;
+    } else if (!$("#help-id").hasClass("is-success")) {
+        alert("아이디 중복확인을 해주세요.")
+        return;
+    }
 
     if (password == "") {
         $("#help-password").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
@@ -107,6 +109,8 @@ function sign_up() {
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
+            localStorage.setItem("token", response['token']);
+            localStorage.setItem("username", response['username']);
             alert("회원가입이 완료되었습니다!!");
             $('#my-modal').toggleClass("is-active");
             reAction();
@@ -179,7 +183,7 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        // window.location.replace("/user_profile")
+        window.location.replace("/user/profile")
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')

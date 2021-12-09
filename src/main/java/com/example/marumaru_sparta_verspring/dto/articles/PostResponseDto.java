@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.dto.articles;
 
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
+import com.example.marumaru_sparta_verspring.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class PostResponseDto {
     private String content;
     private String createdAt;  //생성시간
     private String img;
-    private String username;
+    private User user;
     private int view;
     private List<PostComment> comments;
 }

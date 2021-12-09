@@ -65,7 +65,7 @@
                         게시글
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/list">게시글 보기</a></li>
+                        <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
                         <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
                         <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
@@ -74,7 +74,7 @@
             <button id="login-button" onclick="location.href='/login'" type="button" class="btn btn-success">로그인
             </button>
             <div onclick="get_card()"><img id="user-profile" class="rounded-circle"
-                                           src="/static/profile_pics/profile_placeholder.png" width="50px"
+                                           src="/img/profile_placeholder.png" width="50px"
                                            height="50px">
             </div>
         </div>
@@ -85,7 +85,7 @@
      style="width: 18rem;">
     <div class="card-body text-center">
         <img style="height: 100px; width: 100px" class="rounded-circle card-profile-img"
-             src="/static/profile_pics/profile_placeholder.png">
+             src="/img/profile_placeholder.png">
 
         <br>
         <h5 class="card-title">Name</h5>
@@ -106,7 +106,7 @@
     <button src="..." class="btn btn-primary rounded-pill" alt="...">조회수</button>
     <button src="..." class="btn btn-primary rounded-pill" alt="...">제목</button>
     <button src="..." class="btn btn-primary rounded-pill" alt="...">필터</button>
-    <button onclick="onClickCreateEvent()" type="button" class="btn btn-dark float-right">이벤트 생성</button>
+    <button onclick="location.href='/meet'" type="button" class="btn btn-dark float-right">이벤트 생성</button>
     <hr>
 
     <div id="event-body">
