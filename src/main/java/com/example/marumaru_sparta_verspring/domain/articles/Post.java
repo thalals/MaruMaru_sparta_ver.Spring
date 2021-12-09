@@ -34,7 +34,7 @@ public class Post extends Timestamped {
     private String content;
 
     @Column
-    private String img;
+    private String img="/img/no-pic.png";
 
     @Column(columnDefinition = "int default 0")
     private int view;
