@@ -5,7 +5,6 @@ import com.example.marumaru_sparta_verspring.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter

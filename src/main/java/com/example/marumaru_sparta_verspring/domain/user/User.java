@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.domain.user;
 
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
+import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
@@ -31,21 +32,29 @@ public class User extends Timestamped {
     @Column(nullable = false)
     private String password;
 
+    @Column
     private String nickname;
 
+    @Column
     private Long kakaoId;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    private String userProfileImg;
+    @Column
+    private String userProfileImg = "/img/profile.png";
 
+    @Column
     private String userContent;
 
     @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Profile> dogProfile = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> post = new ArrayList<>();
 
 
     public User(String username, String password, Long kakaoId, UserRole role) {

@@ -1,0 +1,65 @@
+.wrapper {
+    width: 1140px;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0 15px;
+}
+
+.form {
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.form .header {
+    margin-bottom: 35px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.form .header .title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1259a7;
+}
+
+.post_list_wrap {
+    padding: 10px 150px;
+}
+
+.post_list_head,
+.post_list_body .item {
+    padding: 10px 0;
+    font-size: 0;
+}
+
+.post_list_head {
+    border-top: 2px solid #3DB2FF;
+    border-bottom: 1px solid;
+}
+
+.post_list_body .item {
+    border-bottom: 1px solid;
+}
+
+.post_list_head > div,
+.post_list_body .item > div {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.post_list .title {
+    width: 60%;
+}
+
+.post_list .post_list_body .title {
+    text-align: left;
+}
+
+.post_list .author {
+    width: 15%;
+}
+
+.post_list .date {
+    width: 15%;
+}
