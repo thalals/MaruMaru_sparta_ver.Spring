@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/meet/api")
+@RequestMapping("/api")
 public class MeetController {
 
     private final MeetService meetService;
