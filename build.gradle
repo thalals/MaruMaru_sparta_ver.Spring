@@ -56,10 +56,6 @@ test {
     outputs.dir snippetsDir
 }
 
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
 task copyDocument(type: Copy) {
     dependsOn asciidoctor
     from file("build/docs/asciidoc")
