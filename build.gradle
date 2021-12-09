@@ -56,11 +56,6 @@ test {
     outputs.dir snippetsDir
 }
 
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
-}
-
 asciidoctor.doFirst {
     delete file('src/main/resources/static/docs')
 }
