@@ -74,6 +74,13 @@ public class UserApiController {
         exists = "FALSE";
         return exists;
     }
+
+    //회원 탈퇴
+    @DeleteMapping("withdrawal/{username}")
+    public void delPost(@PathVariable String username){
+        userService.deleteUser(username);
+    }
+
 //
 //    @PostMapping("/user/profile/check-nick")
 //    public String checkNickname(@RequestBody UserDto userDto) {
@@ -89,30 +96,30 @@ public class UserApiController {
 //    }
 
     //유저프로필 수정
-    @PutMapping("/userProfile")
+    @PutMapping("/userprofile")
     public void updateUser(@Valid @RequestPart(value = "key") UserProfileRequestDto userProfileDto, @RequestPart(value = "userImage",required = false) MultipartFile userImage) throws IOException{
         userProfileDto.setUserProfileImg(userImage);
         userService.updateUser(userProfileDto);
     }
 
     //유저 정보 가져오기
-    @GetMapping(value = "/userProfile/{username}")
+    @GetMapping(value = "/userprofile/{username}")
     public UserProfileResponseDto getUserInfo(@PathVariable String username) {
         User user = userService.searchUser(username);
         UserProfileResponseDto userProfileResponseDto = modelMapper.map(user, UserProfileResponseDto.class);
         return userProfileResponseDto;
     }
 
-    @GetMapping("/user/dogProfile")
+    //나의 강아지 프로필 가져오기
+    @GetMapping("/user/dogprofile")
     public List<ProfileResponseDto> getUserDogProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return userService.dogProfiles(userDetails.getUser().getId());
     }
 
-
-    //회원 탈퇴
-    @DeleteMapping("withdrawal/{username}")
-    public void delPost(@PathVariable String username){
-        userService.deleteUser(username);
+    //내가 쓴 게시물 가져오기
+    @GetMapping(value = "/user/posts")
+    public List<UserPostDto> getUserPosts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.post(userDetails.getUser());
     }
 
 

@@ -14,7 +14,7 @@ $(document).ready(function () {
     let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: `/userProfile/${username}`,
+        url: `/userprofile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -22,11 +22,24 @@ $(document).ready(function () {
             let profile_info = response['userContent']
             let profile_img = response['userProfileImg']
 
-            $('#profile-img').attr("src", +profile_img)
+            $('#profile-img').attr("src", profile_img)
             $('#name').attr("placeholder", profile_name)
             $('#description').attr("placeholder", profile_info)
         }
     })
+
+    function setThumbnail(event) {
+        let reader = new FileReader();
+        reader.onload = function (event) {
+            let img = document.createElement("img");
+            console.log(img)
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("width", 250);
+            img.setAttribute("height", 300);
+            $('#profile-img').html(img);
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
 })
 
 function go_out() {
@@ -51,7 +64,6 @@ function go_out() {
     }
 }
 
-
 function user_update() {
     let username = localStorage.getItem("username")
     let nickname = $('#name').val();
@@ -66,7 +78,6 @@ function user_update() {
         userContent: userContent,
     };
 
-    console.log(data, file)
     let formData = new FormData()
     formData.append("userImage", file);
     formData.append("key", new Blob([JSON.stringify(data)] , {type: "application/json"}));
@@ -84,21 +95,11 @@ function user_update() {
 
     $.ajax({
         type: "PUT",
-        url: "/userProfile",
+        url: "/userprofile",
         contentType: false,
         processData: false,
         data: formData,
         success: function (response) {
-
-            // FormData의 key 확인
-            for (let key of formData.keys()) {
-                console.log(key);
-            }
-
-            // FormData의 value 확인
-            for (let value of formData.values()) {
-                console.log(value);
-            }
             alert("회원정보 수정 완료!");
             location.replace('/user/profile')
         }

@@ -13,11 +13,10 @@ $(document).ready(function () {
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: `/userProfile/${username}`,
+            url: `/userprofile/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
-                console.log(response)
                 let profile_name = response['nickname']
                 let username = response['username']
                 let profile_info = response['userContent']
