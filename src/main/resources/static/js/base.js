@@ -48,23 +48,6 @@ function get_card() {
     $('#user-profile').toggleClass('border border-2');
 }
 
-function onClickCreateEvent() {
-    if (localStorage.getItem("mytoken") != null) {
-        window.location.href = "/events"
-    } else {
-        alert("로그인 후 생성해주세요 !!")
-        window.location.href = '/login';
-    }
-}
-
-function onClickCreateProfile() {
-    if (localStorage.getItem("mytoken") != null) {
-        window.location.href = "/profile/create"
-    } else {
-        alert("로그인 후 생성해주세요 !!")
-        window.location.href = '/login';
-    }
-}
 
 function logout() {
     localStorage.removeItem("token");

@@ -32,6 +32,9 @@ function sign_in() {
             localStorage.setItem("token", response['token']);
             localStorage.setItem("username", response['username']);
             location.href = '/';
+        },
+        error: function (response) {
+            alert("아이디 혹은 비밀번호를 확인해주세요.")
         }
     });
 }
