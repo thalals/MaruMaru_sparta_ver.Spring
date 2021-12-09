@@ -23,11 +23,11 @@
 │   │    ├──service             # 비즈니스로직
 │   │    └──util                # jwt
 │   │
-│   └──recources
+│   └──resources
 │           ├──static                       # JS/CSS/IMG 파일 + index.html
 │           ├──templates                    # HTML 파일
 │           ├──application.properties       # 설정파일
-│           └──application.aws.yml          # aws 설정 (dotenv 추가 예정)
+│           └──application.aws.yml          # aws 설정 (gitignore)
 └──build.gradle
 ```
 
@@ -42,6 +42,10 @@
 |Meet 상세 조회  |GET|  /api/meet/{id}        |                      | Meet 게시글 |
 |Meet 게시글 수정 |PUT|  /api/meet/{id}       | 게시글 입력값(FormData) | 수정 결과 |
 |Meet 게시글 삭제 |DELETE|  /api/meet/{id}    |      |           |
+|Meet 댓글 작성 |POST|  /api/meet/comment    | Meet_idx, userId |           |
+|Meet 댓글 삭제 |DELETE|  /api/meet/comment/{id} | userId |           |
+|Meet 댓글 수정 |PUT|  /api/meet/comment    | 수정 값 |           |
+
 
 
 <br/>
@@ -97,7 +101,7 @@
 ## 📌 사용 라이브러리, API
 
 1. JPA : DB ORM
-2. spring-cloud-AWS : 사진 업로드
+2. AWS S3: 사진 업로드
 3. jwt : 로그인 암호화
 4. validation : 예외처리
 5. security : 인증/인가 관리
