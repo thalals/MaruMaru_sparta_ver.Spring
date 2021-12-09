@@ -111,13 +111,4 @@ public class MeetService {
         meetComment.setComment(meetCommentRequestDto.getComment());
         meetCommentRepository.save(meetComment);
     }
-
-    public Page<Meet> getPageMeets(Long userId, int page, int size, String sortBy, boolean isAsc) {
-        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        return meetRepository.findAllByUserId(userId, pageable);
-    }
-
 }

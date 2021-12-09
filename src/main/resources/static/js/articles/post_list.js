@@ -9,7 +9,6 @@ function show_post_list() {
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log(response)
             const articles = response;
             let list_num = 0
             if(articles.length>0) {

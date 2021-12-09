@@ -67,17 +67,4 @@ public class MeetController {
     public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) throws IOException {
         meetService.updateComment(meetCommentRequestDto);
     }
-
-    @GetMapping("/meet/pages")
-    public Page<Meet> getMeets(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc,
-            @AuthenticationPrincipal UserDetailsImpl userDetails
-    ) {
-        Long userId = userDetails.getUser().getId();
-        page = page - 1;
-        return meetService.getPageMeets(userId, page , size, sortBy, isAsc);
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.service;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
+import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.profile.Profile;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.domain.user.UserRole;
@@ -8,6 +9,8 @@ import com.example.marumaru_sparta_verspring.dto.profile.ProfileResponseDto;
 import com.example.marumaru_sparta_verspring.dto.user.SignupRequestDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserDto;
 import com.example.marumaru_sparta_verspring.dto.user.UserProfileRequestDto;
+import com.example.marumaru_sparta_verspring.dto.user.UserPostDto;
+import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.repository.ProfileRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import com.example.marumaru_sparta_verspring.security.kakao.KakaoOAuth2;
@@ -36,6 +39,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final S3Uploader s3Uploader;
     private final ProfileRepository profileRepository;
+    private final PostRepository postRepository;
 
     public User registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -127,7 +131,7 @@ public class UserService {
         userRepository.save(user);
 
     }
-    @Transactional
+
     public  List<ProfileResponseDto> dogProfiles(Long userid) {
         List<ProfileResponseDto> profileResponsetDtoList = new ArrayList<>();
         List<Profile> dogProfiles = profileRepository.findByUserId(userid);
@@ -136,5 +140,16 @@ public class UserService {
             profileResponsetDtoList.add(profileResponseDto);
         }
         return profileResponsetDtoList;
+    }
+
+
+    public List<UserPostDto> post(User user) {
+        List<UserPostDto> userPostDtoList = new ArrayList<>();
+        List<Post> posts = postRepository.findByUserId(user.getId());
+        for (Post getPost : posts) {
+            UserPostDto userPostDto = new UserPostDto(getPost, user);
+            userPostDtoList.add(userPostDto);
+        }
+        return userPostDtoList;
     }
 }

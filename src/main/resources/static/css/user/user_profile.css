@@ -1,4 +1,4 @@
-ody {
+body {
     font-family: sans-serif;
 }
 
@@ -183,7 +183,7 @@ ody {
 }
 
 /*--------- profile list---------*/
-* {
+@font-face {
     font-family: 'BinggraeSamanco-Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/BinggraeSamanco-Bold.woff') format('woff');
 }
