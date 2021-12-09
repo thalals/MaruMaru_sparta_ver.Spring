@@ -14,6 +14,17 @@ configurations {
     }
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}") {
+        into "/static/docs"
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -28,6 +39,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2' //model mapper
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     implementation 'org.json:json:20210307'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -42,6 +54,30 @@ dependencies {
 
 }
 
+jar {
+    enabled = false
+}
+
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
 }
