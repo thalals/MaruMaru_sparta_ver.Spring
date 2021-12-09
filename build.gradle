@@ -18,13 +18,6 @@ ext {
     snippetsDir = file('build/generated-snippets')
 }
 
-bootJar {
-    dependsOn asciidoctor
-    from ("${asciidoctor.outputDir}") {
-        into "/static/docs"
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -49,7 +42,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // aws
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 
 }
