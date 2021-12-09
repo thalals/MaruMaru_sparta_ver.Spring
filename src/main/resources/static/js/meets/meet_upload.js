@@ -10,13 +10,12 @@ $(document).ready(function () {
 });
 
 function setThumbnail(event) {
-    // Todo : 파일 1개로 제한하기
     var reader = new FileReader();
     reader.onload = function (event) {
         var img = document.createElement("img");
         img.setAttribute("src", event.target.result);
         img.setAttribute("width", 350);
-        document.querySelector("div#image_container").appendChild(img);
+        $('#image_container').html(img);
     }
     reader.readAsDataURL(event.target.files[0]);
 };
@@ -40,8 +39,7 @@ $(function () {
 })
 
 function saveMeet() {
-    // TODO: 유효성 체크
-    if (!$('#name').val() || !$('#message').val()) {
+    if (!$('#name').val().trim() || !$('#message').val().trim()) {
         alert("제목과 내용은 필수입니다.");
         return;
     }
@@ -58,12 +56,12 @@ function saveMeet() {
 
     $.ajax({
         type: "POST",
-        url: "/meet/api/meets",
+        url: "/api/meets",
         processData: false,
         contentType: false,
         data: formData,
         success: function (responese) {
-            alert("작성 완료!.")
+            alert("등록 성공!")
             location.href = '/meets';
         },
         error: function (err) {

@@ -5,7 +5,6 @@ import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostCommentResponseDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.example.marumaru_sparta_verspring.repository.PostCommentRepository;

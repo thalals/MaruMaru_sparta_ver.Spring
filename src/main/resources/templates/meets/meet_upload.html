@@ -112,11 +112,13 @@
         <div class="content">
             <div class="half">
                 <div class="name">
-                    <label for="name">행사 이름</label>
+                    <label for="name">
+                        <span>제목</span>
+                        <span class="point">* 필수</span></label>
                     <input type="text" id="name" placeholder="내용을 입력해주세요">
                 </div>
                 <div class="file">
-                    <label for="img">파일 업로드</label>
+                    <label for="img">사진 업로드</label>
                     <input type="file" id="img" accept="image/*" onchange="setThumbnail(event);" autocomplete="off" multiple="false">
                     <div id="image_container"></div>
                 </div>
@@ -136,7 +138,7 @@
                 <div class="message">
                     <label for="message">
                         <span>내용</span>
-                        <span class="point">*</span>
+                        <span class="point">* 필수</span>
                         <span class="length">(<span>0</span> / 3000)</span>
                     </label>
                     <textarea id="message" placeholder="내용을 입력주해세요"></textarea>

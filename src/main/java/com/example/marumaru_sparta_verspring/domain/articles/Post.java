@@ -3,7 +3,6 @@ package com.example.marumaru_sparta_verspring.domain.articles;
 import com.example.marumaru_sparta_verspring.domain.Timestamped;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +33,7 @@ public class Post extends Timestamped {
     private String content;
 
     @Column
-    private String img="/img/no-pic.png";
+    private String img = "/img/no-pic.png";
 
     @Column(columnDefinition = "int default 0")
     private int view;
