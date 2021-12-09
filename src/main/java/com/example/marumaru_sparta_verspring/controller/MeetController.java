@@ -8,6 +8,7 @@ import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.MeetService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,5 +66,18 @@ public class MeetController {
     @PutMapping("/meet/comment")
     public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) throws IOException {
         meetService.updateComment(meetCommentRequestDto);
+    }
+
+    @GetMapping("/meet/pages")
+    public Page<Meet> getMeets(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        Long userId = userDetails.getUser().getId();
+        page = page - 1;
+        return meetService.getPageMeets(userId, page , size, sortBy, isAsc);
     }
 }

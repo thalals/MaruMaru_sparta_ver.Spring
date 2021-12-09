@@ -103,6 +103,21 @@
         </h1>
         <h5>오늘도 재미있는 이벤트들이 한가득</h5>
     </div>
+    <div id="see-area">
+        <div class="pagination">
+            정렬:
+            <select id="sorting" onchange="showProduct()">
+                <option value="view">조회수</option>
+                <option value="createdAt">최신순</option>
+                <option value="createdAt">오래된순</option>
+            </select>
+            <input type="radio" name="isAsc" value="true" onchange="showProduct()" checked/> 오름차순
+            <input type="radio" name="isAsc" value="false" onchange="showProduct()"/> 내림차순
+        </div>
+        <div id="pagination" class="pagination"></div>
+        <ul id="product-container">
+        </ul>
+    </div>
     <button src="..." class="btn btn-primary rounded-pill" alt="...">조회수</button>
     <button src="..." class="btn btn-primary rounded-pill" alt="...">제목</button>
     <button src="..." class="btn btn-primary rounded-pill" alt="...">필터</button>
@@ -116,5 +131,6 @@
 
 <script src="/js/meets/meet_list.js"></script>
 <script src="/js/base.js"></script>
+<!--<script src="/js/paging.js"></script>-->
 </body>
 </html>
