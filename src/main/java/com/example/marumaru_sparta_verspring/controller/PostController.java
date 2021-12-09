@@ -3,14 +3,12 @@ package com.example.marumaru_sparta_verspring.controller;
 import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
 import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostCommentResponseDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
 import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.boot.Metadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

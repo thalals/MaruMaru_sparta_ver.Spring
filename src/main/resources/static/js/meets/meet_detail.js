@@ -20,7 +20,7 @@ $(document).ready(() => {
 function showMeetDetail(idx) {
     $.ajax({
         type: 'GET',
-        url: `/meet/api/meet/${idx}`,
+        url: `/api/meet/${idx}`,
         success: (response) => {
             const temp = `
                     <div class="top_box m-auto">
@@ -66,11 +66,11 @@ function showMeetDetail(idx) {
 
 function deleteMeet() {
     const id = $('#idx').val();
-    const result = confirm("댓글을 삭제 하시겠습니까?");
+    const result = confirm("해당 글을 삭제 하시겠습니까?");
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: "/meet/api/meet/" + id,
+            url: "/api/meet/" + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (response) => {
@@ -96,7 +96,6 @@ function showComments(comments) {
     const arr_comment = comments.reverse();
     arr_comment.forEach((e) => {
         temp_comments += `
-                            &nbsp;
                             <div class="card mb-2">
                                 <div class="card-header bg-light">
                                     <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
@@ -142,7 +141,7 @@ function saveComment() {
     };
     $.ajax({
         type: "POST",
-        url: "/meet/api/meet/comment",
+        url: "/api/meet/comment",
         data: JSON.stringify(inputData),
         contentType: 'application/json; charset=utf-8',
         success: (response) => {
@@ -180,7 +179,7 @@ function saveComment() {
                             </div>
                 `;
             content.val("");
-            $('#comment_list').html(comment);
+            $('#comment_list').append(comment);
             // Todo : 내림차순 추가
         },
         error: (error) => {
@@ -203,7 +202,7 @@ function deleteComment(id) {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/meet/api/meet/comment/` + id,
+            url: `/api/meet/comment/` + id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(),
             success: function (response) {
@@ -226,7 +225,7 @@ function updateComment(id) {
         }
         $.ajax({
             type: "PUT",
-            url: `/meet/api/meet/comment`,
+            url: `/api/meet/comment`,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
