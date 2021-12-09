@@ -14,7 +14,6 @@
 ├── src                         # 메인 파일
 │   ├── main/java/com.example.marumaru_sparta_verspring
 │   │    ├──common              # 예외처리
-│   │    ├──config
 │   │    ├──configuration
 │   │    ├──controller
 │   │    ├──domain              # Entity 작성 (테이블)

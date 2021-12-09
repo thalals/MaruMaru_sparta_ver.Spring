@@ -6,7 +6,6 @@ import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 
