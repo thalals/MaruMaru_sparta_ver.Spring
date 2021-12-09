@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    bsCustomFileInput.init();
-
     if (localStorage.getItem('token')) {
         console.log('로그인 토큰 있음')
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {

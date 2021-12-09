@@ -3,23 +3,12 @@ const id = url_list[url_list.length - 1].replace(/[^0-9.]/g, '')
 
 $(document).ready(function () {
     bsCustomFileInput.init();
-    if (localStorage.getItem('token')) {
-        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
-
-        });
-    } else {
-        alert('로그인을 해주세요')
-        location.replace('/user/login')
-    }
     show_post(id)
 });
 
 function showModal() {
     $('#update-modal').modal('show')
 }
-
-
 function show_post(id) {
     $.ajax({
         type: "GET",
@@ -58,7 +47,6 @@ function show_post(id) {
         }
     })
 }
-
 function update_img(event) {
     var reader = new FileReader();
     reader.onload = function (event) {
@@ -70,32 +58,13 @@ function update_img(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
-function checking_user(){
-    if (confirm("수정 하시겠습니까?") == false) {
-        $('#modalClose').click();
-    } else {
-        $.ajax({
-            type: "GET",
-            url: `/posts/check`,
-
-            data: {id: id},
-            success: function (response) {
-                console.log(response)
-                if (response) {
-                    showModal();
-                } else {
-                    alert("작성자만 수정할 수 있습니다.")
-                }
-
-            },
-            error: function (request, status, error) {
-                alert(error);
-            }
-        });
-    }
-}
-
 function update_post() {
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        });
+
         let content = $('#update-content').val();
         let title = $('#update-title').val();
         let file = null;
@@ -130,28 +99,76 @@ function update_post() {
                 alert(error);
             }
         });
-
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
 }
 
 function delete_post() {
-    const idx = $("#idx").val();
-    const result = confirm("정말로 삭제 하시겠습니까?");
-    if (result) {
-        $.ajax({
-            type: "DELETE",
-            url: `/posts/detail`,
-            data: {id: idx},
-            success: function (response) {
-                if(response!="success")
-                    alert(response)
-                window.location.href = `/show-post`
-            },
-            error: function (request, status, error) {
-                alert(error);
-            }
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
         });
+
+        const idx = $("#idx").val();
+        const result = confirm("정말로 삭제 하시겠습니까?");
+        if (result) {
+            $.ajax({
+                type: "DELETE",
+                url: `/posts/detail`,
+                data: {id: idx},
+                success: function (response) {
+                    if(response!="success")
+                        alert(response)
+                    window.location.href = `/show-post`
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                }
+            });
+        } else {
+            return false;
+        }
+
     } else {
-        return false;
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
+
+}
+
+function checking_user(){
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
+        if (confirm("수정 하시겠습니까?") == false) {
+            $('#modalClose').click();
+        } else {
+            $.ajax({
+                type: "GET",
+                url: `/posts/check`,
+
+                data: {id: id},
+                success: function (response) {
+                    console.log(response)
+                    if (response) {
+                        showModal();
+                    } else {
+                        alert("작성자만 수정할 수 있습니다.")
+                    }
+
+                },
+                error: function (request, status, error) {
+                    alert(error);
+                }
+            });
+        }
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
     }
 }
 
@@ -198,69 +215,49 @@ function show_comment(comments) {
 
 //댓글 업로드
 function comment_upload() {
-    const comment_input = $("#comment_content").val();
-    if (comment_input.length == 0) {
-        alert("댓글을 입력해주세요!");
-        return;
-    }
-    const g_idx = $("#idx").val();
-    $.ajax({
-        type: "POST",
-        url: `/posts/comment`,
-        data: JSON.stringify({
-            postid: g_idx,
-            comment: comment_input
-        }),
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            let comment_text = ""
-            const arr_comment = response.reverse();
-            arr_comment.forEach((e) => {
-                comment_text += `
-                            <div class="card mb-2">
-                                <div class="card-header bg-light">
-                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
-                                    <input hidden value="${e['idx']}">
-                                        <div class="h-auto dropdown">
-                                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Edit
-                                          </a>
-                                           
-                                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#" onclick="comment_update_input(${e['idx']})">수정</a></li>
-                                            <li><a class="dropdown-item" href="#" onclick="comment_delete(${e['idx']})">삭제</a></li>
-                                          </ul>
-                                        </div>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="comment_wrote">${e.comment}</div>
-                                               <!--수정 댓글-->
-                                               
-                                             <div id="comment_input_${e['idx']}" class="d-none">
-                                                <input id="comment_upvalue_${e['idx']}" type="text"  class="form-control">
-                                                <button onclick="comment_update(${e['idx']})" type="button" class="h-auto btn btn-dark mt-3">수정</button>
-                                             </div>
-                                             
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        `
-            })
-            $("#comment_content").val("")
-            $(`#comment_list`).html(comment_text)
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
 
-        },
-        error: function (request, status, error) {
-            alert(error);
+        const comment_input = $("#comment_content").val();
+        if (comment_input.length == 0) {
+            alert("댓글을 입력해주세요!");
+            return;
         }
-    });
+        const g_idx = $("#idx").val();
+        $.ajax({
+            type: "POST",
+            url: `/posts/comment`,
+            data: JSON.stringify({
+                postid: g_idx,
+                comment: comment_input
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                window.location.reload();
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
 }
 
 function comment_update_input(id){
-    $("#comment_input_"+id).toggleClass('d-none')
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+            $("#comment_input_"+id).toggleClass('d-none')
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
 }
 //댓글 수정
 function comment_update(id) {
@@ -294,22 +291,31 @@ function comment_update(id) {
 
 //댓글 삭제
 function comment_delete(id) {
-    const result = confirm("댓글을 삭제 하시겠습니까?");
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
 
-    if (result) {
-        $.ajax({
-            type: "DELETE",
-            url: `/posts/comment`,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({commentid:id}),
-            success: function (response) {
-                if(response!="success")
-                    alert(response)
-                window.location.reload();
-            },
-            error: function (request, status, error) {
-                console.log(error);
-            }
-        })
+        const result = confirm("댓글을 삭제 하시겠습니까?");
+
+        if (result) {
+            $.ajax({
+                type: "DELETE",
+                url: `/posts/comment`,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({commentid:id}),
+                success: function (response) {
+                    if(response!="success")
+                        alert(response)
+                    window.location.reload();
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            })
+        }
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
     }
 }
