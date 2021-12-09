@@ -39,12 +39,6 @@ public class Post extends Timestamped {
     @Column(columnDefinition = "int default 0")
     private int view;
 
-//    @Column(nullable = false)
-//    private Long userId;
-//
-//    @Column(nullable = false)
-//    private String username;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -52,7 +46,11 @@ public class Post extends Timestamped {
     @JsonIgnore
     @OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
     private List<PostComment> comments = new ArrayList<PostComment>();
-    
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
+    private List<PostLike> likes = new ArrayList<PostLike>();
+
     //새로운 게시글 생성
     public Post(PostRequestDto postRequestDto, User user){
         this.user = user;
