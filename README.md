@@ -35,6 +35,38 @@
 
 ## 👍 API 설계
 
+### POST 게시글 
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|게시글 조회 |GET|  /post-list        |          | Meet 게시글 List |
+|게시글 작성 |POST|  /posts           |게시글 입력값(FormData) |      |
+|상세 조회  |GET|  /posts/detail     |           id(QueryString)    | 게시글 |
+|게시글 권한 확인 |GET|  /posts/check      | 게시글 입력값(FormData) |  |
+|게시글 수정 |PUT|  /posts/detail     | 게시글 입력값(FormData) |  |
+|게시글 삭제 |DELETE| /posts/detai    | id(QueryString)      |         |
+|댓글 작성 |POST|  /posts/comment    |  userId , id         |         |
+|댓글 삭제 |DELETE|  /posts/comment | userId , id |         |
+|댓글 수정 |PUT| /posts/comment  | 수정 값, id |           |
+
+
+
+### profile 기능
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|프로필 조회 |GET|  /profile        |                |          |
+|프로필 작성 |POST|  /profile         |              |          |
+|프로필 상세 조회  |GET|  /profile/detail     |               |         |
+|프로필 수정 |PUT|  /profile/detail      |              |         |
+|프로필 권한 확인 |GET|  /profile/check     |               |       |
+|프로필 삭제 |DELETE| /profile/detail    |             |         |
+
+
+
+
+### MEET 기능
+
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
 |Meet 게시글 조회 |GET|  /api/meets           |      | Meet 게시글 List |
@@ -45,6 +77,23 @@
 |Meet 댓글 작성 |POST|  /api/meet/comment    | Meet_idx, userId |           |
 |Meet 댓글 삭제 |DELETE|  /api/meet/comment/{id} | userId |           |
 |Meet 댓글 수정 |PUT|  /api/meet/comment    | 수정 값 |           |
+
+
+### User 기능
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|로그인        |POST|  /login         |      |        |
+|카카오 로그인 |POST|  /login/kakao      |         |        |
+|회원가입       |POST|  /signup        |                      |       |
+|아이디 중복 확인 |POST|  /signup-check-dup       |         |       |
+|회원 탈퇴       |DELETE|  /withdrawak/{username}  |            |           |
+|유저 프로필 수정 |PUT|  /userprofile    |                   |           |
+|유저 정보 가져오기 |GET|  /userprofile/{username} |  |           |
+|유저의 강아지 프로필 |GET|  /user/dogprofile      |  |           |
+|내가 쓴 게시글 확인 |GET|  /user/posts              |  |           |
+
+
 
 <br/>
 
@@ -99,7 +148,7 @@
 ## 📌 사용 라이브러리, API
 
 1. JPA : DB ORM
-2. spring-cloud-AWS : 사진 업로드
+2. AWS S3: 사진 업로드
 3. jwt : 로그인 암호화
 4. validation : 예외처리
 5. security : 인증/인가 관리
