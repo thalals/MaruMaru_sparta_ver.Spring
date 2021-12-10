@@ -1,3 +1,5 @@
+let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
+
 //쿠키에 mytoken이 존재하면 user 정보 띄우기
 $(document).ready(function () {
     let my_token = localStorage.getItem('token');
@@ -13,7 +15,7 @@ $(document).ready(function () {
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: `/userprofile/${username}`,
+            url: `${ebUrl}/userProfile/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
@@ -51,5 +53,5 @@ function get_card() {
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    location.href = "/";
+    location.href = ebUrl;
 }
