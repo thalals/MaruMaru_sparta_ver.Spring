@@ -8,12 +8,12 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace(`${ebUrl}/user/login`)
+        location.replace(`/user/login`)
     }
 });
 
 function Modify_baby_profile() {
-    var popup = window.open(`${ebUrl}/profile/modify/${id}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
+    var popup = window.open(`/profile/modify/${id}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
     popup.onbeforeunload=function (){
         window.location.reload();
     }
@@ -26,7 +26,7 @@ $(document).ready(function () {
 function detailProfile() {
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/profile/detail`,
+        url: `/profile/detail`,
         data: {id : id},
         success: function (response) {
             console.log(response)
@@ -53,7 +53,7 @@ function detailProfile() {
 function checking_user_update() {
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/profile/check`,
+        url: `/profile/check`,
 
         data: {id: id},
         success: function (response) {
@@ -73,7 +73,7 @@ function checking_user_update() {
 function checking_user_delete() {
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/profile/check`,
+        url: `/profile/check`,
 
         data: {id: id},
         success: function (response) {
@@ -96,7 +96,7 @@ function delete_profile() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `${ebUrl}/profile/detail`,
+            url: `/profile/detail`,
             data: {id: id},
             success: function (response) {
                 window.location.href = `${ebUrl}/profiles`
