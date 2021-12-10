@@ -11,11 +11,20 @@ $(document).ready(function () {
         $('#login-button').hide();
         $('#user-profile').show();
 
+        if (localStorage.getItem('token')) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+            });
+        } else {
+            alert('로그인을 해주세요')
+            location.replace('/login')
+        }
 
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: `${ebUrl}/userProfile/${username}`,
+            url: `${ebUrl}/userprofile/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
