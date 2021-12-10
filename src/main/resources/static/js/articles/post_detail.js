@@ -248,10 +248,8 @@ function comment_upload() {
 
 function comment_update_input(id){
     if (localStorage.getItem('token')) {
-        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
-            $("#comment_input_"+id).toggleClass('d-none')
-        });
+        $("#comment_input_"+id).toggleClass('d-none')
+
     } else {
         alert('로그인을 해주세요')
         location.replace('/user/login')
