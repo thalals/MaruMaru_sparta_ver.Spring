@@ -5,11 +5,10 @@ $(document).ready(function () {
 function show_post_list() {
     $.ajax({
         type: 'GET',
-        url: '/post-list',
+        url: '${ebUrl}/post-list',
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log(response)
             const articles = response;
             let list_num = 0
             if(articles.length>0) {

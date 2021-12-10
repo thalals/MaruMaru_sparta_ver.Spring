@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico");
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -46,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/login/kakao").permitAll()
                 .antMatchers("/signup").permitAll()
-                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/docs/**").permitAll()
                 .antMatchers("/meets").permitAll()
                 .antMatchers("/meet").permitAll()

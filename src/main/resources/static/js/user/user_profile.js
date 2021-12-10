@@ -1,3 +1,4 @@
+let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
 $(document).ready(function () {
     bsCustomFileInput.init();
 
@@ -15,11 +16,11 @@ $(document).ready(function () {
     let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: `/userProfile/${username}`,
+        url: `${ebUrl}/userprofile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log(response)
+            $('.thumbnail').attr("src", response["userProfileImg"])
             $('.thumbnail').attr("src", response["userProfileImg"])
             $('#username').attr("placeholder", response['username'])
             $('#name').attr("placeholder", response['nickname'])
@@ -29,11 +30,10 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: `/user/dogProfile`,
+        url: `${ebUrl}/user/dogprofile`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
-            console.log(response)
             for(let i=0; i<response.length;i++){
                 let temp_html=`<div class="card color-card">
                                     <ul>
@@ -87,7 +87,7 @@ function ProfileLike(number) {
 
     $.ajax({
         type: "POST",
-        url: "/dogprofile/like",
+        url: "${ebUrl}/dogprofile/like",
         data: {id_give: profile_id},
         success: function (response) {
             alert(response['msg'])

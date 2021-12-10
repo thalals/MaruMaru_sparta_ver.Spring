@@ -1,3 +1,5 @@
+let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
+
 //쿠키에 mytoken이 존재하면 user 정보 띄우기
 $(document).ready(function () {
     let my_token = localStorage.getItem('token');
@@ -9,15 +11,23 @@ $(document).ready(function () {
         $('#login-button').hide();
         $('#user-profile').show();
 
+        if (localStorage.getItem('token')) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+            });
+        } else {
+            alert('로그인을 해주세요')
+            location.replace('/login')
+        }
 
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: `/userProfile/${username}`,
+            url: `${ebUrl}/userprofile/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
-                console.log(response)
                 let profile_name = response['nickname']
                 let username = response['username']
                 let profile_info = response['userContent']
@@ -52,5 +62,5 @@ function get_card() {
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    location.href = "/";
+    location.href = ebUrl;
 }

@@ -1,3 +1,5 @@
+let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
+
 function sign_in() {
     let username = $("#input-username").val()
     let password = $("#input-password").val()
@@ -25,7 +27,7 @@ function sign_in() {
 
     $.ajax({
         type: "POST",
-        url: `/login`,
+        url: `${ebUrl}/login`,
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
@@ -46,7 +48,7 @@ function loginWithKakao() {
         success: function (authObj) {
             $.ajax({
                 type: 'POST',
-                url: `/login/kakao`,
+                url: `${ebUrl}/login/kakao`,
                 contentType: "application/json",
                 data: JSON.stringify({'token': authObj['access_token']}),
                 success: function (response) {
@@ -105,7 +107,7 @@ function sign_up() {
 
     $.ajax({
         type: 'POST',
-        url: `/signup`,
+        url: `${ebUrl}/signup`,
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
@@ -156,7 +158,7 @@ function check_dup() {
     $("#help-id").addClass("is-loading")
     $.ajax({
         type: "POST",
-        url: "/signup/check-dup",
+        url: `${ebUrl}/signup/check-dup`,
         contentType: "application/json",
         data: JSON.stringify(username_info),
         success: function (response) {
@@ -183,11 +185,11 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        window.location.replace("/user/profile")
+        window.location.replace(`${ebUrl}/user/profile`)
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')
-        window.location.replace("/")
+        window.location.replace(eb_url)
 
     } else {
         $('#my-modal').toggleClass('is-active');

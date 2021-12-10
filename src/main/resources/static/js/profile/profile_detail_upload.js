@@ -9,7 +9,7 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('/user/login')
+        location.replace(`${ebUrl}/user/login`)
     }
     detailProfile(id)
 });
@@ -21,7 +21,7 @@ $(document).ready(function () {
 function detailProfile(id) {
     $.ajax({
         type: "GET",
-        url: `/profile/detail`,
+        url: `${ebUrl}/profile/detail`,
         data: {id : id},
         success: function (response) {
             console.log(response)
@@ -72,7 +72,7 @@ function update_profile() {
 
     $.ajax({
         type: "PUT",
-        url: `/profile/detail`,
+        url: `${ebUrl}/profile/detail`,
         processData: false,
         contentType: false,
         data: formData,

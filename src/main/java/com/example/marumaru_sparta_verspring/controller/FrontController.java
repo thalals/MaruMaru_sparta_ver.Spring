@@ -50,6 +50,11 @@ public class FrontController {
         return "user/user_profile_upload";
     }
 
+    @GetMapping("/user/post")
+    public String getUserPosted() {
+        return "user/user_post";
+    }
+
     @GetMapping("/profiles") //프로필 리스트
     public String getPageProfiles(){
         return "profile/profile_list";

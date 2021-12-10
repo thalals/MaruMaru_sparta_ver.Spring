@@ -12,10 +12,9 @@ function showModal() {
 function show_post(id) {
     $.ajax({
         type: "GET",
-        url: `/posts/detail`,
+        url: `${ebUrl}/posts/detail`,
         data: {id: id},
         success: function (response) {
-            console.log(response)
             const title = response["title"];
             const contents = response["content"];
             const username = response["user"]["username"];
@@ -87,7 +86,7 @@ function update_post() {
 
         $.ajax({
             type: "PUT",
-            url: `/posts/detail`,
+            url: `${ebUrl}/posts/detail`,
             processData: false,
             contentType: false,
             data: formData,
@@ -117,7 +116,7 @@ function delete_post() {
         if (result) {
             $.ajax({
                 type: "DELETE",
-                url: `/posts/detail`,
+                url: `${ebUrl}/posts/detail`,
                 data: {id: idx},
                 success: function (response) {
                     if(response!="success")
@@ -149,11 +148,10 @@ function checking_user(){
         } else {
             $.ajax({
                 type: "GET",
-                url: `/posts/check`,
+                url: `${ebUrl}/posts/check`,
 
                 data: {id: id},
                 success: function (response) {
-                    console.log(response)
                     if (response) {
                         showModal();
                     } else {
@@ -228,7 +226,7 @@ function comment_upload() {
         const g_idx = $("#idx").val();
         $.ajax({
             type: "POST",
-            url: `/posts/comment`,
+            url: `${ebUrl}/posts/comment`,
             data: JSON.stringify({
                 postid: g_idx,
                 comment: comment_input
@@ -270,7 +268,7 @@ function comment_update(id) {
         }
         $.ajax({
             type: "PUT",
-            url: `/posts/comment`,
+            url: `${ebUrl}/posts/comment`,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
@@ -301,7 +299,7 @@ function comment_delete(id) {
         if (result) {
             $.ajax({
                 type: "DELETE",
-                url: `/posts/comment`,
+                url: `${ebUrl}/posts/comment`,
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({commentid:id}),
                 success: function (response) {
