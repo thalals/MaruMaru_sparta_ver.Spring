@@ -35,6 +35,38 @@
 
 ## 👍 API 설계
 
+# POST 게시글 
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|게시글 조회 |GET|  /post-list        |          | Meet 게시글 List |
+|게시글 작성 |POST|  /posts           |게시글 입력값(FormData) |      |
+|상세 조회  |GET|  /posts/detail     |           id(QueryString)    | 게시글 |
+|게시글 권한 확인 |GET|  /posts/check      | 게시글 입력값(FormData) |  |
+|게시글 수정 |PUT|  /posts/detail     | 게시글 입력값(FormData) |  |
+|게시글 삭제 |DELETE| /posts/detai    | id(QueryString)      |         |
+|댓글 작성 |POST|  /posts/comment    |  userId , id         |         |
+|댓글 삭제 |DELETE|  /posts/comment | userId , id |         |
+|댓글 수정 |PUT| /posts/comment  | 수정 값, id |           |
+
+
+
+# profile 기능
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|프로필 조회 |GET|  /profile        |                |          |
+|프로필 작성 |POST|  /profile         |              |          |
+|프로필 상세 조회  |GET|  /profile/detail     |               |         |
+|프로필 수정 |PUT|  /profile/detail      |              |         |
+|프로필 권한 확인 |GET|  /profile/check     |               |       |
+|프로필 삭제 |DELETE| /profile/detail    |             |         |
+
+
+
+
+# MEET 기능
+
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
 |Meet 게시글 조회 |GET|  /api/meets           |      | Meet 게시글 List |
