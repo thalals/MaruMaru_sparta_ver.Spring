@@ -83,12 +83,12 @@
 
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
-|로그인        |POST|  /login         |      | |
-|카카오 로그인 |POST|  /login/kakao          |) |  |
-|회원가입       |POST|  /signup        |                      |  |
-|아이디 중복 확인 |POST|  /signup-check-dup       |  |  |
-|회원 탈퇴       |DELETE|  /withdrawak/{username}  |      |           |
-|유저 프로필 수정 |PUT|  /userprofile    | Meet_idx,  |           |
+|로그인        |POST|  /login         |      |        |
+|카카오 로그인 |POST|  /login/kakao      |         |        |
+|회원가입       |POST|  /signup        |                      |       |
+|아이디 중복 확인 |POST|  /signup-check-dup       |         |       |
+|회원 탈퇴       |DELETE|  /withdrawak/{username}  |            |           |
+|유저 프로필 수정 |PUT|  /userprofile    |                   |           |
 |유저 정보 가져오기 |GET|  /userprofile/{username} |  |           |
 |유저의 강아지 프로필 |GET|  /user/dogprofile      |  |           |
 |내가 쓴 게시글 확인 |GET|  /user/posts              |  |           |
