@@ -148,7 +148,7 @@
 ## 📌 사용 라이브러리, API
 
 1. JPA : DB ORM
-2. spring-cloud-AWS : 사진 업로드
+2. AWS S3: 사진 업로드
 3. jwt : 로그인 암호화
 4. validation : 예외처리
 5. security : 인증/인가 관리
