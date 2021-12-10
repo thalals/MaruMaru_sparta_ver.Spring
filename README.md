@@ -55,8 +55,8 @@
 
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
-|프로필 조회 |GET|  /profile        |                |          |
-|프로필 작성 |POST|  /profile         |              |          |
+|프로필 조회 |GET|  /profile        |    |          |
+|프로필 작성 |POST|  /profile         |  프로필 입력값(FormData)        |          |
 |프로필 상세 조회  |GET|  /profile/detail     |               |         |
 |프로필 수정 |PUT|  /profile/detail      |              |         |
 |프로필 권한 확인 |GET|  /profile/check     |               |       |
