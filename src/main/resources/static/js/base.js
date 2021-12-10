@@ -18,7 +18,7 @@ $(document).ready(function () {
             });
         } else {
             alert('로그인을 해주세요')
-            location.replace('/login')
+            location.replace(`${ebUrl}/login`)
         }
 
         let username = localStorage.getItem("username")
