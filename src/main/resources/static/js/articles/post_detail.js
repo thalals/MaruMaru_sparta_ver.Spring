@@ -186,8 +186,8 @@ function show_comment(comments) {
                                           </a>
                                            
                                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#" onclick="comment_update_input(${e['idx']})">수정</a></li>
-                                            <li><a class="dropdown-item" href="#" onclick="comment_delete(${e['idx']})">삭제</a></li>
+                                            <li><a class="dropdown-item" onclick="comment_update_input(${e['idx']})">수정</a></li>
+                                            <li><a class="dropdown-item" onclick="comment_delete(${e['idx']})">삭제</a></li>
                                           </ul>
                                         </div>
                                 </div>
