@@ -5,7 +5,7 @@ $(document).ready(function (){
 function getMeet() {
     $.ajax({
         type: "GET",
-        url: "/api/meets",
+        url: `${ebUrl}/api/meets`,
         processData: false,
         contentType: false,
         success: function(responese){

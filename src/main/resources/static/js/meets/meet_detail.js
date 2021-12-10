@@ -20,7 +20,7 @@ $(document).ready(() => {
 function showMeetDetail(idx) {
     $.ajax({
         type: 'GET',
-        url: `/api/meet/${idx}`,
+        url: `${ebUrl}/api/meet/${idx}`,
         success: (response) => {
             const temp = `
                     <div class="top_box m-auto">
@@ -55,6 +55,7 @@ function showMeetDetail(idx) {
                     </div>
                 `;
             $('#meet-post').append(temp);
+            $('#address-box').text(response.address);
             // 댓글
             showComments(response.comments);
         },
@@ -70,7 +71,7 @@ function deleteMeet() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: "/api/meet/" + id,
+            url: `${ebUrl}/api/meet/` + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (response) => {
@@ -87,7 +88,7 @@ function deleteMeet() {
 
 function updateMeet() {
     const id = $('#idx').val();
-    location.href = "/meet-change/" + id
+    location.href = `${ebUrl}/meet-change/` + id;
 }
 
 
@@ -141,7 +142,7 @@ function saveComment() {
     };
     $.ajax({
         type: "POST",
-        url: "/api/meet/comment",
+        url: `${ebUrl}/api/meet/comment`,
         data: JSON.stringify(inputData),
         contentType: 'application/json; charset=utf-8',
         success: (response) => {
@@ -202,7 +203,7 @@ function deleteComment(id) {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/api/meet/comment/` + id,
+            url: `${ebUrl}/api/meet/comment/` + id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(),
             success: function (response) {
@@ -225,7 +226,7 @@ function updateComment(id) {
         }
         $.ajax({
             type: "PUT",
-            url: `/api/meet/comment`,
+            url: `${ebUrl}/api/meet/comment`,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
