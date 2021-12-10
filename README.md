@@ -35,7 +35,7 @@
 
 ## 👍 API 설계
 
-# POST 게시글 
+### POST 게시글 
 
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
@@ -51,7 +51,7 @@
 
 
 
-# profile 기능
+### profile 기능
 
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
@@ -65,7 +65,7 @@
 
 
 
-# MEET 기능
+### MEET 기능
 
 |기능         |Method|URL|Request|Response|
 |---------------|------|-----------|---------|---------|
@@ -77,6 +77,23 @@
 |Meet 댓글 작성 |POST|  /api/meet/comment    | Meet_idx, userId |           |
 |Meet 댓글 삭제 |DELETE|  /api/meet/comment/{id} | userId |           |
 |Meet 댓글 수정 |PUT|  /api/meet/comment    | 수정 값 |           |
+
+
+### User 기능
+
+|기능         |Method|URL|Request|Response|
+|---------------|------|-----------|---------|---------|
+|로그인        |POST|  /login         |      | |
+|카카오 로그인 |POST|  /login/kakao          |) |  |
+|회원가입       |POST|  /signup        |                      |  |
+|아이디 중복 확인 |POST|  /signup-check-dup       |  |  |
+|회원 탈퇴       |DELETE|  /withdrawak/{username}  |      |           |
+|유저 프로필 수정 |PUT|  /userprofile    | Meet_idx,  |           |
+|유저 정보 가져오기 |GET|  /userprofile/{username} |  |           |
+|유저의 강아지 프로필 |GET|  /user/dogprofile      |  |           |
+|내가 쓴 게시글 확인 |GET|  /user/posts              |  |           |
+
+
 
 <br/>
 
