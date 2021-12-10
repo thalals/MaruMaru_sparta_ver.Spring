@@ -27,7 +27,7 @@ function sign_in() {
 
     $.ajax({
         type: "POST",
-        url: `${ebUrl}/login`,
+        url: `/login`,
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
@@ -48,7 +48,7 @@ function loginWithKakao() {
         success: function (authObj) {
             $.ajax({
                 type: 'POST',
-                url: `${ebUrl}/login/kakao`,
+                url: `/login/kakao`,
                 contentType: "application/json",
                 data: JSON.stringify({'token': authObj['access_token']}),
                 success: function (response) {
@@ -107,7 +107,7 @@ function sign_up() {
 
     $.ajax({
         type: 'POST',
-        url: `${ebUrl}/signup`,
+        url: `/signup`,
         contentType: "application/json",
         data: JSON.stringify(info),
         success: function (response) {
@@ -158,7 +158,7 @@ function check_dup() {
     $("#help-id").addClass("is-loading")
     $.ajax({
         type: "POST",
-        url: `${ebUrl}/signup/check-dup`,
+        url: `/signup/check-dup`,
         contentType: "application/json",
         data: JSON.stringify(username_info),
         success: function (response) {
@@ -185,7 +185,7 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        window.location.replace(`${ebUrl}/user/profile`)
+        window.location.replace(`/user/profile`)
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')

@@ -9,7 +9,7 @@ $(document).ready(function () {
     } else {
         alert('로그인을 해주세요')
         window.close();
-        location.replace(`${ebUrl}/profiles`);
+        location.replace(`/profiles`);
     }
 });
 
@@ -50,7 +50,7 @@ function profile_upload() {
 
     $.ajax({
         type: "POST",
-        url: `${ebUrl}/profile`,
+        url: `/profile`,
         data: form_data,
         contentType: false,
         processData: false,
