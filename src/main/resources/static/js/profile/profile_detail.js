@@ -13,7 +13,7 @@ $(document).ready(function () {
 });
 
 function Modify_baby_profile() {
-    var popup = window.open(`/profile/modify/${id}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
+    var popup = window.open(`${ebUrl}/profile/modify/${id}`, '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
     popup.onbeforeunload=function (){
         window.location.reload();
     }
@@ -26,7 +26,7 @@ $(document).ready(function () {
 function detailProfile() {
     $.ajax({
         type: "GET",
-        url: `/profile/detail`,
+        url: `${ebUrl}/profile/detail`,
         data: {id : id},
         success: function (response) {
             console.log(response)
@@ -53,7 +53,7 @@ function detailProfile() {
 function checking_user_update() {
     $.ajax({
         type: "GET",
-        url: `/profile/check`,
+        url: `${ebUrl}/profile/check`,
 
         data: {id: id},
         success: function (response) {
@@ -73,7 +73,7 @@ function checking_user_update() {
 function checking_user_delete() {
     $.ajax({
         type: "GET",
-        url: `/profile/check`,
+        url: `${ebUrl}/profile/check`,
 
         data: {id: id},
         success: function (response) {
@@ -96,7 +96,7 @@ function delete_profile() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/profile/detail`,
+            url: `${ebUrl}/profile/detail`,
             data: {id: id},
             success: function (response) {
                 window.location.href = `/profiles`
