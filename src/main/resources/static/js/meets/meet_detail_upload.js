@@ -24,7 +24,7 @@ $(function () {
 function showUpload(idx) {
     $.ajax({
         type: 'GET',
-        url: '${ebUrl}/api/meet/' + idx,
+        url: '/api/meet/' + idx,
         success: function (response) {
             const temp_html = `<div class="half">
                                     <div class="name">
@@ -78,7 +78,7 @@ function saveUpload(idx) {
         contentType : 'application/json; charset=utf-8',
         success: function (response) {
             alert("수정 완료!")
-            window.location.href = `${ebUrl}/meet/` + idx;
+            window.location.href = `/meet/` + idx;
         },
         error: function (request, status, error) {
             alert(error);

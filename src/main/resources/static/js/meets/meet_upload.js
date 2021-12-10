@@ -56,13 +56,13 @@ function saveMeet() {
 
     $.ajax({
         type: "POST",
-        url: "${ebUrl}/api/meets",
+        url: "/api/meets",
         processData: false,
         contentType: false,
         data: formData,
         success: function (responese) {
             alert("등록 성공!")
-            location.href = '${ebUrl}/meets';
+            location.href = '/meets';
         },
         error: function (err) {
             console.log("err:", err)
