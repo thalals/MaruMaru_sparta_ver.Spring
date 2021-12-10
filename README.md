@@ -27,7 +27,7 @@
 │           ├──static                       # JS/CSS/IMG 파일 + index.html
 │           ├──templates                    # HTML 파일
 │           ├──application.properties       # 설정파일
-│           └──application.aws.yml          # aws 설정 (dotenv 추가 예정)
+│           └──application.aws.yml          # aws 설정(삭제 예정)
 └──build.gradle
 ```
 
@@ -42,7 +42,9 @@
 |Meet 상세 조회  |GET|  /api/meet/{id}        |                      | Meet 게시글 |
 |Meet 게시글 수정 |PUT|  /api/meet/{id}       | 게시글 입력값(FormData) | 수정 결과 |
 |Meet 게시글 삭제 |DELETE|  /api/meet/{id}    |      |           |
-
+|Meet 댓글 작성 |POST|  /api/meet/comment    | Meet_idx, userId |           |
+|Meet 댓글 삭제 |DELETE|  /api/meet/comment/{id} | userId |           |
+|Meet 댓글 수정 |PUT|  /api/meet/comment    | 수정 값 |           |
 
 <br/>
 
