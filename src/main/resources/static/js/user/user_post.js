@@ -1,5 +1,3 @@
-let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
-
 $(document).ready(function () {
 
     if (localStorage.getItem('token')) {
