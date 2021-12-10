@@ -185,7 +185,7 @@ function modal_button(key) {
     if (key == 'yes') {
         // alert('프로필로 이동합니다!')
         $('#signup-submit').click()
-        window.location.replace("${ebUrl}/user/profile")
+        window.location.replace(`${ebUrl}/user/profile`)
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')

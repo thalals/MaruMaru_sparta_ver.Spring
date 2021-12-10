@@ -1,3 +1,4 @@
+let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
 $(document).ready(function () {
     bsCustomFileInput.init();
 
@@ -14,7 +15,7 @@ $(document).ready(function () {
     let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: `/userprofile/${username}`,
+        url: `${ebUrl}/userprofile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -52,7 +53,7 @@ function go_out() {
     } else {
         $.ajax({
             type: "DELETE",
-            url: `/withdrawal/${username}`,
+            url: `${ebUrl}/withdrawal/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response) {
