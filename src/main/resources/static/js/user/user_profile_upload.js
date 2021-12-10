@@ -1,4 +1,3 @@
-let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
 $(document).ready(function () {
     bsCustomFileInput.init();
 
