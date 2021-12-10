@@ -5,7 +5,7 @@ $(document).ready(function () {
 function show_all_profile() {
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/profile`,
+        url: `/profile`,
         contentType: false,
         processData: false,
         success: function (response) {

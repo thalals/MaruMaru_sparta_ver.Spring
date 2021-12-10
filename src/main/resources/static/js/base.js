@@ -18,13 +18,13 @@ $(document).ready(function () {
             });
         } else {
             alert('로그인을 해주세요')
-            location.replace(`${ebUrl}/login`)
+            location.replace(`/login`)
         }
 
         let username = localStorage.getItem("username")
         $.ajax({
             type: "GET",
-            url: `${ebUrl}/userprofile/${username}`,
+            url: `/userprofile/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response){
