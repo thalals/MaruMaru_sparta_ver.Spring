@@ -14,7 +14,7 @@ $(document).ready(function () {
     let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/userprofile/${username}`,
+        url: `/userprofile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -52,7 +52,7 @@ function go_out() {
     } else {
         $.ajax({
             type: "DELETE",
-            url: `${ebUrl}/withdrawal/${username}`,
+            url: `/withdrawal/${username}`,
             contentType: 'application/json; charset=utf-8',
             data: {},
             success: function (response) {

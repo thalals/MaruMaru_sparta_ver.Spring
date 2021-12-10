@@ -5,7 +5,7 @@ $(document).ready(function () {
 function show_post_list() {
     $.ajax({
         type: 'GET',
-        url: '${ebUrl}/post-list',
+        url: '/post-list',
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
