@@ -5,7 +5,7 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('/meets')
+        location.replace('${ebUrl}/meets')
     }
 });
 
@@ -56,13 +56,13 @@ function saveMeet() {
 
     $.ajax({
         type: "POST",
-        url: "/api/meets",
+        url: "${ebUrl}/api/meets",
         processData: false,
         contentType: false,
         data: formData,
         success: function (responese) {
             alert("등록 성공!")
-            location.href = '/meets';
+            location.href = '${ebUrl}/meets';
         },
         error: function (err) {
             console.log("err:", err)

@@ -20,7 +20,7 @@ $(document).ready(() => {
 function showMeetDetail(idx) {
     $.ajax({
         type: 'GET',
-        url: `/api/meet/${idx}`,
+        url: `${ebUrl}/api/meet/${idx}`,
         success: (response) => {
             const temp = `
                     <div class="top_box m-auto">
@@ -70,12 +70,12 @@ function deleteMeet() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: "/api/meet/" + id,
+            url: "${ebUrl}/api/meet/" + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (response) => {
                 alert("삭제 성공!");
-                window.location.href = '/meets';
+                window.location.href = '${ebUrl}/meets';
             },
             error: (error) => {
                 console.log(error)
@@ -87,7 +87,7 @@ function deleteMeet() {
 
 function updateMeet() {
     const id = $('#idx').val();
-    location.href = "/meet-change/" + id
+    location.href = "${ebUrl}/meet-change/" + id
 }
 
 
@@ -141,7 +141,7 @@ function saveComment() {
     };
     $.ajax({
         type: "POST",
-        url: "/api/meet/comment",
+        url: "${ebUrl}/api/meet/comment",
         data: JSON.stringify(inputData),
         contentType: 'application/json; charset=utf-8',
         success: (response) => {
@@ -202,7 +202,7 @@ function deleteComment(id) {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: `/api/meet/comment/` + id,
+            url: `${ebUrl}/api/meet/comment/` + id,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(),
             success: function (response) {
@@ -225,7 +225,7 @@ function updateComment(id) {
         }
         $.ajax({
             type: "PUT",
-            url: `/api/meet/comment`,
+            url: `${ebUrl}/api/meet/comment`,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
