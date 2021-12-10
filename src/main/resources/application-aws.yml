@@ -1,0 +1,10 @@
+cloud:
+  aws:
+    credentials:
+      instanceProfile: true
+    s3:
+      bucket: springmaru
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
