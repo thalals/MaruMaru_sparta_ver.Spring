@@ -47,7 +47,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background: rgb(0, 160, 255); color: white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="&{ebUrl};">
+        <a class="navbar-brand" href="/">
             <img src="/img/logo.png" alt="logo" width="100" height="30">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -57,7 +57,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="&{ebUrl};">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -65,13 +65,13 @@
                         게시글
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="&{ebUrl};/show-post">게시글 보기</a></li>
-                        <li><a class="dropdown-item" href="&{ebUrl};/profiles">프로필 보기</a></li>
-                        <li><a class="dropdown-item" href="&{ebUrl};/meets">이벤트 보기</a></li>
+                        <li><a class="dropdown-item" href="/show-post">게시글 보기</a></li>
+                        <li><a class="dropdown-item" href="/profiles">프로필 보기</a></li>
+                        <li><a class="dropdown-item" href="/meets">이벤트 보기</a></li>
                     </ul>
                 </li>
             </ul>
-            <button id="login-button" onclick="location.href='&{ebUrl};/login'" type="button" class="btn btn-success">로그인
+            <button id="login-button" onclick="location.href='/login'" type="button" class="btn btn-success">로그인
             </button>
             <div onclick="get_card()"><img id="user-profile" class="rounded-circle"
                                            src="/img/profile_placeholder.png" width="50px"
@@ -90,7 +90,7 @@
         <h5 class="card-title">Name</h5>
         <h6 class="card-subtitle mb-2 text-muted">ID</h6>
         <p class="card-text">discription</p>
-        <a href="&{ebUrl};/user_profile" class="card-link">My Profile</a>
+        <a href="/user_profile" class="card-link">My Profile</a>
         <a href="javascript:void(0);" onclick="logout()" class="card-link">logout</a>
     </div>
 </div>
