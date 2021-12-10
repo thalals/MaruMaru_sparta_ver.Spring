@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "787726577050.dkr.ecr.ap-northeast-2.amazonaws.com/spring-marumaru",,
+    "Name": "787726577050.dkr.ecr.ap-northeast-2.amazonaws.com/spring-marumaru",
     "Update": "true"
   },
   "Ports": [ { "ContainerPort" : 8080} ]
