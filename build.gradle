@@ -14,6 +14,10 @@ configurations {
     }
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
 repositories {
     mavenCentral()
 }
@@ -28,6 +32,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2' //model mapper
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     implementation 'org.json:json:20210307'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -37,10 +42,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // aws
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+
+}
+
+jar {
+    enabled = false
 }
 
 test {
     useJUnitPlatform()
+    outputs.dir snippetsDir
 }
+

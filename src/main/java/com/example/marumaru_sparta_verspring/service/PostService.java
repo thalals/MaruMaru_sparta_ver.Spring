@@ -27,7 +27,8 @@ public class PostService {
     private final UserRepository userRepository;
     private final PostCommentRepository postCommentRepository;
     private final ModelMapper modelMapper;
-    private final S3Uploader s3Uploader;
+    private final S3Uploader s3Uploader;    //service 로 change
+    private final AwsService awsService;
 
 
     @Transactional
@@ -37,7 +38,8 @@ public class PostService {
         );
         Post post = new Post(postRequestDto, user);
         if(postRequestDto.getImg()!=null) {
-            String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
+//            String imgUrl = s3Uploader.upload(postRequestDto.getImg(), "static");
+            String imgUrl = awsService.upload(postRequestDto.getImg());
             post.setImg(imgUrl);
         }
         postrepository.save(post);

@@ -115,4 +115,3 @@
 ### 2차 발표영상
 [![오지조 2차 발표](http://img.youtube.com/vi/aSasz08EP7U/0.jpg)](https://www.youtube.com/watch?v=aSasz08EP7U)
 
-
