@@ -54,7 +54,6 @@ function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
                           </div>
                         </div>
                       </div>`;
-    console.log(dogName, dogImgUrl)
     $("#profile_card").append(tempHtml);
 }
 

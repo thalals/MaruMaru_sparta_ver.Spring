@@ -189,7 +189,7 @@ function modal_button(key) {
 
     } else if (key == 'no') {
         // alert('홈으로 이동합니다')
-        window.location.replace(eb_url)
+        window.location.replace("/")
 
     } else {
         $('#my-modal').toggleClass('is-active');
