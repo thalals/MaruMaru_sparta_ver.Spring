@@ -2,6 +2,7 @@ package com.example.marumaru_sparta_verspring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FrontController {
@@ -76,5 +77,10 @@ public class FrontController {
     @GetMapping("/meet-change/{id}")
     public String getPageMeetUpload(){
         return "meets/meet_detail_upload";
+    }
+
+    @GetMapping("/map")
+    public String getMapping(){
+        return "maps/locate_map";
     }
 }

@@ -51,6 +51,7 @@ $(document).ready(function () {
             }
         });
     }
+
 })
 
 function get_card() {
@@ -62,5 +63,5 @@ function get_card() {
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    location.href = ebUrl;
+    location.href = "/";
 }

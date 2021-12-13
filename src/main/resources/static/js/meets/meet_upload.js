@@ -5,7 +5,7 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('${ebUrl}/meets')
+        location.replace('/meets')
     }
 });
 

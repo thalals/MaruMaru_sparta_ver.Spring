@@ -1,3 +1,51 @@
+let lat=37.562661089545415;
+let lon=126.97599361647305;
+
+$(document).ready(function(){
+    id = getParam("id");
+    getPostData(id);
+});
+
+function getPostData(id){
+    $.ajax({
+        type:'GET',
+        url:'/getMapCoord/'+id,
+        contentType: 'application/json; charset=utf-8',
+        success:function(response){
+            getCoordinate(response);
+        },
+        error: (err) => {
+            console.log(err);
+        }
+    });
+}
+
+function getCoordinate(addr){
+    $.ajax({
+            type:'GET',
+            url:'https://dapi.kakao.com/v2/local/search/address.json?query=' + addr,
+            headers : {'Authorization':'KakaoAK 894cfd738b31d10baba806317025d155'},
+            success:function(response){
+                match_first = response['documents'][0]['address']
+                console.log(match_first)
+                lat=match_first['y']
+                lon=match_first['x']
+                // 이동할 위도 경도 위치를 생성합니다
+                var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+                // 지도 중심을 이동 시킵니다
+                map.setCenter(moveLatLon);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
+}
+function getParam(name) {
+    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+    return results[1] || 0;
+}
+
 // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 var placeOverlay = new kakao.maps.CustomOverlay({zIndex: 1}),
     contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
@@ -110,7 +158,7 @@ function displayPlaces(places) {
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, order) {
-    var imageSrc = '/static/map/' + currCategoryID + '.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+    var imageSrc = '/img/map/' + currCategoryID + '.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         //imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png',
         imageSize = new kakao.maps.Size(33, 34),  // 마커 이미지의 크기
 
