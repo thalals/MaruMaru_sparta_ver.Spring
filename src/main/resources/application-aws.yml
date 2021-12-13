@@ -3,7 +3,7 @@ cloud:
     credentials:
       instanceProfile: true
     s3:
-      bucket: springmaru
+      bucket: ${BUCKET_NAME}
     region:
       static: ap-northeast-2
     stack:

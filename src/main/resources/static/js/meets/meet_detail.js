@@ -55,8 +55,8 @@ function showMeetDetail(idx) {
                     </div>
                 `;
             $('#meet-post').append(temp);
-            
-            if(response.address != null) {
+
+            if(response.address != '') {
                 const addHTML = `
                     <div class="address mt-3">
                         <div class="input-group mb-3">

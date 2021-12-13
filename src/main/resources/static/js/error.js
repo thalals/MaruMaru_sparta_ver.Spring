@@ -13,7 +13,7 @@ canvas.height = window.innerHeight - 100;
 
 
 var img1 = new Image();
-img1.src = '/static/ozizo/dog.png'
+img1.src = '/img/maru.png'
 
 
 var maru = {
@@ -37,13 +37,13 @@ var img2 = new Image();
 var randomNum = Math.floor(Math.random() * 4);
 
 if (randomNum == 0) {
-    img2.src = '/static/ozizo/hm.png';
+    img2.src = '/img/no-pic.png';
 } else if (randomNum == 1) {
-    img2.src = '/static/ozizo/so.png';
+    img2.src = '/img/no-pic.png';
 } else if (randomNum == 2) {
-    img2.src = '/static/ozizo/sy.png';
+    img2.src = '/img/no-pic.png';
 } else {
-    img2.src = '/static/ozizo/ju.png';
+    img2.src = '/img/no-pic.png';
 }
 
 
