@@ -37,12 +37,13 @@ function detailProfile() {
             let dogGender = response["dogGender"]
             let dogComment = response["dogComment"]
 
+            $("#profile-name").text(dogName +'의 프로필');
             $("#profile_id").val(number);
             $('#dog_img').attr("src", dogImgUrl);
             $('#dog-name').text(dogName);
-            $('#dog-age').text('나이:'+ dogAge);
-            $('#dog-gender').text('성별:'+ dogGender);
-            $('#dog-comment').text(dogComment);
+            $('#dog-age').text('나이: '+ dogAge + '살');
+            $('#dog-gender').text('성별: '+ dogGender);
+            $('#dog-comment').text('자기소개: '+ dogComment);
         },
         error: function (request, status, error) {
             alert(error);

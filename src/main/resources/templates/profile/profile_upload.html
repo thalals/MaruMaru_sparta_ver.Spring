@@ -70,7 +70,7 @@
             <div class="dog_age_box">
                 <div class="input-group mb-3">
                     <span class="input-group-text">강아지 나이</span>
-                    <input id="dog_age" type="text" class="form-control" aria-label="Username"
+                    <input id="dog_age" type="text" placeholder="숫자로 입력해주세요." onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
             </div>

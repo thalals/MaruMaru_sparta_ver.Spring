@@ -56,9 +56,9 @@ $(document).ready(function () {
                                         </div>
                                         <hr>
                                         <div class="desc comment" style="font-size: 15px">
-                                            <p>${response[i]['dogComment']}</p>
+                                            <p>자기소개: ${response[i]['dogComment']}</p>
                                             <button class="btn color-a top mt-5"
-                                                    onclick="location.href ='/profile/${response[i]['idx']}'">자세히 보기
+                                                    onclick="location.href ='/profile/detail/${response[i]['idx']}'">자세히 보기
                                             </button>
                                         </div>
 
