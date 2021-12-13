@@ -1,5 +1,5 @@
 // 주소 api 사용법
-// 사용 하기전 HTML에 아래 주소 연결 후 버튼에 이벤트 걸어서 사용
+// 사용 하기전 HTML에 아래 주소 연결 후 버튼에 execDaumPostcode() 걸어서 사용
 // <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 // 출처 : https://postcode.map.daum.net/guide
 

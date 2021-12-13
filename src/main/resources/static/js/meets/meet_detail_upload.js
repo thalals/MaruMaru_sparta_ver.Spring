@@ -24,7 +24,7 @@ $(function () {
 function showUpload(idx) {
     $.ajax({
         type: 'GET',
-        url: '/api/meet/' + idx,
+        url: `/api/meet/` + idx,
         success: function (response) {
             const temp_html = `<div class="half">
                                     <div class="name">
@@ -73,7 +73,7 @@ function saveUpload(idx) {
     }
     $.ajax({
         type: "PUT",
-        url: `${ebUrl}/api/meet/` + idx,
+        url: `/api/meet/` + idx,
         data: JSON.stringify(data),
         contentType : 'application/json; charset=utf-8',
         success: function (response) {
