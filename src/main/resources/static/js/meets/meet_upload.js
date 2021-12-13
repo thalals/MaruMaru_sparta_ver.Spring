@@ -5,14 +5,14 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('${ebUrl}/meets');
+        location.replace('/meets')
     }
 });
 
 function setThumbnail(event) {
-    const reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = function (event) {
-        const img = document.createElement("img");
+        var img = document.createElement("img");
         img.setAttribute("src", event.target.result);
         img.setAttribute("width", 350);
         $('#image_container').html(img);
