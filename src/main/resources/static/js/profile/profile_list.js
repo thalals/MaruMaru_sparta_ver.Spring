@@ -44,12 +44,12 @@ function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
                             <p class="name desc">${dogName}</p>
                           </div>
                           <div class="desc">
-                            <p class="age">나이: ${dogAge}</p>
+                            <p class="age">나이: ${dogAge}살</p>
                             <p class="gender">성별: ${dogGender}</p>
                           </div>
                           <hr>
                           <div class="desc comment" style="font-size: 20px">
-                            <p style="font-size: 15px">${dogComment}</p>
+                            <p style="font-size: 15px">자기소개: ${dogComment}</p>
                             <button class="btn color-a top mt-5" onclick = "location.href ='/profile/detail/${idx}'">자세히 보기</button>
                           </div>
                         </div>

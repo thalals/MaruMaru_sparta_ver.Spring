@@ -60,11 +60,14 @@
     }
 }
 
+.main-profiles {
+    width: 950px;
+}
 
 .profile_img {
     width: 200px;
     height: 150px;
-    margin: 15% 0px 20px 17%;
+    margin: 1% 0px 20px 17%;
     border-radius: 30%;
     overflow: hidden;
     background-position: center;
@@ -72,8 +75,8 @@
 }
 
 .card_top {
-    margin-top: 20px;
     width: 300px;
+    height: 440px;
 }
 
 .name {
