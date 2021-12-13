@@ -1,5 +1,3 @@
-let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
-
 $(document).ready(function () {
 
     if (localStorage.getItem('token')) {
@@ -14,7 +12,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/user/posts`,
+        url: `/user/posts`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {

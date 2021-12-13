@@ -9,7 +9,7 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('/user/login')
+        location.replace(`/user/login`)
     }
     detailProfile(id)
 });

@@ -5,14 +5,14 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace(`${ebUrl}/meets`)
+        location.replace('${ebUrl}/meets');
     }
 });
 
 function setThumbnail(event) {
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function (event) {
-        var img = document.createElement("img");
+        const img = document.createElement("img");
         img.setAttribute("src", event.target.result);
         img.setAttribute("width", 350);
         $('#image_container').html(img);
@@ -56,13 +56,13 @@ function saveMeet() {
 
     $.ajax({
         type: "POST",
-        url: `${ebUrl}/api/meets`,
+        url: "/api/meets",
         processData: false,
         contentType: false,
         data: formData,
         success: function (responese) {
             alert("등록 성공!")
-            location.href = `${ebUrl}/meets`;
+            location.href = '/meets';
         },
         error: function (err) {
             console.log("err:", err)

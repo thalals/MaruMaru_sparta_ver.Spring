@@ -1,4 +1,3 @@
-let ebUrl ="http://maruapp-env-2.eba-i5ijnpti.ap-northeast-2.elasticbeanstalk.com"
 $(document).ready(function () {
     bsCustomFileInput.init();
 
@@ -16,7 +15,7 @@ $(document).ready(function () {
     let username = localStorage.getItem("username")
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/userprofile/${username}`,
+        url: `/userprofile/${username}`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -30,7 +29,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: `${ebUrl}/user/dogprofile`,
+        url: `/user/dogprofile`,
         contentType: 'application/json; charset=utf-8',
         data: {},
         success: function (response) {
@@ -81,17 +80,17 @@ function create_baby_profile() {
     }
 }
 
-function ProfileLike(number) {
-
-    const profile_id = number
-
-    $.ajax({
-        type: "POST",
-        url: "${ebUrl}/dogprofile/like",
-        data: {id_give: profile_id},
-        success: function (response) {
-            alert(response['msg'])
-            window.location.reload();
-        }
-    })
-}
+// function ProfileLike(number) {
+//
+//     const profile_id = number
+//
+//     $.ajax({
+//         type: "POST",
+//         url: `/dogprofile/like`,
+//         data: {id_give: profile_id},
+//         success: function (response) {
+//             alert(response['msg'])
+//             window.location.reload();
+//         }
+//     })
+// }

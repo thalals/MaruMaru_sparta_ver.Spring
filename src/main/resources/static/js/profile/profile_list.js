@@ -1,10 +1,3 @@
-function create_baby_profile() {
-    var popup = window.open('/profileup', '네이버팝업', 'width=700px,height=700px,scrollbars=yes');
-    popup.onbeforeunload=function (){
-        window.location.reload();
-    }
-}
-
 $(document).ready(function () {
     show_all_profile();
 });
@@ -12,7 +5,7 @@ $(document).ready(function () {
 function show_all_profile() {
     $.ajax({
         type: "GET",
-        url: "/profile",
+        url: `/profile`,
         contentType: false,
         processData: false,
         success: function (response) {

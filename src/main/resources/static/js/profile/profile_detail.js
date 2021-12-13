@@ -8,7 +8,7 @@ $(document).ready(function () {
         });
     } else {
         alert('로그인을 해주세요')
-        location.replace('/user/login')
+        location.replace(`/user/login`)
     }
 });
 
@@ -99,7 +99,7 @@ function delete_profile() {
             url: `/profile/detail`,
             data: {id: id},
             success: function (response) {
-                window.location.href = `/profiles`
+                window.location.href = `${ebUrl}/profiles`
             },
             error: function (request, status, error) {
                 alert(error);

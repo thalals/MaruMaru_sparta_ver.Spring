@@ -25,7 +25,7 @@ public class MeetController {
     private final MeetService meetService;
 
     @PostMapping("/meets")
-    public Meet saveMeet(@Valid @ModelAttribute MeetRequestDto meetRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException, IOException {
+    public Meet saveMeet(@Valid @ModelAttribute MeetRequestDto meetRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         Long userId = userDetails.getUser().getId();
         return meetService.saveMeet(meetRequestDto, userId);
     }

@@ -15,7 +15,6 @@ function show_post(id) {
         url: `/posts/detail`,
         data: {id: id},
         success: function (response) {
-            console.log(response)
             const title = response["title"];
             const contents = response["content"];
             const username = response["user"]["username"];
@@ -153,7 +152,6 @@ function checking_user(){
 
                 data: {id: id},
                 success: function (response) {
-                    console.log(response)
                     if (response) {
                         showModal();
                     } else {
@@ -188,8 +186,8 @@ function show_comment(comments) {
                                           </a>
                                            
                                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#" onclick="comment_update_input(${e['idx']})">수정</a></li>
-                                            <li><a class="dropdown-item" href="#" onclick="comment_delete(${e['idx']})">삭제</a></li>
+                                            <li><a class="dropdown-item" onclick="comment_update_input(${e['idx']})">수정</a></li>
+                                            <li><a class="dropdown-item" onclick="comment_delete(${e['idx']})">삭제</a></li>
                                           </ul>
                                         </div>
                                 </div>
@@ -250,10 +248,8 @@ function comment_upload() {
 
 function comment_update_input(id){
     if (localStorage.getItem('token')) {
-        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
-            $("#comment_input_"+id).toggleClass('d-none')
-        });
+        $("#comment_input_"+id).toggleClass('d-none')
+
     } else {
         alert('로그인을 해주세요')
         location.replace('/user/login')
