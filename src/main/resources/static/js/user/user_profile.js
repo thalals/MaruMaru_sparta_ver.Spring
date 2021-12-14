@@ -51,7 +51,7 @@ $(document).ready(function () {
                                             <p class="name desc">${response[i]['dogName']}</p>
                                         </div>
                                         <div class="desc">
-                                            <p class="age">나이: ${response[i]['dogAge']}</p>
+                                            <p class="age">나이: ${response[i]['dogAge']}살</p>
                                             <p class="gender">성별: ${response[i]['dogGender']}</p>
                                         </div>
                                         <hr>
