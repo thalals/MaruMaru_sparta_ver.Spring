@@ -55,6 +55,24 @@ function showMeetDetail(idx) {
                     </div>
                 `;
             $('#meet-post').append(temp);
+
+            if(response.address != '') {
+                const addHTML = `
+                    <div class="address mt-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">주소</span>
+                            <div id="address-box" type="text" class="form-control address" aria-label="address"
+                                 aria-describedby="basic-addon1">
+                                ${response.address}
+                            </div>
+                            <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도
+                            </button>
+                        </div>
+                    </div>
+                `
+                $('#address-div').append(addHTML);
+            }
+
             // 댓글
             showComments(response.comments);
         },
@@ -70,7 +88,7 @@ function deleteMeet() {
     if (result) {
         $.ajax({
             type: "DELETE",
-            url: "/api/meet/" + id,
+            url: `/api/meet/` + id,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (response) => {
@@ -87,7 +105,7 @@ function deleteMeet() {
 
 function updateMeet() {
     const id = $('#idx').val();
-    location.href = "/meet-change/" + id
+    location.href = `/meet-change/` + id;
 }
 
 
@@ -141,7 +159,7 @@ function saveComment() {
     };
     $.ajax({
         type: "POST",
-        url: "/api/meet/comment",
+        url: `/api/meet/comment`,
         data: JSON.stringify(inputData),
         contentType: 'application/json; charset=utf-8',
         success: (response) => {

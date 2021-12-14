@@ -3,6 +3,10 @@ body {
     background-color: white;
 }
 
+.category {
+    margin: 50px 0px 0px 0px;
+}
+
 .color-card {
     background: #31394D;
 }

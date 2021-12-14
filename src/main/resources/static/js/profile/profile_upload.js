@@ -48,17 +48,38 @@ function profile_upload() {
     form_data.append("dogGender", $("#dog_gender").val());
     form_data.append("dogComment", $("#dog_comment").val());
 
-    $.ajax({
-        type: "POST",
-        url: `/profile`,
-        data: form_data,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            console.log(form_data)
-            alert('프로필 등록 완료!')
-            window.close();
-            window.location.reload();
-        }
-    })
+    if ($("#dog_name").val().length == 0) {
+        alert("강아지 이름을 입력하세요!");
+        $("#dog_name").focus();
+        return false;
+    }
+    if ($("#dog_age").val().length == 0) {
+        alert("강아지 나이를 입력하세요!");
+        $("#dog_age").focus();
+        return false;
+    }
+    if ($("#dog_gender").val() == 0) {
+        alert("강아지 성별을 선택하세요!");
+        $("#dog_gender").focus();
+        return false;
+    }
+    if ($("#dog_comment").val().length == 0) {
+        alert("강아지 소개를 입력하세요!");
+        $("#dog_comment").focus();
+        return false;
+    } else {
+        $.ajax({
+            type: "POST",
+            url: `/profile`,
+            data: form_data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(form_data)
+                alert('프로필 등록 완료!')
+                window.close();
+                window.location.reload();
+            }
+        })
+    }
 }

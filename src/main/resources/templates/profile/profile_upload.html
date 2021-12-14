@@ -56,7 +56,7 @@
             <!--사진 업로드-->
             <div class="custom-file mb-3">
                 <input type="file" class="custom-file-input file" id="profile_image">
-                <label class="custom-file-label" for="file" id="file">사진 첨부하기</label>
+                <label class="custom-file-label" for="file" id="file">사진은 300KB 이하로 올려주세요!</label>
             </div>
             <!--강아지 이름-->
             <div class="dog_name_box">
@@ -70,7 +70,7 @@
             <div class="dog_age_box">
                 <div class="input-group mb-3">
                     <span class="input-group-text">강아지 나이</span>
-                    <input id="dog_age" type="text" class="form-control" aria-label="Username"
+                    <input id="dog_age" type="text" placeholder="숫자로 입력해주세요." onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" aria-label="Username"
                            aria-describedby="basic-addon1">
                 </div>
             </div>

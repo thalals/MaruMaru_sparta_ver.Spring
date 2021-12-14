@@ -90,7 +90,7 @@
         <h5 class="card-title">Name</h5>
         <h6 class="card-subtitle mb-2 text-muted">ID</h6>
         <p class="card-text">discription</p>
-        <a href="/user_profile" class="card-link">My Profile</a>
+        <a href="/user/profile" class="card-link">My Profile</a>
         <a href="javascript:void(0);" onclick="logout()" class="card-link">logout</a>
     </div>
 </div>
@@ -100,6 +100,11 @@
 
         <div id="meet-post" class="contents_box m-auto">
             <!-- 제목, 내용 -->
+        </div>
+
+        <!--주소, 지도버튼-->
+        <div id="address-div" class="address_box">
+
         </div>
 
         <!-- 버튼 그룹 -->
@@ -115,21 +120,6 @@
             <button type="button" class="btn btn-danger">
                 <i class="far fa-thumbs-up"> 좋아요0</i>
             </button>
-        </div>
-
-        <!--주소, 지도버튼-->
-        <div class="address_box">
-            <div class="address mt-3">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">주소</span>
-                    <div id="address-box" type="text" class="form-control address" aria-label="address"
-                         aria-describedby="basic-addon1">
-
-                    </div>
-                    <button class="btn btn-primary ml-3" data-bs-toggle="modal" data-bs-target="#map-modal">지도
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -183,7 +173,7 @@
 </div>
 
 
-<script src="/js/meets/meet_detail.js"></script>
 <script src="/js/base.js"></script>
+<script src="/js/meets/meet_detail.js"></script>
 </body>
 </html>
