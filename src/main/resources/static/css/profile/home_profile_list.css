@@ -4,7 +4,7 @@
     border-radius: 6px;
     display: inline-block;
     height: 500px;
-    margin: 1rem;
+    margin: 0.2rem;
     position: relative;
     width: 300px;
     box-shadow: 0 12px 13px rgba(0, 0, 0, 0.16), 0 12px 13px rgba(0, 0, 0, 0.16);
@@ -61,7 +61,7 @@
 }
 
 .main-profiles {
-    width: 950px;
+    width: 1280px;
 }
 
 .profile_img {
@@ -103,6 +103,7 @@
 
 .color-card {
     background: #31394D;
+    float: left;
 }
 
 
