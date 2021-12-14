@@ -29,7 +29,6 @@ function detailProfile() {
         url: `/profile/detail`,
         data: {id : id},
         success: function (response) {
-            console.log(response)
             let number = response["idx"];
             let dogImgUrl = response["dogImgUrl"]
             let dogName = response["dogName"]
