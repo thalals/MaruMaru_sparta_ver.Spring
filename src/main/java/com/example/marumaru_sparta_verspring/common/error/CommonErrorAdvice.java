@@ -14,4 +14,11 @@ public class CommonErrorAdvice {
                 new ErrorResponse(e.getAllErrors().get(0).getDefaultMessage(), 400)
         );
     }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity<ErrorResponse> errorHandler(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(
+                new ErrorResponse(e.getMessage(), 400)
+        );
+    }
 }

@@ -77,22 +77,31 @@ public class MeetService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(Long id, Long userId) {
         Meet meet = meetRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시글이 없습니다."));
-        meetRepository.delete(meet);
+        if (meet.getUserId() != userId) {
+            throw new IllegalArgumentException("작성자만 수정 가능");
+        } else {
+            meetRepository.delete(meet);
+        }
     }
 
     @Transactional
-    public Meet update(Long id, MeetUpdateRequestDto meetUpdateRequestDto) {
+    public Meet update(Long id, MeetUpdateRequestDto meetUpdateRequestDto, Long userId) {
         Meet meet = meetRepository.findById(id)
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시글이 없습니다."));
-        meet.setTitle(meetUpdateRequestDto.getTitle());
-        meet.setContent(meetUpdateRequestDto.getContent());
-        meetRepository.save(meet);
-        return meet;
+
+        if (meet.getUserId() != userId) {
+            throw new IllegalArgumentException("작성자만 수정 가능");
+        } else {
+            meet.setTitle(meetUpdateRequestDto.getTitle());
+            meet.setContent(meetUpdateRequestDto.getContent());
+            meetRepository.save(meet);
+            return meet;
+        }
     }
 
     @Transactional

@@ -95,8 +95,8 @@ function deleteMeet() {
                 alert("삭제 성공!");
                 window.location.href = '/meets';
             },
-            error: (error) => {
-                console.log(error)
+            error: (request) => {
+                alert(request.responseJSON.message);
             }
         })
     }

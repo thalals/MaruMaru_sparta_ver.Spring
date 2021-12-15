@@ -41,13 +41,15 @@ public class MeetController {
     }
 
     @PutMapping("/meet/{id}")
-    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
-        return meetService.update(id, meetUpdateRequestDto);
+    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return meetService.update(id, meetUpdateRequestDto, userId);
     }
 
     @DeleteMapping("/meet/{id}")
-    public Long deleteMeet(@PathVariable Long id) throws IOException {
-        meetService.delete(id);
+    public Long deleteMeet(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        meetService.delete(id, userId);
         return id;
     }
 
