@@ -2,9 +2,8 @@ package com.example.marumaru_sparta_verspring.controller;
 
 import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
-import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
+import com.example.marumaru_sparta_verspring.domain.articles.PostLike;
+import com.example.marumaru_sparta_verspring.dto.articles.*;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.PostService;
@@ -104,5 +103,23 @@ public class PostController {
     public String updateComment(@RequestBody PostCommentRequsetDto postCommentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         Long userId = userDetails.getUser().getId();
         return postService.updatePostComment(postCommentRequsetDto,userId);
+    }
+
+    //좋아요
+    @PostMapping("/posts/like")
+    public PostLikeResponseDto updateLike(@RequestBody PostLikeDto postLikeDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+
+        Post post = postService.setPostLike(postLikeDto,userId);
+
+        return modelMapper.map(post, PostLikeResponseDto.class);
+
+    }
+
+    //좋아요 유저 확인
+    @GetMapping("/posts/like/user")
+    public boolean checkUserLike(@RequestParam Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return postService.checkUserLike(id, userId);
     }
 }

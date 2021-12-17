@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.dto.articles;
 
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
+import com.example.marumaru_sparta_verspring.domain.articles.PostLike;
 import com.example.marumaru_sparta_verspring.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,5 @@ public class PostResponseDto {
     private User user;
     private int view;
     private List<PostComment> comments;
+    private List<PostLike> likes;
 }
