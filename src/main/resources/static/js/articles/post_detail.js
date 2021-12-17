@@ -4,10 +4,28 @@ const id = url_list[url_list.length - 1].replace(/[^0-9.]/g, '')
 $(document).ready(function () {
     bsCustomFileInput.init();
     show_post(id)
+    userLikeCheck(id);
 });
 
 function showModal() {
     $('#update-modal').modal('show')
+}
+
+function userLikeCheck(id){
+    $.ajax({
+        type: "GET",
+        url: `/posts/like/user`,
+        data: {id: id},
+        success:function(result){
+            //눌렀으면 꽉찬 엄지로
+            if(result){
+                $("#like").attr("class","fas fa-thumbs-up")
+            }
+        },
+        error: function (request, status, error) {
+            alert(error);
+        }
+    })
 }
 function show_post(id) {
     $.ajax({
@@ -17,9 +35,11 @@ function show_post(id) {
         success: function (response) {
             const title = response["title"];
             const contents = response["content"];
-            const username = response["user"]["username"];
+            const username = response["user"]["nickname"];
             const img = response["img"];
             const number = response["idx"];
+            const likes = response["likes"];
+
             //이미지
             if(img==null){
                 $("#content-img").remove();
@@ -32,6 +52,7 @@ function show_post(id) {
             $("#author_box").text(username);
             $("#title_box").text(title);
             $("#contents_box_span").text(contents);
+            $("#like-count").text(likes.length);
 
 
             $("#update-title").val(title);
@@ -178,7 +199,7 @@ function show_comment(comments) {
                             &nbsp;
                             <div class="card mb-2">
                                 <div class="card-header bg-light">
-                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user['username']}
+                                    <i class="fa fa-comment fa"></i> 작성자: ${e.user['nickname']}
                                     <input hidden value="${e['idx']}">
                                         <div class="h-auto dropdown">
                                           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -314,4 +335,42 @@ function comment_delete(id) {
         alert('로그인을 해주세요')
         location.replace('/user/login')
     }
+}
+
+
+//좋아요 표시 바꾸기
+function likeChange(){
+    //빈 엄지 : far
+    if($("#like").hasClass("far")){
+        $("#like").attr("class","fas fa-thumbs-up")
+    }else{
+        $("#like").attr("class","far fa-thumbs-up")
+    }
+}
+//좋아요
+function likeClick(){
+    let idx = id;
+    let status="up";
+
+    //좋아요 취소할 때
+    if($("#like").hasClass("fas")){
+        status="down"
+    }
+    data={
+        idx:idx,
+        status:status
+    }
+    $.ajax({
+        type: "POST",
+        url: `/posts/like`,
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            $("#like-count").text(response['likes'].length)
+            likeChange();
+        },
+        error: function (request, status, error) {
+            console.log(error);
+        }
+    })
 }

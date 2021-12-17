@@ -3,11 +3,11 @@ package com.example.marumaru_sparta_verspring.service;
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
 import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.articles.PostComment;
+import com.example.marumaru_sparta_verspring.domain.articles.PostLike;
 import com.example.marumaru_sparta_verspring.domain.user.User;
-import com.example.marumaru_sparta_verspring.dto.articles.PostCommentRequsetDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostRequestDto;
-import com.example.marumaru_sparta_verspring.dto.articles.PostResponseDto;
+import com.example.marumaru_sparta_verspring.dto.articles.*;
 import com.example.marumaru_sparta_verspring.repository.PostCommentRepository;
+import com.example.marumaru_sparta_verspring.repository.PostLikeRepository;
 import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +26,7 @@ public class PostService {
     private final PostRepository postrepository;
     private final UserRepository userRepository;
     private final PostCommentRepository postCommentRepository;
+    private final PostLikeRepository postLikeRepository;
     private final ModelMapper modelMapper;
     private final S3Uploader s3Uploader;    //service 로 change
     private final AwsService awsService;
@@ -155,4 +156,46 @@ public class PostService {
 
     }
 
+    //좋아요 service
+    @Transactional
+    public Post setPostLike(PostLikeDto postLikeDto, Long userID){
+        User user = userRepository.findById(userID).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+
+        Post post = postrepository.findById(postLikeDto.getIdx()).orElseThrow(
+                () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+        
+        if(postLikeDto.getStatus().equals("up")){
+            PostLike postLike = new PostLike(user, post);
+            postLikeRepository.save(postLike);
+        }
+        else if(postLikeDto.getStatus().equals("down")){
+            PostLike postLike = postLikeRepository.findByPostAndUser(post,user);
+            postLikeRepository.deleteById(postLike.getIdx());
+        }
+
+        return post;
+    }
+
+    //게시글 좋아요 리스트
+    @Transactional
+    public boolean checkUserLike(Long postId, Long userId){
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+
+        Post post = postrepository.findById(postId).orElseThrow(
+                () -> new NullPointerException("해당 게시글이 존재하지 않습니다.")
+        );
+
+        PostLike postLike = postLikeRepository.findByPostAndUser(post,user);
+
+        //좋아요 누른 적 없음
+        if(postLike==null)
+            return false;
+        //있음
+        return true;
+    }
 }

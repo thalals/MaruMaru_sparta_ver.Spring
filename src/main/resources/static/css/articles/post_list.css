@@ -10,6 +10,10 @@ a:hover {
     color: rgb(255, 120, 0);
 }
 
+.card-post:hover{
+    color: rgb(255, 120, 0);
+}
+
 .post-top {
     margin-bottom: 5%;
 }
