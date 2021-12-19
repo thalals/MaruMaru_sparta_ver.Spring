@@ -8,13 +8,11 @@ import com.example.marumaru_sparta_verspring.dto.meets.MeetUpdateRequestDto;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.MeetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -41,13 +39,15 @@ public class MeetController {
     }
 
     @PutMapping("/meet/{id}")
-    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto) {
-        return meetService.update(id, meetUpdateRequestDto);
+    public Meet update(@PathVariable Long id, @RequestBody MeetUpdateRequestDto meetUpdateRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
+        return meetService.update(id, meetUpdateRequestDto, userId);
     }
 
     @DeleteMapping("/meet/{id}")
-    public Long deleteMeet(@PathVariable Long id) throws IOException {
-        meetService.delete(id);
+    public Long deleteMeet(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        meetService.delete(id, userId);
         return id;
     }
 
@@ -58,13 +58,15 @@ public class MeetController {
     }
 
     @DeleteMapping("/meet/comment/{id}")
-    public void deleteComment(@PathVariable Long id) throws IOException {
-        meetService.deleteComment(id);
+    public void deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        meetService.deleteComment(id, userId);
     }
 
 
     @PutMapping("/meet/comment")
-    public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto) throws IOException {
-        meetService.updateComment(meetCommentRequestDto);
+    public void updateComment(@RequestBody MeetCommentRequestDto meetCommentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        Long userId = userDetails.getUser().getId();
+        meetService.updateComment(meetCommentRequestDto, userId);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.marumaru_sparta_verspring.configuration;
+package com.example.marumaru_sparta_verspring.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
