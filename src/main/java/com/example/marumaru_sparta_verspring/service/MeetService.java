@@ -43,7 +43,6 @@ public class MeetService {
         meet.setContent(meetRequestDto.getContent());
         meet.setAddress(meetRequestDto.getAddress());
         meet.setDate(meetRequestDto.getDate());
-
         meetRepository.save(meet);
         return meet;
     }
@@ -82,7 +81,7 @@ public class MeetService {
                 .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시글이 없습니다."));
         if (meet.getUserId() != userId) {
-            throw new IllegalArgumentException("작성자만 수정 가능");
+            throw new IllegalArgumentException("작성자만 삭제 가능");
         } else {
             meetRepository.delete(meet);
         }
@@ -105,16 +104,28 @@ public class MeetService {
     }
 
     @Transactional
-    public void deleteComment(Long id) {
-        meetCommentRepository.deleteById(id);
+    public void deleteComment(Long id, Long userId) {
+        MeetComment meetComment = meetCommentRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("해당 게시글이 없습니다."));
+        if (meetComment.getUser().getId() != userId) {
+            throw new IllegalArgumentException("작성자만 삭제 가능");
+        } else {
+            meetCommentRepository.deleteById(id);
+        }
     }
 
     @Transactional
-    public void updateComment(MeetCommentRequestDto meetCommentRequestDto) {
+    public void updateComment(MeetCommentRequestDto meetCommentRequestDto, Long userId) {
         MeetComment meetComment = meetCommentRepository.findById(meetCommentRequestDto.getIdx()).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
-        meetComment.setComment(meetCommentRequestDto.getComment());
-        meetCommentRepository.save(meetComment);
+
+        if (meetComment.getUser().getId() != userId) {
+            throw new IllegalArgumentException("작성자만 수정 가능");
+        } else {
+            meetComment.setComment(meetCommentRequestDto.getComment());
+            meetCommentRepository.save(meetComment);
+        }
     }
 }

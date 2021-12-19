@@ -152,7 +152,10 @@ function showComments(comments) {
 function saveComment() {
     const content = $('#comment_content');
     const id = $('#idx').val();
-    console.log(id)
+    if (!content.val().trim()) {
+        alert("내용은 필수입니다.");
+        return;
+    }
     const inputData = {
         idx: id,
         comment: content.val()
@@ -200,8 +203,8 @@ function saveComment() {
             $('#comment_list').append(comment);
             // Todo : 내림차순 추가
         },
-        error: (error) => {
-            console.log(error);
+        error: (request) => {
+            alert(request.responseJSON.message);
         }
 
     })
@@ -227,7 +230,7 @@ function deleteComment(id) {
                 window.location.reload();
             },
             error: function (request, status, error) {
-                console.log(error);
+                alert(request.responseJSON.message);
             }
         })
     }
@@ -250,7 +253,7 @@ function updateComment(id) {
                 window.location.reload();
             },
             error: function (request, status, error) {
-                console.log(error);
+                alert(request.responseJSON.message);
             }
         })
     }
