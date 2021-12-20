@@ -21,4 +21,11 @@ public class CommonErrorAdvice {
                 new ErrorResponse(e.getMessage(), 400)
         );
     }
+
+    @ExceptionHandler(value = {NullPointerException.class})
+    public ResponseEntity<ErrorResponse> errorHandler(NullPointerException e){
+        return ResponseEntity.badRequest().body(
+                new ErrorResponse(e.getMessage(), 400)
+        );
+    }
 }
