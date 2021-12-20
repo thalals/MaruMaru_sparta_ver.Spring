@@ -2,7 +2,19 @@ $(document).ready(function () {
     const curUrl = window.location.href.split('/');
     const idx = curUrl[curUrl.length - 1];
     showUpload(idx);
+
+
+    if (localStorage.getItem('token')) {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        });
+    } else {
+        alert('로그인을 해주세요')
+        location.replace('/user/login')
+    }
 });
+
+
 
 $(function () {
     $("#datepicker").datepicker({
@@ -81,7 +93,7 @@ function saveUpload(idx) {
             window.location.href = `/meet/` + idx;
         },
         error: function (request, status, error) {
-            alert(error);
+            alert(request.responseJSON.message);
         }
     });
 }

@@ -40,6 +40,15 @@ public class PostController {
 
         return postList;
     }
+
+    //검색 리스트
+    @GetMapping("/posts/search")
+    public List<PostResponseDto> getSearchList(@RequestParam("category") String category, @RequestParam("keyword") String keyword){
+        List<Post> searchPostList = postService.getPostSearchList(category, keyword);
+
+        return searchPostList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
+    }
+
     
     //조회
     @GetMapping("/posts/detail")
@@ -122,4 +131,6 @@ public class PostController {
         Long userId = userDetails.getUser().getId();
         return postService.checkUserLike(id, userId);
     }
+
+
 }

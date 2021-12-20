@@ -102,6 +102,7 @@ public class PostService {
         }
     }
 
+    //게시글 리스트
     public List<PostResponseDto> getPostList(){
         List<Post> postList = postrepository.findAll();
 
@@ -110,6 +111,24 @@ public class PostService {
 //        List<PostResponseDto> resultList = Arrays.asList(modelMapper.map(postList,PostResponseDto[].class));
 
         return resultList;
+    }
+
+    //게시글 검색
+    public List<Post> getPostSearchList(String category, String keyword){
+        if(category.equals("user")){
+            User user = userRepository.findByUsername(keyword).orElseThrow(
+                    () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+            );
+
+            return postrepository.findAllByUser(user);
+        }
+        else if(category.equals("title")){
+            return postrepository.findAllByTitleContainingIgnoreCase(keyword);
+        }
+        else if(category.equals("content")){
+            return postrepository.findAllByContentContainingIgnoreCase(keyword);
+        }
+        return postrepository.findAll();
     }
 
     @Transactional
