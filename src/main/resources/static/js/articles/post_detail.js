@@ -349,6 +349,10 @@ function likeChange(){
 }
 //좋아요
 function likeClick(){
+    if (!localStorage.getItem('token')) {
+        alert('로그인을 해주세요')
+    }
+    else{
     let idx = id;
     let status="up";
 
@@ -373,4 +377,5 @@ function likeClick(){
             console.log(error);
         }
     })
+    }
 }
