@@ -12,6 +12,10 @@ import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -103,14 +107,13 @@ public class PostService {
     }
 
     //게시글 리스트
-    public List<PostResponseDto> getPostList(){
-        List<Post> postList = postrepository.findAll();
+    public Page<Post> getPostList(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+//        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt"));
+//        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Post> postList = postrepository.findAll(pageable);
 
-        List<PostResponseDto> resultList = postList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
-
-//        List<PostResponseDto> resultList = Arrays.asList(modelMapper.map(postList,PostResponseDto[].class));
-
-        return resultList;
+        return postList;
     }
 
     //게시글 검색
