@@ -8,7 +8,10 @@ import com.example.marumaru_sparta_verspring.repository.PostRepository;
 import com.example.marumaru_sparta_verspring.security.UserDetailsImpl;
 import com.example.marumaru_sparta_verspring.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.apache.el.stream.Stream;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -30,15 +33,27 @@ public class PostController {
 
     //게시글 목록
     @GetMapping("/post-list")
-    public List<PostResponseDto> getPostList(){
-        List<PostResponseDto> postList = postService.getPostList();
-        PostResponseDto best;
-        if(postList.size()>0) {
-            best = postList.stream().sorted(Comparator.comparing(PostResponseDto::getView)).collect(Collectors.toList()).get(postList.size() - 1);
-            postList.add(0,best);
+    public Map<Integer,List<PostResponseDto>> getPostList(@RequestParam("page") int page){
+        Page<Post> resultList = postService.getPostList(page, 5);
+//        List<PostResponseDto> postList = Arrays.asList(modelMapper.map(resultList,PostResponseDto[].class));
+        List<PostResponseDto> postList = resultList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
+        int totalpages = resultList.getTotalPages();
+        HashMap responseData = new HashMap<String,List<PostResponseDto>>();
+        responseData.put(totalpages,postList);
+
+        return responseData;
+    }
+    //베스트 게시글
+    @GetMapping("/post-best")
+    public PostResponseDto getPostBest(){
+        List<Post> postlist = postrepository.findAll();
+
+        Post best = new Post();
+        if(postlist.size()>0) {
+            best = postlist.stream().sorted(Comparator.comparing(Post::getView)).collect(Collectors.toList()).get(postlist.size() - 1);
         }
 
-        return postList;
+        return modelMapper.map(best, PostResponseDto.class);
     }
 
     //검색 리스트

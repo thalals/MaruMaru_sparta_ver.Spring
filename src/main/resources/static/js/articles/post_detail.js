@@ -349,28 +349,33 @@ function likeChange(){
 }
 //좋아요
 function likeClick(){
-    let idx = id;
-    let status="up";
+    if (!localStorage.getItem('token')) {
+        alert('로그인을 해주세요')
+    }
+    else{
+        let idx = id;
+        let status="up";
 
-    //좋아요 취소할 때
-    if($("#like").hasClass("fas")){
-        status="down"
-    }
-    data={
-        idx:idx,
-        status:status
-    }
-    $.ajax({
-        type: "POST",
-        url: `/posts/like`,
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            $("#like-count").text(response['likes'].length)
-            likeChange();
-        },
-        error: function (request, status, error) {
-            console.log(error);
+        //좋아요 취소할 때
+        if($("#like").hasClass("fas")){
+            status="down"
         }
-    })
+        data={
+            idx:idx,
+            status:status
+        }
+        $.ajax({
+            type: "POST",
+            url: `/posts/like`,
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                $("#like-count").text(response['likes'].length)
+                likeChange();
+            },
+            error: function (request, status, error) {
+                console.log(error);
+            }
+        })
+    }
 }

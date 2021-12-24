@@ -1,8 +1,10 @@
 $(document).ready(function () {
-    $('#post-body').empty();
-    show_post_list();
+    show_post_list(0);
+    show_post_best();
+    let page = 1;
 });
 
+//post 보여주기
 function display(articles){
     let list_num = 0
 
@@ -38,22 +40,51 @@ function display(articles){
     }
 }
 
-function show_post_list() {
+function createPagination(length){
+    $('#post-pagination-number').empty();
+
+    for(let i=0;i<length;i++){
+        let temp_html=`<li class="page-item"><a class="page-link" onclick="show_post_list(${i})">${i+1}</a></li>`
+        $('#post-pagination-number').append(temp_html);
+    }
+}
+//page post-list 불러오기
+function show_post_list(page) {
+    $('#post-body').empty();
+
     $.ajax({
         type: 'GET',
         url: '/post-list',
         contentType: 'application/json; charset=utf-8',
-        data: {},
+        data: {"page":page},
         success: function (response) {
-            const articles = response;
-            if(articles.length>0) {
-                show_best(articles[0]);
-                articles.shift();   //1번 요소 삭제
-            }
-            display(articles);
+            const totalPages = Object.keys(response);
+            const articles = Object.values(response);
+
+
+            display(articles[0]);
+            createPagination(totalPages);
         }
     });
 }
+
+//best 글
+function show_post_best() {
+    $('#post-best').empty();
+
+    $.ajax({
+        type: 'GET',
+        url: '/post-best',
+        contentType: 'application/json; charset=utf-8',
+        data: {},
+        success: function (response) {
+            const best = response;
+
+            show_best(best);
+        }
+    });
+}
+
 
 function formatDate(date) {
     let DateYMD = date.split('T')[0];
@@ -88,10 +119,11 @@ function show_best(best) {
                                 </div>                 
                      
                      `
-    $('#post-body').append(temp_html)
+    $('#post-best').append(temp_html)
 }
 
 function postSearch(){
+    $("#post-pagination").empty();
     let category = $('#SearchSelect').val();
     let keyword = $('#post-search-keyword').val();
     $.ajax({
@@ -99,7 +131,7 @@ function postSearch(){
         url: '/posts/search',
         data: {
             "category" : category,
-            "keyword" : keyword
+            "keyword" : keyword,
         },
         success: function (response) {
             $('#post-body').empty();
