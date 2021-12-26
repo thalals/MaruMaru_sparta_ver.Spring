@@ -26,33 +26,29 @@ function show_all_profile() {
 function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
     //1. HTML 태그를 만든다.
     let tempHtml = `<div class="card color-card">
-                        <ul>
-                          <a href="#">
-                          <li>
-                          <i class="fas fa-heart" title="좋아요"></i>
-                          </i>
-                          </li>
-                          </a>
-                        </ul>
                         <div class="card_top">
-                          <div>
-                            <div class="profile_img">
-                            <img class="dog_img" src="${dogImgUrl}">
+                            <ul>
+                              <a href="#">
+                              <li><i class="fas fa-heart" title="좋아요"></i></li>
+                              </a>
+                            </ul>
+                            <div>
+                                <h3 class="name desc">${dogName}</h3>
                             </div>
-                          </div>
-                          <div>
-                            <p class="name desc">이름: ${dogName}</p>
-                          </div>
-                          <div class="desc">
-                            <p class="age">나이: ${dogAge}</p>
-                            <p class="gender">성별: ${dogGender}</p>
-                          </div>
-                          <hr>
-                          <div class="desc comment" style="font-size: 20px">
-                            <p style="font-size: 15px">자기소개: ${dogComment}</p>
-                            <button class="button color-a top mt-3" onclick = "location.href ='/profile/detail/${idx}'">자세히 보기</button>
-                          </div>
                         </div>
-                      </div>`;
+                        
+                        <img class="dog_img" src="${dogImgUrl}">
+                        
+                            <div class="card_middle">
+                                <div class="desc">
+                                    <p class="age" style="font-size: 20px">나이: ${dogAge}살<span class="gender ml-4">성별: ${dogGender}</span></p>
+                                    <div class="desc comment">
+                                    <p>자기소개: ${dogComment}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <button class="detail-button btn btn-primary" onclick = "location.href ='/profile/detail/${idx}'">자세히 보기</button>
+                     </div>`;
     $("#profile_card_list").append(tempHtml);
 }

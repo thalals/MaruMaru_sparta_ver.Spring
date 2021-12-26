@@ -25,7 +25,7 @@
 
     <!-- Css -->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/profile/profile_list.css">
+    <link rel="stylesheet" href="/css/profile/profile_detail.css">
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -87,40 +87,40 @@
         <h1 id="profile-name"></h1>
     </div>
 </div>
-<div class="card color-card">
-    <ul>
-        <a href="/profiles">
-            <li><i class="fas fa-arrow-left i-l w"></i></li>
-        </a>
-        <a href="javascript:checking_user_delete()">
-            <li>
-                <i class="fas fa-trash-alt i-r w" title="삭제"></i>
-            </li>
-        </a>
-        <a id="dogdetail_up" href="javascript:checking_user_update()">
-            <li>
-                <i class="fas fa-wrench i-r w" title="수정"></i>
-            </li>
-        </a>
-    </ul>
-
-    <div class="card_top">
-        <div>
-            <input type="hidden" value="id_value" id="profile_id">
-            <div class="profile_img">
-                <img class="dog_img" id="dog_img" src="#">
+<div class="card">
+    <div class="card color-card">
+        <div class="card_top">
+            <ul>
+                <a href="/profiles">
+                    <li><i class="fas fa-arrow-left i-l w"></i></li>
+                </a>
+                <a href="javascript:checking_user_delete()">
+                    <li>
+                        <i class="fas fa-trash-alt i-r w" title="삭제"></i>
+                    </li>
+                </a>
+                <a id="dogdetail_up" href="javascript:checking_user_update()">
+                    <li>
+                        <i class="fas fa-wrench i-r w" title="수정"></i>
+                    </li>
+                </a>
+            </ul>
+            <div>
+                <p id="dog-name" class="name desc"></p>
             </div>
         </div>
-        <div>
-            <p id="dog-name" class="name desc"></p>
-        </div>
-        <div class="desc">
-            <p id="dog-age" class="age"></p>
-            <p id="dog-gender" class="gender"></p>
-        </div>
-        <hr>
-        <div class="desc comment" style="font-size: 15px">
-            <p id="dog-comment"></p>
+
+        <input type="hidden" value="id_value" id="profile_id">
+        <img class="dog_img" id="dog_img" src="#">
+
+        <div class="card_middle">
+            <div class="desc">
+                <p id="dog-age" class="age"></p>
+                <p id="dog-gender" class="gender"></p>
+                <div class="desc comment" style="font-size: 15px">
+                    <p id="dog-comment"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
