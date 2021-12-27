@@ -192,6 +192,10 @@ body {
     background-color: #31394D;
 }
 
+.baby-cards {
+    width: 1000px;
+}
+
 .color-card {
     background: #31394D;
     text-align: center;
@@ -286,11 +290,6 @@ body {
     background: white;
 }
 
-.baby-cards{
-    width: 1020px;
-    display: block;
-    margin: auto;
-}
 .card-link{
     color: #0d6efd;
     text-decoration: underline;

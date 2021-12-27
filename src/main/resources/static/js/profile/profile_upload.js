@@ -17,6 +17,16 @@ $(document).ready(function () {
     bsCustomFileInput.init();
 })
 
+function maxComment(comment) {
+    if (comment.value.length > comment.maxLength) {
+        alert('15자 이내로 간단하게 작성해주세요!')
+        comment.value = comment.value.slice(0, comment.maxLength);
+        return false;
+    } else {
+    stop()
+    }
+}
+
 function profile_upload() {
 
     // let dogName = $("#dog_name").val();
