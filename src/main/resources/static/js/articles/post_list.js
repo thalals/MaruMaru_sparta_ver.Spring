@@ -1,5 +1,6 @@
+let post_sortedStatus="createdAt";
 $(document).ready(function () {
-    show_post_list(0);
+    show_post_list(0,post_sortedStatus);
     show_post_best();
     let page = 1;
 });
@@ -15,6 +16,7 @@ function display(articles){
         const contents = articles[i]['content']
         const time = formatDate(articles[i]['createdAt'])
         const view = articles[i]['view']
+        const likes = articles[i]['likes'].length
         const card_img = articles[i]['img']
 
         list_num+=1
@@ -31,7 +33,11 @@ function display(articles){
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>
-                                            <div class="view">조회수 ${view}</div>
+                                            <div style="display:flex">
+                                                <div class="view" style="margin-right:3%">조회수 ${view}</div>
+                                                <div class="like">좋아요 ${likes}</div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -40,6 +46,7 @@ function display(articles){
     }
 }
 
+//페이지네이션 버튼 만들기
 function createPagination(length){
     $('#post-pagination-number').empty();
 
@@ -48,15 +55,26 @@ function createPagination(length){
         $('#post-pagination-number').append(temp_html);
     }
 }
+
+//정렬
+function sorting_post(sorted){
+    post_sortedStatus=sorted;
+
+    show_post_list(0,post_sortedStatus);
+}
+
 //page post-list 불러오기
-function show_post_list(page) {
+function show_post_list(page,sort) {
     $('#post-body').empty();
+    if(arguments.length==1){
+        sort = post_sortedStatus;
+    }
 
     $.ajax({
         type: 'GET',
         url: '/post-list',
         contentType: 'application/json; charset=utf-8',
-        data: {"page":page},
+        data: {"page":page, "sorted":sort},
         success: function (response) {
             const totalPages = Object.keys(response);
             const articles = Object.values(response);
@@ -100,6 +118,7 @@ function show_best(best) {
     const time = formatDate(best['createdAt'])
     const view = best['view']
     const card_img = best['img']
+    const likes = best['likes'].length;
 
     const temp_html = `
                                 <div onclick="location.href='posts/detail/${number}'" class="row card-post-best">
@@ -113,7 +132,10 @@ function show_best(best) {
                                             <div class="author">${username}</div>
                                             <p class="post-content">${contents}</p>
                                             <div class="post-sub" id="time">${time}</div>
-                                            <div class="view">조회수 ${view}</div>
+                                            <div style="display:flex">
+                                                <div class="view" style="margin-right:3%">조회수 ${view}</div>
+                                                <div class="like">좋아요 ${likes}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>                 

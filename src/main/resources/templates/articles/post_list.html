@@ -101,9 +101,10 @@
         </h1>
         <h5>오늘도 재미있는 소식들이 한가득</h5>
     </div>
-    <button src="..." class="btn btn-primary rounded-pill" alt="...">조회수</button>
-    <button src="..." class="btn btn-primary rounded-pill" alt="...">제목</button>
-    <button src="..." class="btn btn-primary rounded-pill" alt="...">필터</button>
+    <button onclick="sorting_post('view')" class="btn btn-primary rounded-pill" alt="...">조회수</button>
+    <button onclick="sorting_post('likes')" class="btn btn-primary rounded-pill" alt="...">좋아요</button>
+    <button onclick="sorting_post('createdAt')" class="btn btn-primary rounded-pill" alt="...">최신순</button>
+    <button onclick="sorting_post('descending')" class="btn btn-primary rounded-pill" alt="...">오래된순</button>
     <button onclick="location.href='/posts'" type="button" class="btn btn-dark float-right">게시물 작성</button>
 
     <div class="search-box" style="margin: 2%">
@@ -128,7 +129,7 @@
         <!-- 게시글 리스트 -->
     </div>
     <!--페이지네이션-->
-    <div id="post-pagination">
+    <div id="post-pagination" style="margin-bottom: 10%">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li class="page-item">

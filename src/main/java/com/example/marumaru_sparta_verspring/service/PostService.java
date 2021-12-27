@@ -107,10 +107,17 @@ public class PostService {
     }
 
     //게시글 리스트
-    public Page<Post> getPostList(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt"));
-//        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+    public Page<Post> getPostList(int page, int size, String sorting){
+        Pageable pageable;
+        if(sorting.equals("descending")) {
+            pageable = PageRequest.of(page, size, Sort.by("createdAt"));
+        }
+        else if(sorting.equals("likes")){
+            pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
+        }
+        else
+            pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
+
         Page<Post> postList = postrepository.findAll(pageable);
 
         return postList;

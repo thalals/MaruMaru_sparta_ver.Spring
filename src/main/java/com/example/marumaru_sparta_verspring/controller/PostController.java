@@ -33,8 +33,8 @@ public class PostController {
 
     //게시글 목록
     @GetMapping("/post-list")
-    public Map<Integer,List<PostResponseDto>> getPostList(@RequestParam("page") int page){
-        Page<Post> resultList = postService.getPostList(page, 5);
+    public Map<Integer,List<PostResponseDto>> getPostList(@RequestParam("page") int page, @RequestParam("sorted") String sort){
+        Page<Post> resultList = postService.getPostList(page, 5, sort);
 //        List<PostResponseDto> postList = Arrays.asList(modelMapper.map(resultList,PostResponseDto[].class));
         List<PostResponseDto> postList = resultList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
         int totalpages = resultList.getTotalPages();
