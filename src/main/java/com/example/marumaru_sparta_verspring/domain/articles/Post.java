@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -42,6 +43,10 @@ public class Post extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
+    //좋아요 수 count 컬럼 - 가상
+    @Formula("(select count(*) from post_like l where l.post_id = id)")
+    private int countOfLikes;
+
     @JsonIgnore
     @OneToMany(mappedBy = "post", cascade=CascadeType.ALL)
     private List<PostComment> comments = new ArrayList<PostComment>();
@@ -61,5 +66,4 @@ public class Post extends Timestamped {
     public void upView(int view){
         this.view = view;
     }
-
 }
