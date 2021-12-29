@@ -113,7 +113,7 @@ public class PostService {
             pageable = PageRequest.of(page, size, Sort.by("createdAt"));
         }
         else if(sorting.equals("likes")){
-            pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
+            pageable = PageRequest.of(page, size, Sort.by("countOfLikes").descending());
         }
         else
             pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
