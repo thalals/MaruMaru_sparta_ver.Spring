@@ -35,36 +35,31 @@ $(document).ready(function () {
         success: function (response) {
             for(let i=0; i<response.length;i++){
                 let temp_html=`<div class="card color-card">
-                                    <ul>
-                                        <a href="javascript:void(0);" onclick="ProfileLike(${response[i]['idx']})">
-                                             <i class="fas fa-heart" title="좋아요"></i>
-                                        </a>
-                                    </ul>
-
-                                    <div class="card_top">
-                                        <div>
-                                            <div class="profile_img">
-                                                <img class="dog_img" src="${response[i]['dogImg']}">
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p class="name desc">${response[i]['dogName']}</p>
-                                        </div>
-                                        <div class="desc">
-                                            <p class="age">나이: ${response[i]['dogAge']}살</p>
-                                            <p class="gender">성별: ${response[i]['dogGender']}</p>
-                                        </div>
-                                        <hr>
-                                        <div class="desc comment" style="font-size: 15px">
-                                            <p>자기소개: ${response[i]['dogComment']}</p>
-                                            <button class="btn color-a top mt-5"
-                                                    onclick="location.href ='/profile/detail/${response[i]['idx']}'">자세히 보기
-                                            </button>
-                                        </div>
-
+                        <div class="card_top">
+                            <ul>
+                              <a href="href="javascript:void(0);" onclick="ProfileLike(${response[i]['idx']})"">
+                              <li><i class="fas fa-heart" title="좋아요"></i></li>
+                              </a>
+                            </ul>
+                            <div>
+                                <h3 class="name desc">${response[i]['dogName']}</h3>
+                            </div>
+                        </div>
+                        
+                        <img class="dog_img" src="${response[i]['dogImg']}">
+                        
+                            <div class="card_middle">
+                                <div class="desc">
+                                    <p class="age" style="font-size: 20px">나이: ${response[i]['dogAge']}살<span class="gender ml-4">성별: ${response[i]['dogGender']}</span></p>
+                                    <div class="desc comment">
+                                    <p>자기소개: ${response[i]['dogComment']}</p>
                                     </div>
-                                    <input type="hidden" value=${response[i]['idx']} id="${response[i]['idx']}card">
-                                </div>`
+                                </div>
+                            </div>
+                        
+                            <button class="detail-button btn btn-primary" onclick="location.href ='/profile/detail/${response[i]['idx']}'">자세히 보기</button>
+                            <input type="hidden" value=${response[i]['idx']} id="${response[i]['idx']}card">
+                     </div>`
                 $('#baby_list').append(temp_html)
             }
         }
