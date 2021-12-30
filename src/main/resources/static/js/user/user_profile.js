@@ -36,11 +36,11 @@ $(document).ready(function () {
             for(let i=0; i<response.length;i++){
                 let temp_html=`<div class="card color-card">
                         <div class="card_top">
-                            <ul>
-                              <a href="href="javascript:void(0);" onclick="ProfileLike(${response[i]['idx']})"">
+                            <!--<ul>
+                              <a href="href="javascript:void(0);" onclick="ProfileLike(${response[i]['idx']})">
                               <li><i class="fas fa-heart" title="좋아요"></i></li>
                               </a>
-                            </ul>
+                            </ul>-->
                             <div>
                                 <h3 class="name desc">${response[i]['dogName']}</h3>
                             </div>
