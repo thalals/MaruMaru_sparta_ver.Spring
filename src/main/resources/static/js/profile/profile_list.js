@@ -27,11 +27,11 @@ function addHTML(idx, dogImgUrl, dogName, dogAge, dogGender, dogComment) {
     //1. HTML 태그를 만든다.
     let tempHtml = `<div class="card color-card">
                         <div class="card_top">
-                            <ul>
-                              <a href="#">
-                              <li><i class="fas fa-heart" title="좋아요"></i></li>
-                              </a>
-                            </ul>
+<!--                            <ul>-->
+<!--                              <a href="#">-->
+<!--                              <li><i class="fas fa-heart" title="좋아요"></i></li>-->
+<!--                              </a>-->
+<!--                            </ul>-->
                             <div>
                                 <h3 class="name desc">${dogName}</h3>
                             </div>
