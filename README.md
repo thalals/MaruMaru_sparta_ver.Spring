@@ -68,6 +68,12 @@
 <br/>
 
 ## 👍 API 설계 [Wiki](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C)
+#### POST [게시글](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C#post-%EA%B2%8C%EC%8B%9C%EA%B8%80)
+#### profile [기능](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C#profile-%EA%B8%B0%EB%8A%A5)
+#### MEET [기능](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C#meet-%EA%B8%B0%EB%8A%A5)
+#### Map [기능](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C#map-%EA%B8%B0%EB%8A%A5)
+#### User [기능](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C#user-%EA%B8%B0%EB%8A%A5)
+
 <br/>
 
 ## ✨️ 주요 기능 [Wiki](https://github.com/thalals/MaruMaru_sparta_ver.Spring/wiki/API-%EB%AC%B8%EC%84%9C)
