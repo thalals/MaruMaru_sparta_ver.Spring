@@ -101,10 +101,12 @@
         <div id="meet-post" class="contents_box m-auto">
             <!-- 제목, 내용 -->
         </div>
-
         <!--주소, 지도버튼-->
         <div id="address-div" class="address_box">
 
+        </div>
+        <div class="map" style="border: black 1px solid">
+            <iframe id="go-map"></iframe>
         </div>
 
         <!-- 버튼 그룹 -->
@@ -132,38 +134,6 @@
             <div id="comment_list">
                 <!-- 댓글 post -->
 
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 지도 모달 창-->
-<div class="modal fade" id="map-modal" role="map" aria-labelledby="map"
-     aria-hidden="true" tabindex="-1">
-    <!--modal-dailog : 모달 창 영역 설정-->
-    <div class="modal-dialog modal-lg">
-        <!--modal-content : 모달 창 콘텐츠 영역 설정-->
-        <div class="modal-content">
-            <!--modal-header : 모달 창 콘텐츠의 헤더영역-->
-            <div class="modal-header modal-header-custom">
-                <h4 class="modal-title modal-title-custom">지도</h4>
-            </div>
-            <!--modal-body : 모달 창 콘텐츠의 바디영역-->
-            <div class="modal-body" id="map-body">
-                <!-- iframe src="/map?id={id}" -->
-                <div id="map-area">
-                    <iframe id="go-map"></iframe>
-                </div>
-
-            </div>
-            <!--modal-footer : 모달 창 콘텐츠의 푸터영역-->
-            <div class="modal-footer">
-                <div class="modal-footer-custom">
-                    <button type="button" class="btn btn-danger"
-                            data-bs-dismiss="modal">
-                        닫기
-                    </button>
-                </div>
             </div>
         </div>
     </div>
