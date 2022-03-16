@@ -4,7 +4,8 @@ const id = url_list[url_list.length - 1].replace(/[^0-9.]/g, '')
 $(document).ready(function () {
     bsCustomFileInput.init();
     show_post(id)
-    userLikeCheck(id);
+    if(localStorage.getItem('token')!=null)
+        userLikeCheck(id);
 });
 
 function showModal() {
