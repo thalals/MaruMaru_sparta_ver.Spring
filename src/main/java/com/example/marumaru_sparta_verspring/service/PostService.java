@@ -118,8 +118,8 @@ public class PostService {
         else
             pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
 
-        Page<Post> postList = postrepository.findAll(pageable);
-
+//        Page<Post> postList = postrepository.findAll(pageable);
+        Page<Post> postList = postrepository.findWithPagination(pageable);
         return postList;
     }
 
@@ -198,10 +198,12 @@ public class PostService {
         
         if(postLikeDto.getStatus().equals("up")){
             PostLike postLike = new PostLike(user, post);
+            post.setCountOfLikes(post.getCountOfLikes()+1);
             postLikeRepository.save(postLike);
         }
         else if(postLikeDto.getStatus().equals("down")){
             PostLike postLike = postLikeRepository.findByPostAndUser(post,user);
+            post.setCountOfLikes(post.getCountOfLikes()-1);
             postLikeRepository.deleteById(postLike.getIdx());
         }
 
