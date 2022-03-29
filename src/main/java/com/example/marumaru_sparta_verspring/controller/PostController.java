@@ -38,6 +38,7 @@ public class PostController {
         Page<Post> resultList = postService.getPostList(page, 5, sort);
 //        List<PostResponseDto> postList = Arrays.asList(modelMapper.map(resultList,PostResponseDto[].class));
         List<PostResponseDto> postList = resultList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
+
         int totalpages = resultList.getTotalPages();
         HashMap responseData = new HashMap<String,List<PostResponseDto>>();
         responseData.put(totalpages,postList);
@@ -48,13 +49,9 @@ public class PostController {
     @GetMapping("/post-best")
     public PostResponseDto getPostBest(){
         List<Post> postlist = postrepository.findAll();
+        Post best_post = postrepository.findFirstByOrderByViewDesc();
 
-        Post best = new Post();
-        if(postlist.size()>0) {
-            best = postlist.stream().sorted(Comparator.comparing(Post::getView)).collect(Collectors.toList()).get(postlist.size() - 1);
-        }
-
-        return modelMapper.map(best, PostResponseDto.class);
+        return modelMapper.map(best_post, PostResponseDto.class);
     }
 
     //검색 리스트
