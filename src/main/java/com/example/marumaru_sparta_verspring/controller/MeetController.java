@@ -69,4 +69,12 @@ public class MeetController {
         Long userId = userDetails.getUser().getId();
         meetService.updateComment(meetCommentRequestDto, userId);
     }
+
+    //수정시 본인확인
+    @GetMapping("/meet/check")
+    public boolean checkUser(@RequestParam Long id,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long userId = userDetails.getUser().getId();
+        return meetService.getMeetUserCheck(id,userId);
+
+    }
 }

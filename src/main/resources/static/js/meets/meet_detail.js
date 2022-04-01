@@ -105,7 +105,23 @@ function deleteMeet() {
 
 function updateMeet() {
     const id = $('#idx').val();
-    location.href = `/meet-change/` + id;
+
+    $.ajax({
+        type: "GET",
+        url: `/api/meet/check`,
+        data: {id: id},
+        success: function (response) {
+            if (response) {
+                location.href = `/meet-change/` + id;
+            } else {
+                alert("작성자만 수정할 수 있습니다.")
+                }
+            },
+
+        error: function (request, status, error) {
+            alert(error);
+        }
+    });
 }
 
 
