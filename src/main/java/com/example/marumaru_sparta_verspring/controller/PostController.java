@@ -34,12 +34,14 @@ public class PostController {
 
     //게시글 목록
     @GetMapping("/posts")
-    public Map<Integer,List<PostResponseDto>> getPostList(@RequestParam("page") int page, @RequestParam("sorted") String sort){
-        Page<Post> resultList = postService.getPostList(page, 5, sort);
+    public Map<Integer,List<PostResponseDto>> getPostList(@RequestParam("page") int page, @RequestParam("sorted") String sort, @RequestParam(value = "cursorIdx", required = false) Long cursorIdx){
+        Page<Post> resultList = postService.getPostList(page, 5, sort,cursorIdx);   //cursor 기반
+//        Page<Post> resultList = postService.getPostList(page, 5, sort);  //offset 기반
 //        List<PostResponseDto> postList = Arrays.asList(modelMapper.map(resultList,PostResponseDto[].class));
         List<PostResponseDto> postList = resultList.stream().map(post -> modelMapper.map(post, PostResponseDto.class)).collect(Collectors.toList());
 
         int totalpages = resultList.getTotalPages();
+
         HashMap responseData = new HashMap<String,List<PostResponseDto>>();
         responseData.put(totalpages,postList);
 

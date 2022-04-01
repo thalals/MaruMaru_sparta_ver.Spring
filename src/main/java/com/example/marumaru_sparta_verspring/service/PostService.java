@@ -107,7 +107,7 @@ public class PostService {
     }
 
     //게시글 리스트
-    public Page<Post> getPostList(int page, int size, String sorting){
+    public Page<Post> getPostList(int page, int size, String sorting, Long cursorIdx){
         Pageable pageable;
         if(sorting.equals("descending")) {
             pageable = PageRequest.of(page, size, Sort.by("createdAt"));
@@ -119,7 +119,9 @@ public class PostService {
             pageable = PageRequest.of(page, size, Sort.by(sorting).descending());
 
 //        Page<Post> postList = postrepository.findAll(pageable);
-        Page<Post> postList = postrepository.findWithPagination(pageable);
+//        Page<Post> postList = postrepository.findWithPagination(pageable);    //JPA 페이징 API
+        Page<Post> postList = postrepository.findByCustom_offsetPaging(pageable);  //QDSL 오프셋 페이징
+//        Page<Post> postList = postrepository.findByCustom_cursorPaging(pageable, sorting, cursorIdx);      //QDSL 커서 페이징
         return postList;
     }
 
