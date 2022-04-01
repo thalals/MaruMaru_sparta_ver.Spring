@@ -1,4 +1,6 @@
 let post_sortedStatus="createdAt";
+let cursorIdx = null;
+
 $(document).ready(function () {
     show_post_list(0,post_sortedStatus);
     show_post_best();
@@ -23,6 +25,9 @@ function display(articles){
 
         let temp_html = `
                                  <div onclick="location.href='/posts/detail/${number}'" class="row card-post">
+                                     <input type="hidden" id="cursor${list_num}_idx" name="${list_num}_idx" value="${number}">
+                                     <input type="hidden" id="cursor${list_num}_view" name="${list_num}_view" value="${view}">
+                                     <input type="hidden" id="cursor${list_num}_likes" name="${list_num}_likes" value="${likes}">
                                     <div class="col-lg-4">
                                         <img class="card-img" src="${card_img}" class="img-fluid rounded-start" alt="pic">
                                     </div>
@@ -59,7 +64,7 @@ function createPagination(length){
 //정렬
 function sorting_post(sorted){
     post_sortedStatus=sorted;
-
+    cursorIdx = null;
     show_post_list(0,post_sortedStatus);
 }
 
@@ -69,19 +74,27 @@ function show_post_list(page,sort) {
     if(arguments.length==1){
         sort = post_sortedStatus;
     }
+    console.log(sort)
 
     $.ajax({
         type: 'GET',
         url: '/api/posts',
         contentType: 'application/json; charset=utf-8',
-        data: {"page":page, "sorted":sort},
+        data: {"page":page, "sorted":sort, "cursorIdx":cursorIdx},
         success: function (response) {
+            console.log(response)
             const totalPages = Object.keys(response);
             const articles = Object.values(response);
 
 
             display(articles[0]);
             createPagination(totalPages);
+            if(sort=="createdAt" || sort=="descending"){
+            cursorIdx = $('#cursor5_idx').val()
+            console.log(cursorIdx)}
+            if(sort=="view"){cursorIdx = $('#cursor5_view').val()}
+            if(sort=="likes"){cursorIdx = $('#cursor5_likes').val()}
+                console.log(cursorIdx)
         }
     });
 }

@@ -28,10 +28,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     public Page<Post> findByCustom_cursorPaging(Pageable pageable, String sorting, Long cursorIdx) {
         QPost post = QPost.post;
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-
-        QueryResults<Post> results = queryFactory
+        List<Post> content = queryFactory
                 .select(post)
                 .from(post)
                 .join(post.user)
@@ -39,10 +36,15 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .orderBy(PostSort(pageable))
                 .where(cursorId(sorting,cursorIdx))
                 .limit(pageable.getPageSize())
-                .fetchResults();
+                .fetch();
 
-        List<Post> content = results.getResults();
-        long total = results.getTotal();
+        //카운트 쿼리 따로
+        long total = queryFactory
+                .select(post.idx)
+                .from(post)
+                .join(post.user)
+                .fetchCount();
+        System.out.println("total : "+ total);
 
         return new PageImpl<>(content,pageable,total);
     }
@@ -58,7 +60,6 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         
         // id < 파라미터를 첫 페이지에선 사용하지 않기 위한 동적 쿼리
         if (cursorId==null) {
-            System.out.println("null 들어왔따따따따따ㄸ");
             return null; // // BooleanExpression 자리에 null 이 반환되면 조건문에서 자동으로 제거
         }
         else if(sorting.equals("createdAt"))
