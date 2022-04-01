@@ -1,6 +1,7 @@
 package com.example.marumaru_sparta_verspring.service;
 
 import com.example.marumaru_sparta_verspring.domain.S3Uploader;
+import com.example.marumaru_sparta_verspring.domain.articles.Post;
 import com.example.marumaru_sparta_verspring.domain.meets.Meet;
 import com.example.marumaru_sparta_verspring.domain.meets.MeetComment;
 import com.example.marumaru_sparta_verspring.domain.user.User;
@@ -85,6 +86,18 @@ public class MeetService {
         } else {
             meetRepository.delete(meet);
         }
+    }
+
+    //게시글 수정시 본인 확인
+    public boolean getMeetUserCheck(Long id, Long userID){
+        Meet meet = meetRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        if(meet.getUserId()==userID){
+            return true;
+        }
+        else return false;
+
     }
 
     @Transactional
