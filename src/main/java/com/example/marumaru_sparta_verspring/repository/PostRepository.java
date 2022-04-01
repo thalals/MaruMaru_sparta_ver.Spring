@@ -14,13 +14,13 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post,Long> {
+public interface PostRepository extends JpaRepository<Post,Long>, PostRepositoryCustom {
 
     List<Post> findByUserId(Long userId);
     List<Post> findAllByUser(User user);
     List<Post> findAllByTitleContainingIgnoreCase(String keyword);
     List<Post> findAllByContentContainingIgnoreCase(String keyword);
-//    @Query(value = "select * from post p join user u where p.user_id = u.id",nativeQuery = true)
+
     @Query(value = "select p from Post p  join fetch p.user u", countQuery = "select count(p) from Post p")
     Page<Post> findWithPagination(Pageable pageable);
 
