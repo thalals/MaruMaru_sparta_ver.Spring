@@ -4,7 +4,10 @@
 ## 🏠 소개
 
 + 반려견을 위한 반려견의 의한 반려 동반자의 커뮤니티 사이트
++ 홈페이지 : http://www.hminpage.shop/
 
+
+<img src = "https://user-images.githubusercontent.com/42319300/161721735-e80e07f1-108b-4d85-bbda-77599c4729ff.png" width ="400" /> <img src = "https://user-images.githubusercontent.com/42319300/161721726-8e424d92-72a1-44e4-95b1-aca64d0df5fd.png" width ="400" /> </br>
 
 ## 🐶Project Directory
 
