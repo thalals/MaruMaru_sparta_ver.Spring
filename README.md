@@ -1,5 +1,9 @@
-## 스파르타 내일배움캠프 3차 프로젝트
 ### 🐶강만다(강아지를 만나다) - 스파르타 내일배움캠프 3차 프로젝트
+
+<br>
+
+## 🕸 시스템 구성도
+![image](https://user-images.githubusercontent.com/42319300/162265770-338562cc-62b9-4197-83b5-8ba3222cae9a.png)
 
 ## 🏠 소개
 
@@ -9,36 +13,13 @@
 
 <img src = "https://user-images.githubusercontent.com/42319300/161721735-e80e07f1-108b-4d85-bbda-77599c4729ff.png" width ="400" /> <img src = "https://user-images.githubusercontent.com/42319300/161721726-8e424d92-72a1-44e4-95b1-aca64d0df5fd.png" width ="400" /> </br>
 
-## 🐶Project Directory
-
-```
-.
-├── gradle/wrapper
-├── src                         # 메인 파일
-│   ├── main/java/com.example.marumaru_sparta_verspring
-│   │    ├──common              # 예외처리
-│   │    ├──configuration
-│   │    ├──controller
-│   │    ├──domain              # Entity 작성 (테이블)
-│   │    ├──dto
-│   │    ├──repository
-│   │    ├──security            # 인증/인가 설정
-│   │    ├──service             # 비즈니스로직
-│   │    └──util                # jwt
-│   │
-│   └──recources
-│           ├──static                       # JS/CSS/IMG 파일 + index.html
-│           ├──templates                    # HTML 파일
-│           ├──application.properties       # 설정파일
-│           └──application.aws.yml          # aws 설정(삭제 예정)
-└──build.gradle
-```
-
+<Br>
+  
 
 <br/>
 
 
-## 🧙 맴버구성
+## 🧙 맴버
 
 <table>
     <tr>
@@ -52,8 +33,6 @@
                 <br />
                   <a href="https://github.com/sendkite">전송연</a>
             </td>
-  </tr>
-  <tr>
         <td align="center" width="130px" height="160px">
             <a href="https://github.com/carina9231"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135605305-2b71e4a7-c01d-4349-a1d8-dc8132584d99.jpg" /></a>
           <br />
