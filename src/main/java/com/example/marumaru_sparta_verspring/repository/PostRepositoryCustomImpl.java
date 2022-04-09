@@ -44,7 +44,6 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .from(post)
                 .join(post.user)
                 .fetchCount();
-        System.out.println("total : "+ total);
 
         return new PageImpl<>(content,pageable,total);
     }
@@ -77,7 +76,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     public Page<Post> findByCustom_offsetPaging(Pageable pageable) {
         QPost post = QPost.post;
 
-        QueryResults<Post> results = queryFactory
+        List<Post> content = queryFactory
                 .select(post)
                 .from(post)
                 .join(post.user)
@@ -85,10 +84,12 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 .orderBy(PostSort(pageable))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .fetchResults();
+                .fetch();
 
-        List<Post> content = results.getResults();
-        long total = results.getTotal();
+        long total = queryFactory
+                .select(post)
+                .from(post)
+                .fetchCount();
 
         return new PageImpl<>(content,pageable,total);
     }
