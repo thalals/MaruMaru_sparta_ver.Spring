@@ -21,33 +21,6 @@
 <br/>
 
 
-## 🧙 맴버
-
-<table>
-    <tr>
-        <td align="center" width="130px" height="160px">
-            <a href="https://github.com/thalals"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/42319300?s=460&u=feb753590ea1a1d094b08573bb11f15e801e63cc&v=4" /></a>
-          <br />
-            <a href="https://github.com/thalals">박형민(팀장)</a>
-      </td>
-      <td align="center" width="130px" height="160px">
-                  <a href="https://github.com/sendkite1"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135604950-2cf4e5fd-8cf4-4941-8a00-77e0cd982751.jpg" /></a>
-                <br />
-                  <a href="https://github.com/sendkite">전송연</a>
-            </td>
-        <td align="center" width="130px" height="160px">
-            <a href="https://github.com/carina9231"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135605305-2b71e4a7-c01d-4349-a1d8-dc8132584d99.jpg" /></a>
-          <br />
-            <a href="https://github.com/carina9231">배소영</a>
-      </td>
-      <td align="center" width="130px" height="160px">
-                  <a href="https://github.com/jenny0325"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135706447-06ba949f-ec19-462b-81c6-c5b297bbfc45.jpg" /></a>
-                <br />
-                  <a href="https://github.com/jenny0325">김재은</a>
-            </td>
-  </tr>
-
-</table>
 
 <br/>
 
@@ -75,19 +48,44 @@
 <img src="https://img.shields.io/badge/Amazon AWS-BD8B13?style=flat-square&logo=Amazon%20AWS&logoColor=white"/></a>
 </p>
 
+- 프레임워크/ DB : Spring Boot(JPA), MySQL
+- 라이브러리 : Spring Security, JWT
+- 배포 :  AWS (S3, ElasticBeanstalk, Elastic Container Registry)
+           Github Action, Docker
+- API : Daum API(도로명 주소), Jquery DatePicker(날짜 입력), KaKao Map, KaKao Local (장소 검색)
+- 프로젝트 관리 :  Github Project + issues
 
-## 📌 사용 라이브러리, API
-
-1. JPA : DB ORM
-2. AWS S3: 사진 업로드
-3. jwt : 로그인 암호화
-4. validation : 예외처리
-5. security : 인증/인가 관리
-6. 다음 주소 api : 도로명 주소
-7. jquery datepicker : 날짜 입력
 
 
 <br/>
 
+
+## 🧙 맴버
+
+<table>
+    <tr>
+        <td align="center" width="130px" height="160px">
+            <a href="https://github.com/thalals"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/42319300?s=460&u=feb753590ea1a1d094b08573bb11f15e801e63cc&v=4" /></a>
+          <br />
+            <a href="https://github.com/thalals">박형민(팀장)</a>
+      </td>
+      <td align="center" width="130px" height="160px">
+                  <a href="https://github.com/sendkite1"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135604950-2cf4e5fd-8cf4-4941-8a00-77e0cd982751.jpg" /></a>
+                <br />
+                  <a href="https://github.com/sendkite">전송연</a>
+            </td>
+        <td align="center" width="130px" height="160px">
+            <a href="https://github.com/carina9231"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135605305-2b71e4a7-c01d-4349-a1d8-dc8132584d99.jpg" /></a>
+          <br />
+            <a href="https://github.com/carina9231">배소영</a>
+      </td>
+      <td align="center" width="130px" height="160px">
+                  <a href="https://github.com/jenny0325"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/42319300/135706447-06ba949f-ec19-462b-81c6-c5b297bbfc45.jpg" /></a>
+                <br />
+                  <a href="https://github.com/jenny0325">김재은</a>
+            </td>
+  </tr>
+
+</table>
 
 
